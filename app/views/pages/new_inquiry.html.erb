@@ -1,0 +1,68 @@
+<%= form_with model: Inquiry.new, url: create_inquiry_path do |f| %>
+  
+  <div>
+    <% if @new_inquiry.errors.any? %>
+      <ul>
+        <% @new_inquiry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :email %> <br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :first_name %> <br>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %> <br>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <p>Gender</p>
+    <%= f.radio_button :gender, 'male' %>Male<br />
+    <%= f.radio_button :gender, 'female' %>Female<br />
+  </div>
+
+  <div>
+    <%= f.label :contact_no %> <br>
+    <%= f.text_field :contact_no %>
+  </div>
+
+  <div>
+    <p>Occupation</p>
+    <%= f.radio_button :occupation, 'student' %>Student<br />
+    <%= f.radio_button :occupation, 'reviewee' %>Reviewee<br />
+  </div>
+
+  <div>
+    <p>Location Preferrence</p>
+    <%= f.radio_button :location_preference, 'espana' %>Along Espana Blvd<br />
+    <%= f.radio_button :location_preference, 'recto' %>Recto Avenue<br />
+  </div>
+
+  <div>
+    <p>Room Type</p>
+    <%= f.radio_button :room_type, 'bedspace' %>Bedspace<br />
+    <%= f.radio_button :room_type, 'studio' %>Studio Room<br />
+    <%= f.radio_button :room_type, 'boarding house' %>Boarding House<br />
+    <%= f.radio_button :room_type, 'condo ff' %>Condo Unit - Fully Furnished<br />
+    <%= f.radio_button :room_type, 'condo empty' %>Condo Unit - Empty<br />
+  </div>
+
+  <div>
+    <%= f.label :move_in_date %> <br>
+    <%= f.date_field :move_in_date %>
+  </div>
+
+  <div>
+    <%= f.submit 'Send Inquiry' %>
+  </div>
+<% end %>
