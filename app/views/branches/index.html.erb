@@ -1,0 +1,22 @@
+<h1>Branches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Branch ID</th>
+      <th>Branch Type</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @branches.each do |branch| %>
+      <tr>
+        <td><%= branch.id %></td>
+        <td><%= branch.branch_type %></td>
+        <td><%= branch.address %></td>
+        <td><%= link_to 'View', branch %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

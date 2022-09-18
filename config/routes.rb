@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  ##############################PAGES################################
-  post '/' => 'pages#create_inquiry', :as => 'create_inquiry'
-  get '/inquire' => 'pages#new_inquiry', :as => 'new_inquiry'
-  ###################################################################
+  resources :inquiries
+  resources :expenses
+  resources :branches, only: [:index, :show] do
+    resources :rooms, only: [:index, :show]
+  end
+  
 end
