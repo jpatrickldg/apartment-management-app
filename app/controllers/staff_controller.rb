@@ -4,10 +4,6 @@ class StaffController < ApplicationController
     @announcement = Announcement.last
   end
 
-  def profile
-    @user = current_user
-  end
-
   def inquiries
     @inquiries = Inquiry.all
   end

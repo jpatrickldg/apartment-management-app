@@ -1,0 +1,39 @@
+<h1>Edit Profile</h1>
+
+<%= form_with model: @user, url: update_user_path, method: :patch do |f| %>
+
+  <div>
+    <% if @user.errors.any? %>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :first_name %> <br>
+    <%= f.text_field :first_name, value: @user.first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %> <br>
+    <%= f.text_field :last_name, value: @user.last_name %>
+  </div>
+
+  <div>
+    <%= f.label :contact_no %> <br>
+    <%= f.text_field :contact_no, value: @user.contact_no %>
+  </div>
+
+  <div>
+    <%= f.label :address %> <br>
+    <%= f.text_field :address, value: @user.address %>
+  </div>
+
+  <div>
+    <%= f.submit 'Update Profile' %>
+  </div>
+
+<% end %>
