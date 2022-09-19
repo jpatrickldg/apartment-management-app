@@ -1,0 +1,30 @@
+<h1>Announcements</h1>
+
+<% if @announcements.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @announcements.each do |announcement| %>
+      <tr>
+        <td><%= announcement.title %></td>
+        <td><%= announcement.description %></td>
+        <td><%= link_to 'View', announcement_path(announcement) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No announcement found</em></p>
+<% end %>
+
+<br>
+
+<%= link_to 'Add Announcement', new_announcement_path %>
+<br><br>
+<%= link_to 'Back', staff_dashboard_path %>

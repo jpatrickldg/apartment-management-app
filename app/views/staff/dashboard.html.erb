@@ -1,0 +1,18 @@
+<h1>Welcome, <%= current_user.role.upcase %></h1>
+
+<h2>Announcements</h2>
+<% if @announcement %>
+  <p><strong><%= @announcement.title %></strong></p>
+  <p><%= @announcement.description %></p>
+<% else %>
+  <p>No announcment found</p>
+<% end %>
+
+<%= link_to 'Profile', staff_profile_path %> <br>
+<%= link_to 'Inquiries', staff_inquiries_path %> <br> 
+<%= link_to 'Announcements', announcements_path %><br>
+
+<br>
+<br>
+
+<%= button_to "Sign out", destroy_user_session_path, method: :delete  %> <br>

@@ -1,0 +1,11 @@
+<h1>Profile</h1>
+
+<p><strong>Email: </strong><%= @user.email %></p>
+<p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
+<p><strong>Gender: </strong><%= @user.gender.capitalize %></p>
+<p><strong>Birthdate: </strong><%= @user.birthdate %></p>
+<p><strong>Role: </strong><%= @user.role.capitalize %></p>
+<p><strong>Contact No.: </strong><%= @user.contact_no %></p>
+
+<%= link_to 'Back', staff_dashboard_path %>
+

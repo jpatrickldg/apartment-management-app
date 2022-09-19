@@ -1,0 +1,28 @@
+<h1>Create Booking for <%= @user.first_name.upcase %></h1>
+
+<%= form_with model: Booking.new, url: user_booking_path(@user) do |f| %>
+  
+  <div>
+    <% if @booking.errors.any? %>
+      <ul>
+        <% @booking.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :move_in_date %> <br>
+    <%= f.date_field :move_in_date %>
+  </div>
+
+  <div>
+    <p>Room</p>
+    <%= f.select :room_id, @available_rooms.map { |r| [r.room_code, r.id] } %>
+  </div>
+
+  <div>
+    <%= f.submit 'Add Expense' %>
+  </div>
+<% end %>

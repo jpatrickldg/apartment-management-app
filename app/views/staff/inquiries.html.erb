@@ -1,0 +1,31 @@
+<h1>Inquiries</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Contact</th>
+      <th>Gender</th>
+      <th>Occupation</th>
+      <th>Preferred Location</th>
+      <th>Preferred Room Type</th>
+      <th>Target Move-In Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inquiries.each do |inquiry| %>
+      <tr>
+        <td><%= inquiry.first_name.capitalize %> <%= inquiry.last_name.capitalize %></td>
+        <td><%= inquiry.email %></td>
+        <td><%= inquiry.contact_no %></td>
+        <td><%= inquiry.gender.capitalize %></td>
+        <td><%= inquiry.occupation.capitalize %></td>
+        <td><%= inquiry.location_preference.capitalize %></td>
+        <td><%= inquiry.room_type.capitalize %></td>
+        <td><%= inquiry.move_in_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'Back', staff_dashboard_path %>
