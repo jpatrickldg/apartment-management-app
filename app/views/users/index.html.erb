@@ -1,2 +1,40 @@
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>
+
+<h1>Tenants</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Gender</th>
+      <th>Occupation</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Booking</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @tenants.each do |tenant| %>
+      <tr>
+        <td><%= tenant.id %></td>
+        <td><%= tenant.first_name.capitalize %> <%= tenant.last_name.capitalize %></td>
+        <td><%= tenant.email %></td>
+        <td><%= tenant.gender.capitalize %></td>
+        <td><%= tenant.occupation.capitalize %></td>
+        <td><%= tenant.contact_no %></td>
+        <td><%= tenant.address.capitalize %></td>
+        <% if tenant.booking.present? %>
+          <td><%= link_to 'Booking Details', user_booking_path(tenant) %></td>
+        <% else %>
+          <td><%= link_to 'Add Booking', new_user_booking_path(tenant) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'Back', authenticated_root_path %>
+

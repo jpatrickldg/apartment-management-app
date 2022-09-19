@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TenantsControllerTest < ActionDispatch::IntegrationTest
+class ProfilesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

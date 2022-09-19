@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboards/tenant'
+  get 'dashboards/staff'
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal/login", :sign_up => "portal/register" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,37 +13,24 @@ Rails.application.routes.draw do
   end
 
   authenticated :user do
-    root 'home#dashboard', as: :authenticated_root
+    root 'dashboards#index', as: :authenticated_root
   end
 
   resources :users do
     resource :booking
   end
 
-  scope '/staff' do
-    resources :announcements
-  end
-
+  resources :announcements
+  resources :dashboard, only: [:index]
   resources :inquiries
   resources :expenses
   resources :branches, only: [:index, :show] do
     resources :rooms, only: [:index, :show]
   end
 
-  get '/staff' => 'staff#dashboard', :as => 'staff_dashboard'
-  get '/staff/inquiries' => 'staff#inquiries', :as => 'staff_inquiries'
-
-  get '/dashboard' => 'tenants#dashboard', :as => 'tenant_dashboard'
-
-
-  get 'admin/users' => 'users#index', :as => 'admin_users'
-  post 'admin/users' => 'users#create', :as => 'admin_create_user'
-  get 'admin/users/new' => 'users#new', :as => 'admin_new_user'
-  get 'admin/users/:id/edit' => 'users#edit', :as => 'admin_edit_user'
-  get 'profile/edit' => 'users#edit_profile', :as => 'edit_user_profile'
-  get 'admin/users/:id' => 'users#show', :as => 'admin_show_user'
-  get '/profile' => 'users#profile', :as => 'user_profile'
-  patch '/profile' => 'users#update', :as => 'update_user'
-  get '/profile/purge' => 'users#purge_avatar', :as => 'purge_avatar'
+  get '/profile/edit' => 'profiles#edit', :as => 'edit_profile'
+  get '/profile' => 'profiles#show', :as => 'profile'
+  get '/profile/purge' => 'profiles#purge_avatar', :as => 'purge_avatar'
+  patch '/profile' => 'profiles#update', :as => 'update_profile'
 
 end

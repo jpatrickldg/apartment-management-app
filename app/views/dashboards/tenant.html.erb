@@ -1,3 +1,6 @@
+<h1>Dashboards#tenant</h1>
+<p>Find me in app/views/dashboards/tenant.html.erb</p>
+
 <h1>Welcome, <%= current_user.role.upcase %></h1>
 
 <h2>Announcements</h2>
@@ -8,8 +11,7 @@
   <p>No announcment found</p>
 <% end %>
 
-<%= link_to 'Profile', user_profile_path %> <br>
-<%= link_to 'Inquiries', staff_inquiries_path %> <br> 
+<%= link_to 'Profile', profile_path %> <br>
 <%= link_to 'Announcements', announcements_path %><br>
 
 <br>

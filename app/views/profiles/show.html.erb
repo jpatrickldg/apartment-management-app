@@ -33,13 +33,9 @@
   <p><strong>Contact No.: </strong><%= @user.contact_no %></p>
 <% end %>
 
-<%= link_to 'Edit', edit_user_profile_path %>
+<%= link_to 'Edit', edit_profile_path %>
 <br>
 <br>
-<% if current_user.role == 'tenant' %>
-  <%= link_to 'Back', tenant_dashboard_path %>
-<% else %>
-  <%= link_to 'Back', staff_dashboard_path %>
-<% end %>
+<%= link_to 'Back', authenticated_root_path %>
 
 

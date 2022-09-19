@@ -1,18 +1,11 @@
 class UsersController < ApplicationController
 
   def index
+    @tenants = User.where(role: 'tenant')
   end
 
   def show
     @user = User.find(params[:id])
-  end
-
-  def profile
-    @user = current_user
-    if @user.role == 'tenant'
-      @booking = @user.booking
-      @room = Room.find(@booking.id)
-    end
   end
 
   def new
@@ -25,37 +18,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit_profile
-    @user = current_user
-  end
-
-  def update
-    if current_user.role == 'admin'
-      @user = User.find(params[:id])
-      if @user.update(user_params)
-        redirect_to show_user(@user), notice: 'Updated Successfully'
-      else
-        render :edit
-      end
-    else 
-      @user = current_user
-      if @user.update(user_params)
-        redirect_to user_profile_path, notice: 'Updated Successfully'
-      else
-        render :edit_profile
-      end
-    end
-  end
-
   def destroy
-  end
-
-  def purge_avatar
-    @user = current_user
-    if @user.avatar.attached?
-      @user.avatar.purge
-      redirect_to user_profile_path, notice: 'Avatar Deleted'
-    end
   end
 
   private
