@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'users/show'
-  get 'users/profile'
-  get 'users/new'
-  get 'users/create'
-  get 'users/edit'
-  get 'users/update'
-  get 'users/destroy'
+
   devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal/login", :sign_up => "portal/register" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -49,5 +42,6 @@ Rails.application.routes.draw do
   get 'admin/users/:id' => 'users#show', :as => 'admin_show_user'
   get '/profile' => 'users#profile', :as => 'user_profile'
   patch '/profile' => 'users#update', :as => 'update_user'
+  get '/profile/purge' => 'users#purge_avatar', :as => 'purge_avatar'
 
 end

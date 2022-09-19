@@ -50,10 +50,18 @@ class UsersController < ApplicationController
   def destroy
   end
 
+  def purge_avatar
+    @user = current_user
+    if @user.avatar.attached?
+      @user.avatar.purge
+      redirect_to user_profile_path, notice: 'Avatar Deleted'
+    end
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :contact_no, :address)
+    params.require(:user).permit(:first_name, :last_name, :contact_no, :address, :avatar)
   end
 
 end
