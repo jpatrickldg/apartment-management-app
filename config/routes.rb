@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'dashboards/tenant'
-  get 'dashboards/staff'
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal/login", :sign_up => "portal/register" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -28,9 +26,9 @@ Rails.application.routes.draw do
     resources :rooms, only: [:index, :show]
   end
 
-  get '/profile/edit' => 'profiles#edit', :as => 'edit_profile'
-  get '/profile' => 'profiles#show', :as => 'profile'
-  get '/profile/purge' => 'profiles#purge_avatar', :as => 'purge_avatar'
-  patch '/profile' => 'profiles#update', :as => 'update_profile'
+  resource :profile, only: [:show, :edit, :update] do
+    get 'purge_avatar', on: :collection
+  end
+  resolve('Profile') { [:profile] }
 
 end
