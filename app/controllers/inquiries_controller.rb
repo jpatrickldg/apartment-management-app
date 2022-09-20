@@ -16,7 +16,7 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new(inquiry_params)
 
     if @inquiry.save!
-      redirect_to root_path, notice: 'Thank you for your interest'
+      redirect_to authenticated_root_path, notice: 'Thank you for your interest'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.find(params[:id]) 
 
     if @inquiry.update(inquiry_params)
-      redirect_to root_path, notice: 'Updated Successfully'
+      redirect_to authenticated_root_path, notice: 'Updated Successfully'
     else
       render :edit
     end
