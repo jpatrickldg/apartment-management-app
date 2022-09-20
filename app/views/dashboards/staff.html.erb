@@ -11,6 +11,8 @@
   <p>No announcment found</p>
 <% end %>
 
+<h2>Available Rooms: <%= @available_rooms_count %> | <%= link_to 'View Details', available_rooms_path %></h2>
+
 <%= link_to 'Profile', profile_path %> <br>
 <%= link_to 'Inquiries', inquiries_path %> <br> 
 <%= link_to 'Announcements', announcements_path %><br>

@@ -1,0 +1,31 @@
+<h2>Available Rooms</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Branch</th>
+      <th>Address</th>
+      <th>Room Code</th>
+      <th>Occupants</th>
+      <th>Capacity</th>
+      <th>Available</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @available_rooms.each do |room| %>
+      <tr>
+        <td><%= @branches.find(room.branch_id).branch_type %></td>
+        <td><%= @branches.find(room.branch_id).address %></td>
+        <td><%= room.room_code %></td>
+        <td><%= room.occupants %></td>
+        <td><%= room.capacity %></td>
+        <td><%= room.capacity - room.occupants %></td>
+        <td><%= link_to 'View Room', [@branches.find(room.branch_id), room] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+
+<%= link_to 'Back', authenticated_root_path %>

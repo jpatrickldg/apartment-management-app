@@ -9,13 +9,13 @@ class BookingsController < ApplicationController
   def new
     @booking = @user.build_booking
     @rooms = Room.all
-    @available_rooms = Room.where(:capacity > :occupants)
+    @available_rooms = Room.where('(capacity - occupants) > 0')
   end
 
   def create
     @booking = @user.build_booking(booking_params)
     if @booking.save!
-      redirect_to root_path, notice: 'Booking Added'
+      redirect_to authenticated_root_path, notice: 'Booking Added'
     else
       render :new
     end

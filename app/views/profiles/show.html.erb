@@ -2,9 +2,10 @@
 
 <p><strong>Avatar:</strong></p>
 <% if current_user.avatar.attached? %>
-  <%= image_tag current_user.avatar, width: "80px" %>
+  <%= image_tag current_user.avatar, width: "80px", height: "80px" %>
   <%= link_to 'Remove', purge_avatar_profile_path %>
 <% else %>
+  <%= image_tag ("/assets/user.png"), width: "80px", height: "80px" %>
   <p><em>You have not added an avatar</em></p>
 <% end %>
 
@@ -19,11 +20,15 @@
   <hr>
 
   <h2>Tenancy Details</h2>
-  <p><strong>Booking ID: </strong><%= @booking.id %></p>
-  <p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
-  <p><strong>Payment Due Date: </strong><%= @booking.due_date %></p>
-  <p><strong>Room Code: </strong><%= @room.room_code.upcase %></p>
-  <p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
+  <% if @booking.present? %>
+    <p><strong>Booking ID: </strong><%= @booking.id %></p>
+    <p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
+    <p><strong>Payment Due Date: </strong><%= @booking.due_date %></p>
+    <p><strong>Room Code: </strong><%= @room.room_code.upcase %></p>
+    <p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
+  <% else %>
+    <p><em>User has no booking</em></p>
+  <% end %>
 <% else %>
   <p><strong>Email: </strong><%= @user.email %></p>
   <p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>

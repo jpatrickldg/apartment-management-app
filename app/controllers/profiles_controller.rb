@@ -3,8 +3,10 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
     if @user.role == 'tenant'
-      @booking = @user.booking
-      @room = Room.find(@booking.id)
+      if @user.booking
+        @booking = @user.booking
+        @room = Room.find(@booking.id)
+      end
     end
   end
 

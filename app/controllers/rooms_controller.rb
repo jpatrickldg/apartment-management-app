@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :get_branch
+  before_action :get_branch, only: [:index, :show]
 
   def index
     @rooms = @branch.rooms
@@ -7,6 +7,11 @@ class RoomsController < ApplicationController
 
   def show
     @room = @branch.rooms.find(params[:id])
+  end
+
+  def available
+    @available_rooms = Room.where('(capacity - occupants) > 0')
+    @branches = Branch.all
   end
 
   private

@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resources :rooms, only: [:index, :show]
   end
 
+  get '/available_rooms' => 'rooms#available', as: 'available_rooms'
+
   resource :profile, only: [:show, :edit, :update] do
     get 'purge_avatar', on: :collection
   end
