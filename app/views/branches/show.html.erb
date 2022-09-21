@@ -19,9 +19,9 @@
       <tr>
         <td><%= room.room_code.upcase %></td>
         <td><%= room.monthly_rate %></td>
-        <td><%= room.occupants %></td>
-        <td><%= room.capacity %></td>
-        <td><%= room.capacity - room.occupants %></td>
+        <td><%= room.occupants_count %></td>
+        <td><%= room.capacity_count %></td>
+        <td><%= room.available_count %></td>
         <td><%= link_to 'View', [@branch, room] %></td>
       </tr>
     <% end %>

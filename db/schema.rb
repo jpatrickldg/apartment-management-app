@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_004252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.string "published_by"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -57,7 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_active", default: true
+    t.integer "status", default: 0
+    t.string "processed_by"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -73,9 +76,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.bigint "user_id", null: false
     t.string "title"
     t.string "description"
-    t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.string "assisted_by"
     t.index ["user_id"], name: "index_concerns_on_user_id"
   end
 
@@ -85,6 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "processed_by"
   end
 
   create_table "inquiries", force: :cascade do |t|
@@ -97,29 +102,50 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.string "location_preference"
     t.string "room_type"
     t.date "move_in_date"
-    t.boolean "is_signed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "contract_signed", default: false
+    t.string "processed_by"
+    t.integer "status", default: 0
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.float "water_bill", default: 0.0, null: false
+    t.float "electricity_bill", default: 0.0, null: false
+    t.float "total_amount", default: 0.0, null: false
+    t.date "date_from"
+    t.date "date_to"
+    t.string "remarks"
+    t.integer "status", default: 0
+    t.string "processed_by"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_invoices_on_booking_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.bigint "booking_id", null: false
     t.float "amount"
-    t.date "payment_from"
-    t.date "payment_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_payments_on_booking_id"
+    t.bigint "invoice_id", null: false
+    t.integer "payment_mode", default: 0
+    t.integer "status", default: 0
+    t.string "processed_by"
+    t.string "remarks"
+    t.string "initiated_by"
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
   end
 
   create_table "rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.float "monthly_rate"
-    t.integer "occupants"
-    t.integer "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "room_code"
+    t.integer "occupants_count"
+    t.integer "capacity_count"
+    t.integer "available_count"
     t.index ["branch_id"], name: "index_rooms_on_branch_id"
   end
 
@@ -136,17 +162,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.boolean "is_active", default: true
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.date "birthdate", null: false
     t.string "gender", null: false
     t.string "contact_no", null: false
     t.string "address", null: false
-    t.string "role", default: "tenant"
     t.string "occupation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0
+    t.string "emergency_contact_person"
+    t.string "emergency_contact_no"
+    t.integer "status", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -158,6 +186,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_065435) do
   add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
   add_foreign_key "concerns", "users"
-  add_foreign_key "payments", "bookings"
+  add_foreign_key "invoices", "bookings"
+  add_foreign_key "payments", "invoices"
   add_foreign_key "rooms", "branches"
 end

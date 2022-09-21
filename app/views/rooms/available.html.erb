@@ -16,9 +16,9 @@
         <td><%= @branches.find(room.branch_id).branch_type %></td>
         <td><%= @branches.find(room.branch_id).address %></td>
         <td><%= room.room_code %></td>
-        <td><%= room.occupants %></td>
-        <td><%= room.capacity %></td>
-        <td><%= room.capacity - room.occupants %></td>
+        <td><%= room.occupants_count %></td>
+        <td><%= room.capacity_count %></td>
+        <td><%= room.available_count %></td>
         <td><%= link_to 'View Room', [@branches.find(room.branch_id), room] %></td>
       </tr>
     <% end %>

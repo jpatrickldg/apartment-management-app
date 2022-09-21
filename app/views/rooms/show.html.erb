@@ -1,8 +1,9 @@
 <h1>Room <%= @room.room_code.upcase %></h1>
 
 <h3>Monthly Rate: <%= @room.monthly_rate %></h3>
-<h3>Current Number of Occupants: <%= @room.occupants %></h3>
-<h3>Room Capacity: <%= @room.capacity %></h3>
+<h3>Current Number of Occupants: <%= @room.occupants_count %></h3>
+<h3>Room Capacity: <%= @room.capacity_count %></h3>
+<h3>Available Space: <%= @room.available_count %></h3>
 
 <hr>
 <h2>Tenants</h2>

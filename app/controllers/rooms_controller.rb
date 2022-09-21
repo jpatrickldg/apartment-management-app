@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
   end
 
   def available
-    @available_rooms = Room.where('(capacity - occupants) > 0')
+    @available_rooms = Room.where('available_count > 0')
     @branches = Branch.all
   end
 

@@ -7,13 +7,13 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @booking = @user.build_booking
+    @booking = @user.bookings.build
     @rooms = Room.all
-    @available_rooms = Room.where('(capacity - occupants) > 0')
+    @available_rooms = Room.where('available_count > 0')
   end
 
   def create
-    @booking = @user.build_booking(booking_params)
+    @booking = @user.bookings.build(booking_params)
     if @booking.save!
       redirect_to authenticated_root_path, notice: 'Booking Added'
     else
@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
   end
 
   def set_booking
-    @booking = @user.booking
+    @booking = @user.bookings.find(params[:id])
   end
 
   def booking_params
