@@ -26,7 +26,7 @@
         <td><%= tenant.occupation.capitalize %></td>
         <td><%= tenant.contact_no %></td>
         <td><%= tenant.address.capitalize %></td>
-        <% if tenant.booking.present? %>
+        <% if tenant.bookings.present? %>
           <td><%= link_to 'Booking Details', user_booking_path(tenant) %></td>
         <% else %>
           <td><%= link_to 'Add Booking', new_user_booking_path(tenant) %></td>

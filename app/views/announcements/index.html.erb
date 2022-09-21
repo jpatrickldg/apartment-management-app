@@ -25,6 +25,9 @@
 
 <br>
 
-<%= link_to 'Add Announcement', new_announcement_path %>
+<% if !current_user.tenant? %>
+  <%= link_to 'Add Announcement', new_announcement_path %>
+<% end %>
+
 <br><br>
 <%= link_to 'Back', authenticated_root_path %>
