@@ -1,0 +1,22 @@
+<h1>Inquiry</h1>
+
+<p><strong>Status: </strong><%= @inquiry.status.upcase %></p>
+
+<p><strong>Inquiry ID: </strong><%= @inquiry.id %></p>
+<p><strong>First Name: </strong><%= @inquiry.first_name %></p>
+<p><strong>Last Name: </strong><%= @inquiry.last_name %></p>
+<p><strong>Gender: </strong><%= @inquiry.gender.capitalize %></p>
+<p><strong>Email: </strong><%= @inquiry.email %></p>
+<p><strong>Contact: </strong><%= @inquiry.contact_no %></p>
+<p><strong>Occupation: </strong><%= @inquiry.occupation.capitalize %></p>
+<p><strong>Preferred Location: </strong><%= @inquiry.location_preference.capitalize %></p>
+<p><strong>Preferred Room Type: </strong><%= @inquiry.room_type.capitalize %></p>
+<p><strong>Target Move-In Date: </strong><%= @inquiry.move_in_date %></p>
+<% if @inquiry.close? %>
+  <p><strong>Contract Signed? </strong><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
+<% else %>
+  <%= link_to 'Close', edit_inquiry_path(@inquiry) %>
+<% end %>
+<br>
+
+<%= link_to 'Back', inquiries_path %>

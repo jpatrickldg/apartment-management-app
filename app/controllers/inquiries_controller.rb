@@ -1,11 +1,20 @@
 class InquiriesController < ApplicationController
   
   def index
+    email = current_user.email
     @inquiries = Inquiry.all 
+    @open = Inquiry.where(status: 'open')
+    @on_going = Inquiry.where(status: 'on_going').where(processed_by: email)
+    @close = Inquiry.where(status: 'close').where(processed_by: email)
   end
 
   def show
     @inquiry = Inquiry.find(params[:id])
+    if current_user.email != @inquiry.processed_by && !current_user.admin? && !current_user.owner?
+      redirect_to inquiries_path, notice: 'Access Denied'
+    end
+    
+    
   end
 
   def new
@@ -28,7 +37,6 @@ class InquiriesController < ApplicationController
 
   def update
     @inquiry = Inquiry.find(params[:id]) 
-
     if @inquiry.update(inquiry_params)
       redirect_to authenticated_root_path, notice: 'Updated Successfully'
     else
@@ -36,10 +44,17 @@ class InquiriesController < ApplicationController
     end
   end
 
+  def assists
+    @inquiry = Inquiry.find(params[:id])  
+    @inquiry.on_going!
+    @inquiry.set_processed_by_if_on_going(current_user.email)
+    redirect_to inquiries_path
+  end
+
   private
 
   def inquiry_params
-    params.require(:inquiry).permit(:email, :first_name, :last_name, :gender, :contact_no, :occupation, :location_preference, :room_type, :move_in_date )
+    params.require(:inquiry).permit(:email, :first_name, :last_name, :gender, :contact_no, :occupation, :location_preference, :room_type, :move_in_date, :status, :contract_signed )
   end
 
 end

@@ -1,6 +1,6 @@
 <h1>Create Booking for <%= @user.first_name.upcase %></h1>
 
-<%= form_with model: Booking.new, url: user_booking_path(@user) do |f| %>
+<%= form_with model: Booking.new, url: user_bookings_path(@user) do |f| %>
   
   <div>
     <% if @booking.errors.any? %>

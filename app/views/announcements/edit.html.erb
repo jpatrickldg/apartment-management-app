@@ -1,7 +1,7 @@
-<h1>New Announcement</h1>
+<h1>Edit Announcement</h1>
 
-<%= form_with model: @announcement do |f| %>
-  
+<%= form_with model: @announcement, url: announcement_path, method: :patch do |f| %>
+
   <div>
     <% if @announcement.errors.any? %>
       <ul>
@@ -14,16 +14,17 @@
 
   <div>
     <%= f.label :title %> <br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, value: @announcement.title %>
   </div>
 
   <div>
     <%= f.label :description %> <br>
-    <%= f.text_area :description, :cols => 30, :rows => 10 %>
+    <%= f.text_area :description, value: @announcement.description, :cols => 30, :rows => 10 %>
   </div>
 
   <div>
     <%= f.submit 'Publish' %>
     <%= f.submit 'Save as Draft' %>
   </div>
+
 <% end %>

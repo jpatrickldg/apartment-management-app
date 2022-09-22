@@ -1,8 +1,8 @@
 class Payment < ApplicationRecord
   belongs_to :invoice
 
-  after_update :set_invoice_status_and_processed_by
   before_create :set_initiated_by
+  after_update :set_invoice_status_and_processed_by
 
   enum payment_mode: [ :cash, :bank_transfer ]
   enum status: [ :pending, :cancelled, :approved ]

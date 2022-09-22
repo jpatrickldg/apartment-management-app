@@ -1,0 +1,30 @@
+<h1>Close Inquiry</h1>
+
+<h2>Did the enquirer signed a contract?</h2>
+
+<%= form_with model: @inquiry, url: inquiry_path, method: :patch do |f| %>
+  <div>
+    <% if @inquiry.errors.any? %>
+      <ul>
+        <% @inquiry.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :status, value: 'close' %>
+  </div>
+
+  <div>
+    <p>Room Type</p>
+    <%= f.radio_button :contract_signed, true %>Yes<br />
+    <%= f.radio_button :contract_signed, false %>No<br />
+  </div>
+
+  <div>
+    <%= f.submit 'Close' %>
+  </div>
+
+<% end %>

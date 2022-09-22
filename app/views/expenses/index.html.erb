@@ -7,6 +7,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Amount</th>
+        <th>Processed By</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +16,8 @@
         <td><%= expense.title %></td>
         <td><%= expense.description %></td>
         <td><%= expense.amount %></td>
+        <td><%= expense.processed_by %></td>
+        <td><%= link_to 'View', expense_path(expense) %></td>
       </tr>
       <% end %>
     </tbody>
@@ -22,3 +25,9 @@
 <% else %>
   <h3>No expenses found</h3>
 <% end %>
+
+<br>
+<br>
+<%= link_to 'Add Expense', new_expense_path %>
+<br>
+<%= link_to 'Back', authenticated_root_path %>

@@ -1,0 +1,41 @@
+<h1>Invoices#index</h1>
+<p>Find me in app/views/invoices/index.html.erb</p>
+
+<h1>Invoices</h1>
+
+<% if @invoices.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Room Rate</th>
+        <th>Water Bill</th>
+        <th>Electricity Bill</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+        <th>Remarks</th>
+        <th>Processed By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.room_rate %></td>
+        <td><%= invoice.water_bill %></td>
+        <td><%= invoice.electricity_bill %></td>
+        <td><%= invoice.total_amount %></td>
+        <td><%= invoice.status %></td>
+        <td><%= invoice.remarks %></td>
+        <td><%= invoice.processed_by %></td>
+        <td><%= link_to 'View', invoice_path(invoice) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No invoice found</em></p>
+<% end %>
+
+<br>
+
+<br><br>
+<%= link_to 'Back', authenticated_root_path %>

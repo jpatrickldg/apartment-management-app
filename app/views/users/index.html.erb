@@ -12,8 +12,6 @@
       <th>Occupation</th>
       <th>Contact</th>
       <th>Address</th>
-      <th>Booking</th>
-
     </tr>
   </thead>
   <tbody>
@@ -26,8 +24,10 @@
         <td><%= tenant.occupation.capitalize %></td>
         <td><%= tenant.contact_no %></td>
         <td><%= tenant.address.capitalize %></td>
-        <% if tenant.bookings.present? %>
-          <td><%= link_to 'Booking Details', user_booking_path(tenant) %></td>
+        <td><%= link_to 'View Profile', user_path(tenant) %></td>
+        <% booking = tenant.bookings.where(status: 'active').last %>
+        <% if booking.present? %>
+          <td><%= link_to 'Booking Details', booking_path(booking) %></td>
         <% else %>
           <td><%= link_to 'Add Booking', new_user_booking_path(tenant) %></td>
         <% end %>

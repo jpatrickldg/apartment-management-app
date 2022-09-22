@@ -1,9 +1,11 @@
 class BookingsController < ApplicationController
-  before_action :get_user
+  before_action :get_user, only: [:index, :new, :create]
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def show
-    
+    @user = User.find(@booking.user_id)
+    @room = Room.find(@booking.room_id)
+    @branch = Branch.find(@room.branch_id)
   end
 
   def new
@@ -14,7 +16,9 @@ class BookingsController < ApplicationController
 
   def create
     @booking = @user.bookings.build(booking_params)
+    email = @user.email
     if @booking.save!
+      @booking.set_processed_by(email)
       redirect_to authenticated_root_path, notice: 'Booking Added'
     else
       render :new
@@ -27,10 +31,20 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      redirect_to root_path, notice: 'Booking Updated'
+      # if @booking.inactive?
+      #   @booking.set_room_occupants_once_inactive_or_destroyed
+      # end
+      redirect_to authenticated_root_path, notice: 'Booking Updated'
     else
       render :edit
     end
+  end
+
+  def deactivate
+    @booking = Booking.find(params[:id])
+    @booking.inactive!
+    @booking.set_room_occupants_once_inactive_or_destroyed
+    redirect_to booking_path(@booking), notice: 'Booking deactivated'
   end
 
   private
@@ -40,11 +54,12 @@ class BookingsController < ApplicationController
   end
 
   def set_booking
-    @booking = @user.bookings.find(params[:id])
+    # @booking = @user.bookings.find(params[:id])
+    @booking = Booking.find(params[:id])
   end
 
   def booking_params
-    params.require(:booking).permit(:room_id, :user_id, :move_in_date, :move_out_date, :due_date, :is_active)
+    params.require(:booking).permit(:room_id, :user_id, :move_in_date, :move_out_date, :due_date, :status, :processed_by)
   end
 
 end

@@ -1,13 +1,11 @@
 class Announcement < ApplicationRecord
-  after_update :set_published_by_if_published
+  # after_update :set_published_by_if_published
 
-  enum status: [ :not_set, :published, :archived, :draft ]
+  enum status: [ :draft, :archived, :published ]
 
-  private
-
-  def set_published_by_if_published
-    if self.published
-      self.published_by = current_user.email
+  def set_published_by(user_email)
+    if self.published?
+      self.published_by = user_email
       self.save!
     end
   end

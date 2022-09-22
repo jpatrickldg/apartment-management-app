@@ -1,0 +1,51 @@
+<h1>Invoices#new</h1>
+<p>Find me in app/views/invoices/new.html.erb</p>
+
+<h1>Create Invoice for Booking No: <%= @booking.id %></h1>
+
+<%= form_with model: Invoice.new, url: booking_invoices_path(@booking) do |f| %>
+  
+  <div>
+    <% if @invoice.errors.any? %>
+      <ul>
+        <% @invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :room_rate %> <br>
+    <%= f.number_field :room_rate, :value => params[:room_rate], readonly: true %>
+  </div>
+
+  <div>
+    <%= f.label :water_bill %> <br>
+    <%= f.number_field :water_bill %>
+  </div>
+
+  <div>
+    <%= f.label :electricity_bill %> <br>
+    <%= f.number_field :electricity_bill %>
+  </div>
+
+  <div>
+    <%= f.label :date_from %> <br>
+    <%= f.date_field :date_from %>
+  </div>
+
+  <div>
+    <%= f.label :date_to %> <br>
+    <%= f.date_field :date_to %>
+  </div>
+
+  <div>
+    <%= f.label :remarks %> <br>
+    <%= f.text_field :remarks %>
+  </div>
+
+  <div>
+    <%= f.submit 'Add Invoice' %>
+  </div>
+<% end %>

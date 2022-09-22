@@ -1,16 +1,64 @@
 <h1>Announcements</h1>
 
-<% if @announcements.any? %>
+<h2>Published</h2>
+<% if @published.any? %>
   <table>
-    <thead>
+    <thead></thead>
       <tr>
         <th>Title</th>
         <th>Description</th>
-        <th>Amount</th>
+        <th>Published by</th>
       </tr>
     </thead>
     <tbody>
-      <% @announcements.each do |announcement| %>
+      <% @published.each do |announcement| %>
+      <tr>
+        <td><%= announcement.title %></td>
+        <td><%= announcement.description %></td>
+        <td><%= announcement.published_by %></td>
+        <td><%= link_to 'View', announcement_path(announcement) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No published announcement currently</em></p>
+<% end %>
+
+<h2>Drafts</h2>
+<% if @draft.any? %>
+  <table>
+    <thead></thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @draft.each do |announcement| %>
+      <tr>
+        <td><%= announcement.title %></td>
+        <td><%= announcement.description %></td>
+        <td><%= link_to 'Open', edit_announcement_path(announcement) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No draft announcements found</em></p>
+<% end %>
+
+<h2>Archived</h2>
+<% if @archived.any? %>
+  <table>
+    <thead></thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @archived.each do |announcement| %>
       <tr>
         <td><%= announcement.title %></td>
         <td><%= announcement.description %></td>
@@ -20,7 +68,7 @@
     </tbody>
   </table>
 <% else %>
-  <p><em>No announcement found</em></p>
+  <p><em>No archived announcements found</em></p>
 <% end %>
 
 <br>

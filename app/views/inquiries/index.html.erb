@@ -1,31 +1,91 @@
 <h1>Inquiries</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>Contact</th>
-      <th>Gender</th>
-      <th>Occupation</th>
-      <th>Preferred Location</th>
-      <th>Preferred Room Type</th>
-      <th>Target Move-In Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inquiries.each do |inquiry| %>
+
+<h2>Open Inquiries</h2>
+<% if @open.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= inquiry.first_name.capitalize %> <%= inquiry.last_name.capitalize %></td>
-        <td><%= inquiry.email %></td>
-        <td><%= inquiry.contact_no %></td>
-        <td><%= inquiry.gender.capitalize %></td>
-        <td><%= inquiry.occupation.capitalize %></td>
-        <td><%= inquiry.location_preference.capitalize %></td>
-        <td><%= inquiry.room_type.capitalize %></td>
-        <td><%= inquiry.move_in_date %></td>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Contact</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @open.each do |inquiry| %>
+        <tr>
+          <td><%= inquiry.first_name.capitalize %></td>
+          <td><%= inquiry.last_name.capitalize %></td>
+          <td><%= inquiry.gender.capitalize %></td>
+          <td><%= inquiry.email %></td>
+          <td><%= inquiry.contact_no %></td>
+          <td><%= button_to 'Assist', assists_inquiry_path(inquiry) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No Inquiries Found</p>
+<% end %>
+
+<h2>Inquiries you are Assisting</h2>
+<% if @on_going.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @on_going.each do |inquiry| %>
+        <tr>
+          <td><%= inquiry.first_name.capitalize %></td>
+          <td><%= inquiry.last_name.capitalize %></td>
+          <td><%= inquiry.gender.capitalize %></td>
+          <td><%= inquiry.email %></td>
+          <td><%= inquiry.contact_no %></td>
+          <td><%= link_to 'View', inquiry_path(inquiry) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No Inquiries Found</p>
+<% end %>
+
+<h2>Inquiries you Assisted</h2>
+<% if @close.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @close.each do |inquiry| %>
+        <tr>
+          <td><%= inquiry.first_name.capitalize %></td>
+          <td><%= inquiry.last_name.capitalize %></td>
+          <td><%= inquiry.gender.capitalize %></td>
+          <td><%= inquiry.email %></td>
+          <td><%= inquiry.contact_no %></td>
+          <td><%= link_to 'View', inquiry_path(inquiry) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No Inquiries Found</p>
+<% end %>
+
 <br>
 <%= link_to 'Back', authenticated_root_path %>

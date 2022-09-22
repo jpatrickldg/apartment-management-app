@@ -1,0 +1,18 @@
+<h1>Expense</h1>
+
+<p><strong>Expense ID: </strong><%= @expense.id %></p>
+<p><strong>Title: </strong><%= @expense.title %></p>
+<p><strong>Description: </strong><%= @expense.description %></p>
+<p><strong>Amount: </strong><%= @expense.amount %></p>
+<p><strong>Processed by: </strong><%= @expense.processed_by %></p>
+
+<p><strong>Proof:</strong></p>
+<% if @expense.proof.attached? %>
+  <%= image_tag @expense.proof, width: "120px", height: "120px" %>
+<% else %>
+  <p><em>No proof uploaded</em></p>
+<% end %>
+
+<br>
+<br>
+<%= link_to 'Back to Expenses', expenses_path %>

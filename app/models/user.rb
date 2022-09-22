@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   has_many :concerns 
   has_many :bookings
-  has_one :room, through: :booking
+  has_many :payments, through: :bookings
+  # has_many :rooms, through: :bookings
   has_one_attached :avatar
   
   # Include default devise modules. Others available are:

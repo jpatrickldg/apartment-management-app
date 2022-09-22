@@ -14,13 +14,24 @@ Rails.application.routes.draw do
     root 'dashboards#index', as: :authenticated_root
   end
 
-  resources :users do
-    resource :booking
+  resources :users, :path => 'tenants', shallow: true do
+    resources :concerns
+    resources :bookings, shallow: true do
+      post :deactivate, on: :member
+      resources :invoices, shallow: true do
+        resources :payments
+      end
+    end
   end
 
-  resources :announcements
+  resources :announcements do
+    post :archive, on: :member
+    post :republish, on: :member
+  end
   resources :dashboard, only: [:index]
-  resources :inquiries
+  resources :inquiries do
+    post :assists, on: :member
+  end
   resources :expenses
   resources :branches, only: [:index, :show] do
     resources :rooms, only: [:index, :show]

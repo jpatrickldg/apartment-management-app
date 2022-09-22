@@ -7,6 +7,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = @branch.rooms.find(params[:id])
+    @tenants = @room.users
   end
 
   def available

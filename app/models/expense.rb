@@ -1,9 +1,8 @@
 class Expense < ApplicationRecord
-  before_create :set_processed_by
+  has_one_attached :proof
 
-  private
-
-  def set_processed_by
-    self.processed_by = current_user.email
+  def set_processed_by(user_email)
+    self.processed_by = user_email
+    self.save!
   end
 end

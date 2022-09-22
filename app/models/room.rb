@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :branch
   has_many :bookings
+  has_many :users, through: :bookings
 
   before_create :calculate_available_count
   before_save :calculate_available_count

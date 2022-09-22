@@ -1,11 +1,11 @@
 class ExpensesController < ApplicationController
+  before_action :set_expense, only: [ :show, :edit, :update ]
 
   def index
     @expenses = Expense.all 
   end
 
   def show
-    @expense = Expense.find(params[:id])
   end
 
   def new
@@ -14,21 +14,19 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = Expense.new(expense_params)
-
+    email = current_user.email
     if @expense.save!
-      redirect_to root_path, notice: 'New Expense Added'
+      @expense.set_processed_by(email)
+      redirect_to expense_path(@expense), notice: 'New Expense Added'
     else
       render :new
     end
   end
 
   def edit
-    @expense = Expense.find(params[:id]) 
   end
 
   def update
-    @expense = Expense.find(params[:id]) 
-
     if @expense.update(expense_params)
       redirect_to root_path, notice: 'Updated Successfully'
     else
@@ -38,8 +36,12 @@ class ExpensesController < ApplicationController
 
   private
 
+  def set_expense
+    @expense = Expense.find(params[:id]) 
+  end
+  
   def expense_params
-    params.require(:expense).permit(:title, :description, :amount )
+    params.require(:expense).permit(:title, :description, :amount, :processed_by, :proof)
   end
   
 end

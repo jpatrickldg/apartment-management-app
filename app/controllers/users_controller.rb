@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
   def index
+    @users = User.all
     @tenants = User.where(role: 'tenant')
   end
-
+  
   def show
     @user = User.find(params[:id])
+    @active = @user.bookings.where(status: 'active').last
   end
 
   def new

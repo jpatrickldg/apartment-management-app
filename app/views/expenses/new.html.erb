@@ -14,7 +14,7 @@
 
   <div>
     <%= f.label :title %> <br>
-    <%= f.email_field :title %>
+    <%= f.text_field :title %>
   </div>
 
   <div>
@@ -25,6 +25,11 @@
   <div>
     <%= f.label :amount %> <br>
     <%= f.number_field :amount %>
+  </div>
+
+  <div>
+    <%= f.label :proof %> <br>
+    <%= f.file_field :proof %>
   </div>
 
   <div>
