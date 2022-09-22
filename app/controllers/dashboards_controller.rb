@@ -5,6 +5,7 @@ class DashboardsController < ApplicationController
     @latest_published_announcement = announcement.order(updated_at: :asc).last
 
     @available_rooms_count = Room.where('available_count > 0').count
+    @available_space_count = Room.all.sum(:available_count)
 
     if current_user.tenant?
       # redirect_to staff_dashboard_path

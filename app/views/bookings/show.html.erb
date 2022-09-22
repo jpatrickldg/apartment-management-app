@@ -2,7 +2,7 @@
 
 
 <p><strong>Status: </strong><%= @booking.status.upcase %></p>
-<p><strong>Tenant: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
+<p><strong>Tenant: </strong><%= "#{@tenant.first_name} #{@tenant.last_name}" %></p>
 <p><strong>Branch: </strong><%= @branch.branch_type %> | <%= @branch.address %></p>
 <p><strong>Room: </strong><%= @room.room_code %></p>
 <p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
@@ -15,16 +15,16 @@
 
 <br>
 
-<%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @room.monthly_rate }) %>
 
 <br>
 
 <% if @booking.active? %>
+  <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @room.monthly_rate }) %>
   <%= button_to 'Deactivate', deactivate_booking_path %>
 <% end %>
 
 <br>
 
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', tenants_path %>
 
 

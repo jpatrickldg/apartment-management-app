@@ -1,0 +1,26 @@
+<h1>Tenants#show</h1>
+<p>Find me in app/views/tenants/show.html.erb</p>
+
+<p><strong>Email: </strong><%= @tenant.email %></p>
+<p><strong>Full Name: </strong><%= "#{@tenant.first_name} #{@tenant.last_name}" %></p>
+<p><strong>Gender: </strong><%= @tenant.gender.capitalize %></p>
+<p><strong>Birthdate: </strong><%= @tenant.birthdate %></p>
+<p><strong>Occupation: </strong><%= @tenant.occupation.capitalize %></p>
+<p><strong>Contact No.: </strong><%= @tenant.contact_no %></p>
+
+<hr>
+
+<h2>Tenancy Details</h2>
+<% if @active.present? %>
+  <p><strong>Booking ID: </strong><%= @active.id %></p>
+  <p><strong>Move-In Date: </strong><%= @active.move_in_date %></p>
+  <p><strong>Payment Due Date: </strong><%= @active.due_date %></p>
+  <p><strong>Room Code: </strong><%= Room.find(@active.room_id).room_code.upcase %></p>
+  <p><strong>Monthly Rate: </strong><%= Room.find(@active.room_id).monthly_rate %></p>
+<% else %>
+  <p><em>Tenant has no active booking</em></p>
+<% end %>
+
+<br>
+
+<%= link_to 'Back', tenants_path %>

@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
   end
 
   def available
-    @available_rooms = Room.where('available_count > 0')
+    @available_rooms = Room.where('available_count > 0').order(:room_code)
     @branches = Branch.all
   end
 

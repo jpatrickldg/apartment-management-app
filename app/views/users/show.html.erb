@@ -1,26 +1,4 @@
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
-<p><strong>Email: </strong><%= @user.email %></p>
-<p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
-<p><strong>Gender: </strong><%= @user.gender.capitalize %></p>
-<p><strong>Birthdate: </strong><%= @user.birthdate %></p>
-<p><strong>Occupation: </strong><%= @user.occupation.capitalize %></p>
-<p><strong>Contact No.: </strong><%= @user.contact_no %></p>
 
-<hr>
-
-<h2>Tenancy Details</h2>
-<% if @active.present? %>
-  <p><strong>Booking ID: </strong><%= @active.id %></p>
-  <p><strong>Move-In Date: </strong><%= @active.move_in_date %></p>
-  <p><strong>Payment Due Date: </strong><%= @active.due_date %></p>
-  <p><strong>Room Code: </strong><%= Room.find(@active.room_id).room_code.upcase %></p>
-  <p><strong>Monthly Rate: </strong><%= Room.find(@active.room_id).monthly_rate %></p>
-<% else %>
-  <p><em>User has no active booking</em></p>
-<% end %>
-
-<br>
-
-<%= link_to 'Back', users_path %>

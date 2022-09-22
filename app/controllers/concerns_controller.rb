@@ -1,23 +1,23 @@
 class ConcernsController < ApplicationController
-  before_action :get_user, only: [:index, :new, :create]
+  before_action :get_tenant, only: [:index, :new, :create]
   before_action :set_concern, only: [:show, :edit, :update, :destroy]
 
   def index
-    @concerns = Concern.all
+    @concerns = @tenant.concerns
   end
 
   def show
-    @user = User.find(@concern.user_id)
+    @tenant = User.find(@concern.user_id)
     @room = Room.find(@concern.room_id)
     @branch = Branch.find(@room.branch_id)
   end
 
   def new
-    @concern = @user.concerns.build
+    @concern = @tenant.concerns.build
   end
 
   def create
-    @concern = @user.concerns.build(concern_params)
+    @concern = @tenant.concerns.build(concern_params)
     if @concern.save!
       redirect_to authenticated_root_path, notice: 'Concern Ticket Created'
     else
@@ -40,8 +40,8 @@ class ConcernsController < ApplicationController
   def destroy
   end
 
-  def get_user
-    @user = User.find(params[:user_id])
+  def get_tenant
+    @tenant = User.find(params[:tenant_id])
   end
 
   def set_concern

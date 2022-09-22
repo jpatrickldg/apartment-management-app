@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     root 'dashboards#index', as: :authenticated_root
   end
 
-  resources :users, :path => 'tenants', shallow: true do
+  resources :users
+
+  resources :tenants, only: [:index, :show], shallow: true do
     resources :concerns
     resources :bookings, shallow: true do
       post :deactivate, on: :member

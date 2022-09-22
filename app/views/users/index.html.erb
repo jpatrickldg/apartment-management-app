@@ -1,40 +1,5 @@
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>
 
-<h1>Tenants</h1>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Full Name</th>
-      <th>Email</th>
-      <th>Gender</th>
-      <th>Occupation</th>
-      <th>Contact</th>
-      <th>Address</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tenants.each do |tenant| %>
-      <tr>
-        <td><%= tenant.id %></td>
-        <td><%= tenant.first_name.capitalize %> <%= tenant.last_name.capitalize %></td>
-        <td><%= tenant.email %></td>
-        <td><%= tenant.gender.capitalize %></td>
-        <td><%= tenant.occupation.capitalize %></td>
-        <td><%= tenant.contact_no %></td>
-        <td><%= tenant.address.capitalize %></td>
-        <td><%= link_to 'View Profile', user_path(tenant) %></td>
-        <% booking = tenant.bookings.where(status: 'active').last %>
-        <% if booking.present? %>
-          <td><%= link_to 'Booking Details', booking_path(booking) %></td>
-        <% else %>
-          <td><%= link_to 'Add Booking', new_user_booking_path(tenant) %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
-<%= link_to 'Back', authenticated_root_path %>
+
 
