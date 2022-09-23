@@ -10,6 +10,7 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    @booking = Booking.find(@invoice.booking_id)
   end
 
   def new

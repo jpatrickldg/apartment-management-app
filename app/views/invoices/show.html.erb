@@ -13,4 +13,12 @@
 
 <br>
 
-<%= link_to 'Pay', new_invoice_payment_path({:invoice_id => @invoice.id, :amount => @invoice.total_amount}) %>
+<% if @invoice.active? %>
+  <%= link_to 'Pay', new_invoice_payment_path({:invoice_id => @invoice.id, :amount => @invoice.total_amount}) %>
+  <br>
+<% end %>
+
+
+<br>
+
+<%= link_to 'Back', booking_invoices_path(@booking) %>

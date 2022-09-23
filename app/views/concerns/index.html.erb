@@ -1,2 +1,62 @@
 <h1>Concerns#index</h1>
 <p>Find me in app/views/concerns/index.html.erb</p>
+
+
+<% if current_user.tenant? %>
+  <h1>Your Concern Tickets</h1>
+
+  <% if @current_user_concerns.any? %>
+    <table>
+      <thead>
+        <th>Date Posted</th>
+        <th>Concern</th>
+        <th>Description</th>
+        <th>Status</th>
+      </thead>
+      <tbody>
+        <% @current_user_concerns.each do |concern| %>
+          <tr>
+            <td><%= concern.created_at %></td>
+            <td><%= concern.title %></td>
+            <td><%= concern.description %></td>
+            <td><%= concern.status.upcase %></td>
+            <td><%= link_to 'View Ticket', concern_path(concern) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><em>No Ticket Found</em></p>
+  <% end %>
+
+  <%= link_to 'New Concern Ticket', new_concern_path %>
+<% else %>
+  <h1>Concern Tickets</h1>
+    <% if @concerns.any? %>
+      <table>
+        <thead>
+          <th>Date Posted</th>
+          <th>Concern</th>
+          <th>Description</th>
+          <th>Status</th>
+        </thead>
+        <tbody>
+          <% @concerns.each do |concern| %>
+            <tr>
+              <td><%= concern.created_at %></td>
+              <td><%= concern.title %></td>
+              <td><%= concern.description %></td>
+              <td><%= concern.status.upcase %></td>
+              <td><%= link_to 'View Ticket', concern_path(concern) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><em>No Concern Ticket Found</em></p>
+    <% end %>
+<% end %>
+
+<br>
+<br>
+<%= link_to 'Back', authenticated_root_path %>

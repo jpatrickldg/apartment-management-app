@@ -3,11 +3,11 @@ class Concern < ApplicationRecord
   
   # after_update :set_assisted_by
 
-  enum status: [ :open, :close, :resolved ]
+  enum status: [ :open, :closed, :resolved ]
 
-  def set_assisted_by(user_email)
-    self.assisted_by = user_email
-    self.save!
-  end
+  # def set_assisted_by(user_email)
+  #   self.assisted_by = user_email
+  #   self.save!
+  # end
 
 end
