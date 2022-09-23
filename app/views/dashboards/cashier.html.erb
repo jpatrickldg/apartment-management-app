@@ -15,3 +15,29 @@
 <%= link_to 'Profile', profile_path %> <br>
 <%= link_to 'Tenants', tenants_path %> <br>
 <%= link_to 'Expenses', expenses_path %> <br>
+
+<h2>Payments Pending Approval</h2>
+
+<% if @pending_payments.any? %>
+  <table>
+    <thead>
+      <th>Amount</th>
+      <th>Payment Date</th>
+    </thead>
+    <tbody>
+      <% @pending_payments.each do |payment| %>
+        <% invoice = Invoice.find(payment.invoice_id) %>
+        <tr>
+          <td><%= payment.amount %></td>
+          <td><%= payment.created_at %></td>
+          <td><%= link_to 'View Details', invoice_payment_path(invoice) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>No payment pending approval found</em></p>
+<% end %>
+
+<br>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete  %> <br>

@@ -13,9 +13,11 @@
 
 <br>
 
-<% if @invoice.active? %>
+<% if !@invoice.payment.present? %>
   <%= link_to 'Pay', new_invoice_payment_path({:invoice_id => @invoice.id, :amount => @invoice.total_amount}) %>
   <br>
+<% else %>
+  <%= link_to 'Payment Details', invoice_payment_path(@invoice) %>
 <% end %>
 
 

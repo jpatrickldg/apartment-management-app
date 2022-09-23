@@ -4,9 +4,9 @@
 <h1>Welcome, <%= current_user.role.upcase %></h1>
 
 <h2>Announcements</h2>
-<% if @announcement %>
-  <p><strong><%= @announcement.title %></strong></p>
-  <p><%= @announcement.description %></p>
+<% if @latest_published_announcement %>
+  <p><strong><%= @latest_published_announcement.title %></strong></p>
+  <p><%= @latest_published_announcement.description %></p>
 <% else %>
   <p>No announcement found</p>
 <% end %>
@@ -14,8 +14,36 @@
 <%= link_to 'Profile', profile_path %> <br>
 <%= link_to 'Announcements', announcements_path %><br>
 <%= link_to 'Concerns', concerns_path %><br>
+<%= link_to 'Payments', payments_path %>
 
 <br>
+<h1>Payment</h1>
+<% if @active_invoices.any? %>
+  
+  <% @active_invoices.each do |invoice| %>
+    <div>
+      <p><strong>Invoice ID: </strong><%= invoice.id %></p>
+      <p><strong>Date From: </strong><%= invoice.date_from %></p>
+      <p><strong>Date To: </strong><%= invoice.date_to %></p>
+      <p><strong>Water Bill: </strong><%= invoice.water_bill %></p>
+      <p><strong>Electricity Bill: </strong><%= invoice.electricity_bill %></p>
+      <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
+      <p><strong>Total Amount: </strong><%= invoice.total_amount %></p>
+      <% if invoice.payment.present? %>
+        <p><em>Payment Under Review</em></p>
+      <% else %>
+        <%= link_to 'Pay via Online Transfer (Upload Proof)', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}) %>
+        <br>
+        <%= link_to 'Pay via GCash (Integrated)' %>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+  
+<% else %>
+  <p><em>No payment due</em></p>
+<% end %>
+
 <br>
 
 <%= button_to "Sign out", destroy_user_session_path, method: :delete  %> <br>

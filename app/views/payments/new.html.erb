@@ -17,8 +17,20 @@
 
   <div>
     <%= f.label :amount %> <br>
-    <%= f.number_field :amount, :value => params[:amount], readonly: true  %>
+    <%= f.number_field :amount, :value => params[:amount], readonly: true  %> <br><br>
   </div>
+
+  <%= f.hidden_field :initiated_by, value: current_user.email %>
+
+  
+  <% if current_user.tenant? %>
+    <%= f.hidden_field :payment_mode, value: 'transfer' %>
+    <div>
+      <%= f.label :proof %> <br>
+      <%= f.file_field :proof %> <br><br>
+  </div>
+  <% end %>
+  
 
   <div>
     <%= f.submit 'Pay' %>

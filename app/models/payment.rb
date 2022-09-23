@@ -1,9 +1,10 @@
 class Payment < ApplicationRecord
   belongs_to :invoice
+  has_one_attached :proof
 
   before_save :set_invoice_status, if: Proc.new { approved? }
 
-  enum payment_mode: [ :cash, :gcash ]
+  enum payment_mode: [ :cash, :transfer, :gcash ]
   enum status: [ :pending, :cancelled, :approved ]
 
   def set_processed_by(user_email)
