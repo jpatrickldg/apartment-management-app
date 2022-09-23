@@ -15,20 +15,25 @@ Rails.application.routes.draw do
   end
 
   resources :users
+
+  resources :tenants, only: [:index, :show], shallow: true do
+    resources :bookings, shallow: true do
+      post :deactivate, on: :member
+      resources :invoices, shallow: true do
+        resource :payment, only: [:show, :new, :create, :update] do
+          get :approve, on: :member
+        end
+      end
+    end
+  end
+
   resources :concerns do
     post :close, on: :member
     post :resolve, on: :member
     post :reopen, on: :member
   end
 
-  resources :tenants, only: [:index, :show], shallow: true do
-    resources :bookings, shallow: true do
-      post :deactivate, on: :member
-      resources :invoices, shallow: true do
-        resource :payment, only: [:show, :new, :create]
-      end
-    end
-  end
+  resources :payments, only: [:index]
 
   resources :announcements do
     post :archive, on: :member

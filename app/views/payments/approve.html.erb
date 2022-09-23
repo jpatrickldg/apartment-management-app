@@ -1,0 +1,27 @@
+<h1>Approve Payment</h1>
+
+<%= form_with model: @payment, url: invoice_payment_path(@invoice), method: :patch do |f| %>
+
+  <div>
+    <% if @payment.errors.any? %>
+      <ul>
+        <% @payment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <%= f.hidden_field :status, value: 'approved' %>
+  <%= f.hidden_field :processed_by, value: current_user.email %>
+
+  <div>
+    <%= f.label :remarks %> <br>
+    <%= f.text_field :remarks %>
+  </div>
+
+  <div>
+    <%= f.submit 'Approve' %>
+  </div>
+
+<% end %>

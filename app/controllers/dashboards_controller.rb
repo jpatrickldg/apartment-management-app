@@ -8,6 +8,7 @@ class DashboardsController < ApplicationController
     @available_space_count = Room.all.sum(:available_count)
     @user = current_user
     @pending_payments = Payment.all.where(status: 'pending')
+    @active_invoices = @user.invoices.where(status: 'active')
 
     if current_user.tenant?
       # redirect_to staff_dashboard_path

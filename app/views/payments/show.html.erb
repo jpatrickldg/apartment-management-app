@@ -2,9 +2,31 @@
 <p>Find me in app/views/payments/show.html.erb</p>
 
 <p><strong>Status: </strong><%= @payment.status.upcase %></p>
-<p><strong>Invoice ID: </strong><%= @invoice.id %></p>
+<p><strong>Invoice ID: </strong><%= link_to @invoice.id, invoice_path(@invoice) %></p>
 <p><strong>Amount: </strong><%= @payment.amount %></p>
-<p><strong>Mode of Payment: </strong><%= @payment.payment_mode %></p>
-<p><strong>Remarks: </strong><%= @payment.remarks %></p>
-<p><strong>Processed by: </strong><%= @payment.processed_by %></p>
+<p><strong>Mode of Payment: </strong><%= @payment.payment_mode.capitalize %></p>
+
+<% if @payment.approved? %>
+  <p><strong>Remarks: </strong><%= @payment.remarks %></p>
+  <p><strong>Processed by: </strong><%= @payment.processed_by %></p>
+<% end %>
+
+
+<% if @payment.proof.attached? %>
+  <p><strong>Proof of Payment:</strong></p>
+  <%= image_tag @payment.proof, width: "200px" %>
+<% else %>
+  <p><strong>Proof of Payment: </strong>NA</p>
+<% end %>
+
+
+<% if @payment.pending? && current_user.cashier? %>
+  <br>
+  <%= link_to 'Approve', approve_invoice_payment_path(@invoice) %>
+<% end %>
+
+<br>
+<br>
+<%= link_to 'Back to Dashboard', authenticated_root_path %>
+
 
