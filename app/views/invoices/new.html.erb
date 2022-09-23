@@ -16,6 +16,16 @@
   </div>
 
   <div>
+    <%= f.label :date_from %> <br>
+    <%= f.date_field :date_from, :value => params[:date_from], readonly: true %>
+  </div>
+
+  <div>
+    <%= f.label :date_to %> <br>
+    <%= f.date_field :date_to, :value => params[:date_to], readonly: true %>
+  </div>
+
+  <div>
     <%= f.label :room_rate %> <br>
     <%= f.number_field :room_rate, :value => params[:room_rate], readonly: true %>
   </div>
@@ -28,16 +38,6 @@
   <div>
     <%= f.label :electricity_bill %> <br>
     <%= f.number_field :electricity_bill %>
-  </div>
-
-  <div>
-    <%= f.label :date_from %> <br>
-    <%= f.date_field :date_from %>
-  </div>
-
-  <div>
-    <%= f.label :date_to %> <br>
-    <%= f.date_field :date_to %>
   </div>
 
   <div>

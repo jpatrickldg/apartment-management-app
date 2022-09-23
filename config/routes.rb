@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :bookings, shallow: true do
       post :deactivate, on: :member
       resources :invoices, shallow: true do
-        resources :payments
+        resource :payment, only: [:show, :new, :create]
       end
     end
   end
