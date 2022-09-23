@@ -6,6 +6,7 @@ class BookingsController < ApplicationController
     @tenant = User.find(@booking.user_id)
     @room = Room.find(@booking.room_id)
     @branch = Branch.find(@room.branch_id)
+    @active_invoices = @booking.invoices.where(status: 'active')
   end
 
   def new
@@ -16,9 +17,8 @@ class BookingsController < ApplicationController
 
   def create
     @booking = @tenant.bookings.build(booking_params)
-    email = @tenant.email
     if @booking.save!
-      @booking.set_processed_by(email)
+      @booking.set_processed_by(current_user.email)
       @booking.update_room_occupants
       redirect_to booking_path(@booking), notice: 'Booking Added'
     else

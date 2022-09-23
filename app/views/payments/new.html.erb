@@ -1,0 +1,26 @@
+<h1>Payments#new</h1>
+<p>Find me in app/views/payments/new.html.erb</p>
+
+<h1>Payment for Invoice ID: <%= @invoice.id %></h1>
+
+<%= form_with model: Payment.new, url: invoice_payment_path, method: :post do |f| %>
+  
+  <div>
+    <% if @payment.errors.any? %>
+      <ul>
+        <% @payment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :amount %> <br>
+    <%= f.number_field :amount, :value => params[:amount], readonly: true  %>
+  </div>
+
+  <div>
+    <%= f.submit 'Pay' %>
+  </div>
+<% end %>

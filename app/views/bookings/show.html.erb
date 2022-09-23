@@ -9,6 +9,29 @@
 <p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
 <p><strong>Due Date: </strong><%= @booking.due_date %></p>
 
+<h1>Active Invoice/s for this Booking</h1>
+
+<% if @active_invoices.any? %>
+  <table>
+    <thead>
+      <th>Date Posted</th>
+      <th>Posted By</th>
+      <th>Total Amount</th>
+    </thead>
+    <tbody>
+      <% @active_invoices.each do |invoice| %>
+        <tr>
+          <td><%= invoice.created_at %></td>
+          <td><%= invoice.processed_by %></td>
+          <td><%= invoice.total_amount %></td>
+          <td><%= link_to 'View Details', invoice_path(invoice) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
 <br>
 
 <%= link_to 'View Invoices for this booking', booking_invoices_path(@booking) %>
@@ -19,7 +42,7 @@
 <br>
 
 <% if @booking.active? %>
-  <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @room.monthly_rate }) %>
+  <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
   <%= button_to 'Deactivate', deactivate_booking_path %>
 <% end %>
 
