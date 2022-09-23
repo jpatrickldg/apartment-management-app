@@ -1,0 +1,17 @@
+<h1>Dashboards#cashier</h1>
+<p>Find me in app/views/dashboards/cashier.html.erb</p>
+
+<h1>Welcome, <%= current_user.role.upcase %></h1>
+
+<h2>Announcements</h2>
+<% if @latest_published_announcement %>
+  <p><strong><%= @latest_published_announcement.title %></strong></p>
+  <p><%= @latest_published_announcement.description %></p>
+<% else %>
+  <p>No announcement found</p>
+<% end %>
+
+<%= link_to 'Announcements', announcements_path %><br>
+<%= link_to 'Profile', profile_path %> <br>
+<%= link_to 'Tenants', tenants_path %> <br>
+<%= link_to 'Expenses', expenses_path %> <br>

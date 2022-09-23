@@ -8,11 +8,12 @@
   <p><strong><%= @announcement.title %></strong></p>
   <p><%= @announcement.description %></p>
 <% else %>
-  <p>No announcment found</p>
+  <p>No announcement found</p>
 <% end %>
 
 <%= link_to 'Profile', profile_path %> <br>
 <%= link_to 'Announcements', announcements_path %><br>
+<%= link_to 'Concerns', concerns_path %><br>
 
 <br>
 <br>

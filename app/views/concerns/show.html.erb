@@ -1,2 +1,25 @@
 <h1>Concerns#show</h1>
 <p>Find me in app/views/concerns/show.html.erb</p>
+
+<p><strong>Status: </strong><%= @concern.status.upcase %></p>
+
+<% if !current_user.tenant? %>
+  <p><strong>Posted by: </strong><%= link_to @tenant.email, tenant_path(@tenant) %></p>
+<% end %>
+
+<p><strong>Concern: </strong><%= @concern.title %></p>
+<p><strong>Description:</strong></p>
+<p><%= @concern.description %></p>
+
+
+<% if @concern.open? %>
+  <%= button_to 'Resolved', close_concern_path %>
+  <%= button_to 'Close', close_concern_path %>
+<% elsif @concern.closed? && current_user.tenant? %>
+  <%= button_to 'Re-Open', reopen_concern_path %>
+<% end %>
+
+<br>
+
+<%= link_to 'Back', concerns_path %>
+

@@ -25,57 +25,60 @@
   <p><em>No published announcement currently</em></p>
 <% end %>
 
-<h2>Drafts</h2>
-<% if @draft.any? %>
-  <table>
-    <thead></thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @draft.each do |announcement| %>
-      <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.description %></td>
-        <td><%= link_to 'Open', edit_announcement_path(announcement) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p><em>No draft announcements found</em></p>
-<% end %>
+<% if current_user.receptionist? %>
+  <h2>Drafts</h2>
+  <% if @draft.any? %>
+    <table>
+      <thead></thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @draft.each do |announcement| %>
+        <tr>
+          <td><%= announcement.title %></td>
+          <td><%= announcement.description %></td>
+          <td><%= link_to 'Open', edit_announcement_path(announcement) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><em>No draft announcements found</em></p>
+  <% end %>
 
-<h2>Archived</h2>
-<% if @archived.any? %>
-  <table>
-    <thead></thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @archived.each do |announcement| %>
-      <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.description %></td>
-        <td><%= link_to 'View', announcement_path(announcement) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p><em>No archived announcements found</em></p>
-<% end %>
-
-<br>
-
-<% if !current_user.tenant? %>
+  <h2>Archived</h2>
+  <% if @archived.any? %>
+    <table>
+      <thead></thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @archived.each do |announcement| %>
+        <tr>
+          <td><%= announcement.title %></td>
+          <td><%= announcement.description %></td>
+          <td><%= link_to 'View', announcement_path(announcement) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><em>No archived announcements found</em></p>
+  <% end %>
+  <br>
   <%= link_to 'Add Announcement', new_announcement_path %>
 <% end %>
+
+
+
+
+
 
 <br><br>
 <%= link_to 'Back', authenticated_root_path %>

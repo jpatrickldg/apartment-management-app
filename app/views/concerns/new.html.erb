@@ -1,2 +1,32 @@
 <h1>Concerns#new</h1>
 <p>Find me in app/views/concerns/new.html.erb</p>
+
+<%= form_with model: Concern.new, url: concerns_path do |f| %>
+  
+  <div>
+    <% if @concern.errors.any? %>
+      <ul>
+        <% @concern.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :title %> <br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description %> <br>
+    <%= f.text_area :description, :cols => 30, :rows => 10 %>
+  </div>
+
+  <div>
+    <%= f.submit 'Create Ticket' %>
+  </div>
+<% end %>
+
+<br>
+<%= link_to 'Cancel', concerns_path %>

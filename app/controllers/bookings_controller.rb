@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :get_tenant, only: [:index, :new, :create]
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking, only: [:show, :edit, :update, :destroy, :deactivate]
 
   def show
     @tenant = User.find(@booking.user_id)
@@ -42,7 +42,6 @@ class BookingsController < ApplicationController
   end
 
   def deactivate
-    @booking = Booking.find(params[:id])
     @booking.inactive!
     @booking.set_room_occupants_once_inactive_or_destroyed
     redirect_to booking_path(@booking), notice: 'Booking deactivated'
