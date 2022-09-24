@@ -20,7 +20,7 @@
           <td><%= tenant.email %></td>
           <td><%= tenant.first_name %></td>
           <td><%= tenant.last_name %></td>
-          <td><%= link_to 'Profile', user_path(tenant) %></td>
+          <td><%= link_to 'Profile', tenant_path(tenant) %></td>
         </tr>
       <% end %>
     </tbody>

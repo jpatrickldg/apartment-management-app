@@ -30,6 +30,36 @@
     <p><em>No Payment Found</em></p>
   <% end %>
 <% end %>
+
+<% if current_user.cashier? %>
+  <h2>Payments</h2>
+  <% if @payments.any? %>
+    <table>
+      <thead>
+        <th>Payment ID</th>
+        <th>Status</th>
+        <th>Payment Mode</th>
+        <th>Total Amount</th>
+        <th>Remarks</th>
+      </thead>
+      <tbody>
+        <% @payments.each do |payment| %>
+          <% invoice = Invoice.find(payment.invoice_id) %>
+          <tr>
+            <td><%= payment.id %></td>
+            <td><%= payment.status.capitalize %></td>
+            <td><%= payment.payment_mode.capitalize %></td>
+            <td><%= payment.amount %></td>
+            <td><%= payment.remarks %></td>
+            <td><%= link_to 'View Details', invoice_payment_path(invoice) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><em>No Payment Found</em></p>
+  <% end %> 
+<% end %>
 <br>
 <br>
 <%= link_to 'Back to Dashboard', authenticated_root_path %>

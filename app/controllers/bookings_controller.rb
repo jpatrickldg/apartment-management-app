@@ -1,18 +1,18 @@
 class BookingsController < ApplicationController
   before_action :get_tenant, only: [:index, :new, :create]
-  before_action :set_booking, only: [:show, :edit, :update, :destroy, :deactivate]
+  before_action :set_booking, only: [:edit, :update, :destroy, :deactivate]
 
   def show
-    @tenant = User.find(@booking.user_id)
-    @room = Room.find(@booking.room_id)
-    @branch = Branch.find(@room.branch_id)
+    @booking = Booking.includes(:user, room: [:branch]).find(params[:id])
+    # @tenant = User.find(@booking.user_id)
+    # @room = Room.find(@booking.room_id)
+    # @branch = Branch.find(@room.branch_id)
     @active_invoices = @booking.invoices.where(status: 'active')
   end
 
   def new
     @booking = @tenant.bookings.build
-    @rooms = Room.all
-    @available_rooms = Room.where('available_count > 0')
+    @available_rooms = Room.where('available_count > 0').order(room_code: :asc)
   end
 
   def create
@@ -44,6 +44,7 @@ class BookingsController < ApplicationController
   def deactivate
     @booking.inactive!
     @booking.set_room_occupants_once_inactive_or_destroyed
+    @booking.deactivate_tenant_account
     redirect_to booking_path(@booking), notice: 'Booking deactivated'
   end
 

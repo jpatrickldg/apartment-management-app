@@ -8,6 +8,7 @@
         <th>Description</th>
         <th>Amount</th>
         <th>Processed By</th>
+        <th>Proof</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,13 @@
         <td><%= expense.description %></td>
         <td><%= expense.amount %></td>
         <td><%= expense.processed_by %></td>
+        
+        <% if expense.proof.attached? %>
+          <td><%= image_tag expense.proof, width: "50px"  %></td>
+        <% else %>
+          <td>NA</td>
+        <% end %>
+        
         <td><%= link_to 'View', expense_path(expense) %></td>
       </tr>
       <% end %>

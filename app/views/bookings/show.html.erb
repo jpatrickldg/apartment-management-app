@@ -2,10 +2,10 @@
 
 
 <p><strong>Status: </strong><%= @booking.status.upcase %></p>
-<p><strong>Tenant: </strong><%= "#{@tenant.first_name} #{@tenant.last_name}" %></p>
-<p><strong>Branch: </strong><%= @branch.branch_type %> | <%= @branch.address %></p>
-<p><strong>Room: </strong><%= @room.room_code %></p>
-<p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
+<p><strong>Tenant: </strong><%= "#{@booking.user.first_name} #{@booking.user.last_name}" %></p>
+<p><strong>Branch: </strong><%= @booking.room.branch.branch_type %> | <%= @booking.room.branch.address %></p>
+<p><strong>Room: </strong><%= @booking.room.room_code %></p>
+<p><strong>Monthly Rate: </strong><%= @booking.room.monthly_rate %></p>
 <p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
 <p><strong>Due Date: </strong><%= @booking.due_date %></p>
 
@@ -45,10 +45,10 @@
   <br>
 
   <% if @booking.active? %>
-    <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
-    <%= button_to 'Deactivate', deactivate_booking_path %>
+    <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @booking.room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
   <% end %>
 <% end %>
+<%= button_to 'Deactivate', deactivate_booking_path %>
 
 
 

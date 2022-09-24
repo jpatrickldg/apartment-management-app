@@ -29,6 +29,11 @@ class Booking < ApplicationRecord
     room.save!
   end
 
+  def deactivate_tenant_account
+    tenant = User.find(self.user_id)
+    tenant.inactive!
+  end
+  
   private
 
   def set_due_date

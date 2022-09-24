@@ -1,15 +1,14 @@
 class ConcernsController < ApplicationController
   before_action :get_tenant, only: [:index, :new, :create]
-  before_action :set_concern, only: [:show, :edit, :update, :destroy, :close, :resolve, :reopen]
+  before_action :set_concern, only: [:show, :edit, :update, :destroy, :reopen, :close]
 
   def index
-    @concerns = Concern.all
-    @current_user_concerns = @tenant.concerns
+    @concerns = Concern.all.includes(:user).order(status: :asc)
+    @current_user_concerns = @tenant.concerns.order(status: :asc)
   end
 
   def show
     @tenant = User.find(@concern.user_id)
-
   end
 
   def new
@@ -29,7 +28,7 @@ class ConcernsController < ApplicationController
 
   def update
     if @concern.update(concern_params)
-      redirect_to authenticated_root_path, notice: 'Concern Ticket Updated'
+      redirect_to concern_path(@concern), notice: 'Concern Ticket Updated'
     else
       render :edit
     end
@@ -39,13 +38,6 @@ class ConcernsController < ApplicationController
   end
 
   def close
-    @concern.closed!
-    redirect_to concern_path(@concern), notice: 'Ticket Closed'
-  end
-
-  def resolve
-    @concern.resolved!
-    redirect_to concern_path(@concern), notice: 'Ticket Resolved'
   end
   
   def reopen
@@ -64,7 +56,7 @@ class ConcernsController < ApplicationController
   private
 
   def concern_params
-    params.require(:concern).permit(:user_id, :title, :description, :status, :assisted_by)
+    params.require(:concern).permit(:user_id, :title, :description, :status, :assisted_by, :remarks)
   end
   
 

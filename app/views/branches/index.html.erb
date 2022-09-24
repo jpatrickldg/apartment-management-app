@@ -1,25 +1,38 @@
 <h1>Branches</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Branch Type</th>
-      <th>Address</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @branches.each do |branch| %>
-      <tr>
-        <td><%= branch.branch_type %></td>
-        <td><%= branch.address %></td>
-        <td><%= link_to 'View', branch %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= link_to 'Back', authenticated_root_path %>
 
-<br>
-<br>
+<% @branches.each do |branch| %>
+  <div>
+    <h2><%= branch.branch_type %> | <%= branch.address %></h2>
+    <h3>Rooms</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Room Code</th>
+          <th>Monthly Rate</th>
+          <th>Occupants</th>
+          <th>Capacity</th>
+          <th>Available</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ordered_rooms = branch.rooms.order(room_code: :asc) %>
+        <% ordered_rooms.each do |room| %>
+          <tr>
+            <td><%= room.room_code.upcase %></td>
+            <td><%= room.monthly_rate %></td>
+            <td><%= room.occupants_count %></td>
+            <td><%= room.capacity_count %></td>
+            <td><%= room.available_count %></td>
+            <td><%= link_to 'View', [branch, room] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  </div>
+<% end %>
 
 <%= link_to 'Back', authenticated_root_path %>
 

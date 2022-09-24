@@ -1,6 +1,3 @@
-<h1>Dashboards#tenant</h1>
-<p>Find me in app/views/dashboards/tenant.html.erb</p>
-
 <h1>Welcome, <%= current_user.role.upcase %></h1>
 
 <h2>Announcements</h2>
@@ -17,7 +14,7 @@
 <%= link_to 'Payments', payments_path %>
 
 <br>
-<h1>Payment</h1>
+<h2>Payment</h2>
 <% if @active_invoices.any? %>
   
   <% @active_invoices.each do |invoice| %>

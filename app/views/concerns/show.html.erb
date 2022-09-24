@@ -10,11 +10,13 @@
 <p><strong>Concern: </strong><%= @concern.title %></p>
 <p><strong>Description:</strong></p>
 <p><%= @concern.description %></p>
+<% if @concern.closed? %>
+  <p><strong>Remarks: </strong><%= @concern.remarks %></p>
+<% end %>
 
 
 <% if @concern.open? %>
-  <%= button_to 'Resolved', close_concern_path %>
-  <%= button_to 'Close', close_concern_path %>
+  <%= link_to 'Close', close_concern_path %>
 <% elsif @concern.closed? && current_user.tenant? %>
   <%= button_to 'Re-Open', reopen_concern_path %>
 <% end %>

@@ -4,8 +4,8 @@ class ProfilesController < ApplicationController
     @user = current_user
     if @user.tenant?
       if @user.bookings.any?
-        @booking = @user.bookings.find_by(status: 'active')
-        @room = Room.find(@booking.room_id)
+        @booking = @user.bookings.where(status: 'active').last
+        # @room = Room.find(@booking.room_id)
       end
     end
   end

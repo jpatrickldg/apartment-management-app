@@ -4,9 +4,6 @@ class InvoicesController < ApplicationController
 
   def index
     @invoices = @booking.invoices
-    @user = User.find(@booking.user_id)
-    @room = Room.find(@booking.room_id)
-    @branch = Branch.find(@room.branch_id)
   end
 
   def show

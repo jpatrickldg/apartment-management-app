@@ -1,0 +1,26 @@
+<h1>Clsoe Concern</h1>
+
+<%= form_with model: @concern, url: concern_path(@concern), method: :patch do |f| %>
+
+  <div>
+    <% if @concern.errors.any? %>
+      <ul>
+        <% @concern.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <%= f.hidden_field :status, value: 'closed' %>
+
+  <div>
+    <%= f.label :remarks %> <br>
+    <%= f.text_field :remarks %>
+  </div>
+
+  <div>
+    <%= f.submit 'Close' %>
+  </div>
+
+<% end %>
