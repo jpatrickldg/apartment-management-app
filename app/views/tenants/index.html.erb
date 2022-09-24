@@ -1,10 +1,6 @@
-<h1>Tenants#index</h1>
-<p>Find me in app/views/tenants/index.html.erb</p>
-
-
 <% if current_user.receptionist? %>
-  <h1>New Tenants</h1>
   <% if @new_tenants.any? %>
+    <h1>New Tenants</h1>
     <table>
     <thead>
       <tr>
@@ -28,18 +24,43 @@
           <td><%= tenant.contact_no %></td>
           <td><%= tenant.address.capitalize %></td>
           <td><%= link_to 'Profile', tenant_path(tenant) %></td>
-          <% booking = tenant.bookings.where(status: 'active').last %>
-          <% if booking.present? %>
-            <td><%= link_to 'Booking Details', booking_path(booking) %></td>
-          <% else %>
-            <td><%= link_to 'Add Booking', new_tenant_booking_path(tenant) %></td>
-          <% end %>
+          <td><%= link_to 'Add Booking', new_tenant_booking_path(tenant) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <% else %>
-    <p><em>No New Tenants</em></p>
+  <% end %>
+
+  <% if @returnees.any? %>
+    <h1>Returnees</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Occupation</th>
+          <th>Contact</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @returnees.each do |tenant| %>
+          <tr>
+            <td><%= tenant.id %></td>
+            <td><%= tenant.first_name.capitalize %> <%= tenant.last_name.capitalize %></td>
+            <td><%= tenant.email %></td>
+            <td><%= tenant.gender.capitalize %></td>
+            <td><%= tenant.occupation.capitalize %></td>
+            <td><%= tenant.contact_no %></td>
+            <td><%= tenant.address.capitalize %></td>
+            <td><%= link_to 'Profile', tenant_path(tenant) %></td>
+            <td><%= link_to 'Add Booking', new_tenant_booking_path(tenant) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 <% end %>
 
@@ -78,6 +99,43 @@
   </table>
 <% else %>
   <p><em>No Tenants Found</em></p>
+<% end %>
+
+<% if current_user.receptionist? %>
+  <h1>Inactive Tenants</h1>
+  <% if @inactive_tenants.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Occupation</th>
+          <th>Contact</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @inactive_tenants.each do |tenant| %>
+          <tr>
+            <td><%= tenant.id %></td>
+            <td><%= tenant.first_name.capitalize %> <%= tenant.last_name.capitalize %></td>
+            <td><%= tenant.email %></td>
+            <td><%= tenant.gender.capitalize %></td>
+            <td><%= tenant.occupation.capitalize %></td>
+            <td><%= tenant.contact_no %></td>
+            <td><%= tenant.address.capitalize %></td>
+            <td><%= link_to 'Profile', tenant_path(tenant) %></td>
+            <% booking = tenant.bookings.find_by(status: 'active') %>
+            <td><%= button_to 'Activate', activate_tenant_path(tenant) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><em>No Tenants Found</em></p>
+  <% end %>
 <% end %>
 
 <br>

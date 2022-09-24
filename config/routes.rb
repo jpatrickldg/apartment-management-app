@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :tenants, only: [:index, :show], shallow: true do
+    post :activate, on: :member
     resources :bookings, shallow: true do
       post :deactivate, on: :member
       resources :invoices, shallow: true do
@@ -28,8 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :concerns do
-    post :close, on: :member
-    post :resolve, on: :member
+    get :close, on: :member
     post :reopen, on: :member
   end
 
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     resources :rooms, only: [:index, :show]
   end
 
-  get '/available_rooms' => 'rooms#available', as: 'available_rooms'
+  get '/rooms/available' => 'rooms#available', as: 'available_rooms'
 
   resource :profile, only: [:show, :edit, :update] do
     get 'purge_avatar', on: :collection

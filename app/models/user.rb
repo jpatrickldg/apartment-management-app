@@ -13,5 +13,16 @@ class User < ApplicationRecord
   
   enum status: [ :active, :inactive ]
   enum role: [ :tenant, :receptionist, :cashier, :maintenance, :owner, :admin ]
+  
+
+  def active_for_authentication?
+    super && self.active?
+  end
+
+  def inactive_message
+    "Sorry, this account has been deactivated"
+  end
+  
+  
 
 end

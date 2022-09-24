@@ -7,6 +7,9 @@
 <p><strong>Birthdate: </strong><%= @tenant.birthdate %></p>
 <p><strong>Occupation: </strong><%= @tenant.occupation.capitalize %></p>
 <p><strong>Contact No.: </strong><%= @tenant.contact_no %></p>
+<h3>In Case Of Emergency</h3>
+<p><strong>Contact Person: </strong><%= @tenant.emergency_contact_person %></p>
+<p><strong>Contact No.: </strong><%= @tenant.emergency_contact_no %></p>
 
 <hr>
 
@@ -15,8 +18,8 @@
   <p><strong>Booking ID: </strong><%= @active.id %></p>
   <p><strong>Move-In Date: </strong><%= @active.move_in_date %></p>
   <p><strong>Payment Due Date: </strong><%= @active.due_date %></p>
-  <p><strong>Room Code: </strong><%= Room.find(@active.room_id).room_code.upcase %></p>
-  <p><strong>Monthly Rate: </strong><%= Room.find(@active.room_id).monthly_rate %></p>
+  <p><strong>Room Code: </strong><%= link_to @room.room_code.upcase, branch_room_path(@branch, @room) %></p>
+  <p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
 <% else %>
   <p><em>Tenant has no active booking</em></p>
 <% end %>

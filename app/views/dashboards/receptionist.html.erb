@@ -1,6 +1,3 @@
-<h1>Dashboards#receptionist</h1>
-<p>Find me in app/views/dashboards/receptionist.html.erb</p>
-
 <h1>Welcome, <%= current_user.role.upcase %></h1>
 
 <h2>Announcements</h2>
@@ -10,6 +7,7 @@
 <% else %>
   <p>No announcement found</p>
 <% end %>
+<h2>Tenants: <%= @tenants_count %></h2>
 <h2>Available Space: <%= @available_space_count %></h2>
 <h2>Available Rooms: <%= @available_rooms_count %> | <%= link_to 'View Details', available_rooms_path %></h2>
 
@@ -18,7 +16,6 @@
 <%= link_to 'Announcements', announcements_path %><br>
 <%= link_to 'Branches', branches_path %> <br>
 <%= link_to 'Tenants', tenants_path %> <br>
-<%= link_to 'Expenses', expenses_path %> <br>
 <%= link_to 'Concerns', concerns_path %>
 
 <br>

@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :approve]
 
   def index
+    @payments = Payment.all.order(updated_at: :desc)
     @current_user_payments = current_user.payments
   end
 

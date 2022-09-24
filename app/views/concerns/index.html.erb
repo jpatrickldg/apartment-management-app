@@ -21,6 +21,9 @@
             <td><%= concern.description %></td>
             <td><%= concern.status.upcase %></td>
             <td><%= link_to 'View Ticket', concern_path(concern) %></td>
+            <% if concern.open? %>
+              <td><%= link_to 'Close', close_concern_path(concern) %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -47,7 +50,10 @@
               <td><%= concern.title %></td>
               <td><%= concern.description %></td>
               <td><%= concern.status.upcase %></td>
-              <td><%= link_to 'View Ticket', concern_path(concern) %></td>
+              <td><%= link_to 'View Ticket', concern_path(concern) %></td>             
+              <% if concern.open? %>
+                <td><%= link_to 'Close', close_concern_path(concern) %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
