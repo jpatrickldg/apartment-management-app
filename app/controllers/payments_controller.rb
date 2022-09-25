@@ -1,13 +1,15 @@
 class PaymentsController < ApplicationController
-  before_action :get_invoice, except: [:index]
-  before_action :set_payment, only: [:show, :edit, :update, :approve]
+  before_action :get_invoice, only: [:new, :create]
+  before_action :set_payment, only: [:update, :approve]
 
   def index
-    @payments = Payment.all.order(updated_at: :desc)
+    @q = Payment.ransack(params[:q])
+    @payments = @q.result(distinct: true)
     @current_user_payments = current_user.payments
   end
 
   def show
+    @payment = Payment.includes(:invoice).find(params[:id])
   end
 
   def new
@@ -18,7 +20,7 @@ class PaymentsController < ApplicationController
     @payment = @invoice.build_payment(payment_params)
     check_if_by_cashier
     if @payment.save!
-      redirect_to invoice_payment_path(@invoice)
+      redirect_to payment_path(@payment), notice: 'Payment Submitted'
     end
   end
 
@@ -27,7 +29,7 @@ class PaymentsController < ApplicationController
 
   def update
     if @payment.update(payment_params)
-      redirect_to invoice_payment_path(@invoice), notice: 'Payment Approved'
+      redirect_to payment_path(@payment), notice: 'Payment Approved'
     else
       render :approve, notice: 'Error'
     end
@@ -47,7 +49,7 @@ class PaymentsController < ApplicationController
   private
 
   def set_payment
-    @payment = @invoice.payment
+    @payment = Payment.find(params[:id])
   end
 
   def payment_params

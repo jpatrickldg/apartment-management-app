@@ -1,6 +1,6 @@
 <h1>Approve Payment</h1>
 
-<%= form_with model: @payment, url: invoice_payment_path(@invoice), method: :patch do |f| %>
+<%= form_with model: @payment, url: payment_path(@payment), method: :patch do |f| %>
 
   <div>
     <% if @payment.errors.any? %>

@@ -1,5 +1,42 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+
+<h1>Users | <%= link_to 'Add Users', new_user_path %></h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.search_field :email_cont, placeholder: 'Search User' %>
+  <%= f.submit  %>
+  <%= link_to 'Clear', users_path %>
+<% end %>
+
+
+<% if @users.any? %>
+  <table>
+    <thead>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th><%= sort_link(@q, :role, 'Role', default_order: :desc ) %></th>
+      <th>Status</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.role.capitalize %></td>
+          <td><%= user.status.capitalize %></td>
+          <td><%= link_to 'View', user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><em>User not found</em></p>
+<% end %>
+
+<br>
+<br>
+<%= link_to 'Back to Dashboard', authenticated_root_path %>
 
 
 

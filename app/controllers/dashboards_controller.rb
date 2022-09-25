@@ -16,8 +16,10 @@ class DashboardsController < ApplicationController
     elsif current_user.cashier?
       # redirect_to tenant_dashboard_path
       render "dashboards/cashier"
-    else
+    elsif current_user.receptionist?
       render "dashboards/receptionist"
+    else
+      render "dashboards/admin"
     end
   end
   

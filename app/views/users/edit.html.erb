@@ -1,2 +1,30 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h1>Edit Role</h1>
+
+<h2>@user.email</h2>
+<h2>Current Role: <%= @user.role %></h2>
+
+<%= form_with model: @user, url: user_path, method: :patch do |f| %>
+
+  <div>
+    <% if @user.errors.any? %>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <p>Role</p>
+    <%= f.radio_button :role, 'tenant' %>Tenant<br />
+    <%= f.radio_button :role, 'receptionist' %>Receptionist<br />
+    <%= f.radio_button :role, 'cashier' %>Cashier<br />
+  </div>
+
+  <div>
+    <%= f.submit 'Update Role' %>
+  </div>
+
+<% end %>
+

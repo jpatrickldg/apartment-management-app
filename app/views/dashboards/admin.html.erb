@@ -1,0 +1,25 @@
+<h1>Welcome, <%= current_user.role.upcase %></h1>
+
+<h2>Announcements</h2>
+<% if @latest_published_announcement %>
+  <p><strong><%= @latest_published_announcement.title %></strong></p>
+  <p><%= @latest_published_announcement.description %></p>
+<% else %>
+  <p>No announcement found</p>
+<% end %>
+
+<%= link_to 'Profile', profile_path %> <br>
+<%= link_to 'Announcements', announcements_path %><br>
+<%= link_to 'Inquiries', inquiries_path %> <br>
+<%= link_to 'Users', users_path %> <br>
+<%= link_to 'Branches/Rooms', branches_path %> <br>
+<%= link_to 'Invoices', invoices_path %> <br>
+<%= link_to 'Payments', payments_path %> <br>
+<%= link_to 'Expenses', expenses_path %> <br>
+<%= link_to 'Tenant Concerns', concerns_path %>
+
+
+<br>
+<br>
+
+<%= button_to "Sign out", destroy_user_session_path, method: :delete  %> <br>

@@ -25,7 +25,7 @@
   <p><em>No published announcement currently</em></p>
 <% end %>
 
-<% if current_user.receptionist? %>
+<% if current_user.receptionist? || current_user.admin? || current_user.owner? %>
   <h2>Drafts</h2>
   <% if @draft.any? %>
     <table>

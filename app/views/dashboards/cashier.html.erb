@@ -28,7 +28,7 @@
         <tr>
           <td><%= payment.amount %></td>
           <td><%= payment.created_at %></td>
-          <td><%= link_to 'View Details', invoice_payment_path(invoice) %></td>
+          <td><%= link_to 'View Details', payment_path(payment) %></td>
         </tr>
       <% end %>
     </tbody>

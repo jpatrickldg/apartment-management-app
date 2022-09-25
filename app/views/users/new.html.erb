@@ -1,2 +1,75 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>Create User</h1>
+
+<%= form_with model: @user do |f| %>
+  
+  <div>
+    <% if @user.errors.any? %>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      /ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :email %> <br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password %> <br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %> <br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <br>
+  <div>
+    <%= f.label :first_name %> <br>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %> <br>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :birthdate %><br />
+    <%= f.date_field :birthdate %>
+  </div>
+
+  <div>
+    <p>Gender</p>
+    <%= f.radio_button :gender, 'male' %>Male<br />
+    <%= f.radio_button :gender, 'female' %>Female<br />
+  </div>
+
+  <div>
+    <%= f.label :contact_no %><br />
+    <%= f.text_field :contact_no %>
+  </div>
+
+  <div>
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <p>Role</p>
+    <%= f.radio_button :role, 'tenant' %>Tenant<br />
+    <%= f.radio_button :role, 'receptionist' %>Receptionist<br />
+    <%= f.radio_button :role, 'cashier' %>Cashier<br />
+  </div>
+
+  <br>
+
+  <div>
+    <%= f.submit 'Add User' %>
+  </div>
+<% end %>
+<br>
+<%= link_to 'Cancel', users_path %>

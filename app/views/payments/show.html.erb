@@ -1,8 +1,16 @@
-<h1>Payments#show</h1>
-<p>Find me in app/views/payments/show.html.erb</p>
+<h2>Payment Summary</h2>
+<p><strong>Date From: </strong><%= @payment.invoice.date_from %></p>
+<p><strong>Date To: </strong><%= @payment.invoice.date_to %></p>
+<p><strong>Water Bill: </strong><%= @payment.invoice.water_bill %></p>
+<p><strong>Electricity Bill: </strong><%= @payment.invoice.electricity_bill %></p>
+<p><strong>Room Rate: </strong><%= @payment.invoice.room_rate %></p>
+<p><strong>Total Amount: </strong><%= @payment.invoice.total_amount %></p>
+<p><strong>Remarks: </strong><%= @payment.invoice.remarks %></p>
 
+<hr>
+
+<h2>Payment Details</h2>
 <p><strong>Status: </strong><%= @payment.status.upcase %></p>
-<p><strong>Invoice ID: </strong><%= link_to @invoice.id, invoice_path(@invoice) %></p>
 <p><strong>Amount: </strong><%= @payment.amount %></p>
 <p><strong>Mode of Payment: </strong><%= @payment.payment_mode.capitalize %></p>
 
@@ -22,11 +30,11 @@
 
 <% if @payment.pending? && current_user.cashier? %>
   <br>
-  <%= link_to 'Approve', approve_invoice_payment_path(@invoice) %>
+  <%= link_to 'Approve', approve_payment_path(@payment) %>
 <% end %>
 
 <br>
 <br>
-<%= link_to 'Back to Dashboard', authenticated_root_path %>
+<%= link_to 'Back to Payments', payments_path %>
 
 
