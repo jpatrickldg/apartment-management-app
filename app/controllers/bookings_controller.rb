@@ -7,7 +7,7 @@ class BookingsController < ApplicationController
     # @tenant = User.find(@booking.user_id)
     # @room = Room.find(@booking.room_id)
     # @branch = Branch.find(@room.branch_id)
-    @active_invoices = @booking.invoices.where(status: 'active')
+    @invoices = @booking.invoices.order(status: :asc)
   end
 
   def new
