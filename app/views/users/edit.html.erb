@@ -1,7 +1,6 @@
 <h1>Edit Role</h1>
 
-<h2>@user.email</h2>
-<h2>Current Role: <%= @user.role %></h2>
+<h2><%= @user.email %> | <%= @user.role.upcase %></h2>
 
 <%= form_with model: @user, url: user_path, method: :patch do |f| %>
 
@@ -20,8 +19,12 @@
     <%= f.radio_button :role, 'tenant' %>Tenant<br />
     <%= f.radio_button :role, 'receptionist' %>Receptionist<br />
     <%= f.radio_button :role, 'cashier' %>Cashier<br />
+    <% if current_user.owner? %>
+      <%= f.radio_button :role, 'admin' %>Admin<br />
+    <% end %>
+    
   </div>
-
+  <br>
   <div>
     <%= f.submit 'Update Role' %>
   </div>
