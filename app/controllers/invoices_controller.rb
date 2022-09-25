@@ -20,7 +20,7 @@ class InvoicesController < ApplicationController
     @invoice = @booking.invoices.build(invoice_params)
     if @invoice.save!
       @invoice.set_processed_by(current_user.email)
-      redirect_to authenticated_root_path, notice: 'Invoice Added'
+      redirect_to booking_path(@booking), notice: 'Invoice Added'
     else 
       render :new
     end

@@ -12,16 +12,18 @@
 <% if current_user.cashier? %>
   <h1>Active Invoice/s for this Booking</h1>
 
-  <% if @active_invoices.any? %>
+  <% if @invoices.any? %>
     <table>
       <thead>
+        <th>Status</th>
         <th>Date Posted</th>
         <th>Posted By</th>
         <th>Total Amount</th>
       </thead>
       <tbody>
-        <% @active_invoices.each do |invoice| %>
+        <% @invoices.each do |invoice| %>
           <tr>
+            <td><%= invoice.status.upcase %></td>
             <td><%= invoice.created_at %></td>
             <td><%= invoice.processed_by %></td>
             <td><%= invoice.total_amount %></td>
@@ -37,15 +39,10 @@
 
   <br>
 
-  <%= link_to 'View Invoices for this booking', booking_invoices_path(@booking) %>
-
-  <br>
-
-
   <br>
 
   <% if @booking.active? %>
-    <%= link_to 'Create Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @booking.room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
+    <%= link_to 'New Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @booking.room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
   <% end %>
 <% end %>
 <%= button_to 'Deactivate', deactivate_booking_path %>

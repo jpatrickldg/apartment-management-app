@@ -25,6 +25,7 @@
       <p><strong>Electricity Bill: </strong><%= invoice.electricity_bill %></p>
       <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
       <p><strong>Total Amount: </strong><%= invoice.total_amount %></p>
+      <p><strong>Due Date: </strong><%= invoice.booking.due_date %></p>
       <% if invoice.payment.present? %>
         <p><em>Payment Under Review</em></p>
       <% else %>
