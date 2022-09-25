@@ -1,7 +1,4 @@
-<h1>Payments#new</h1>
-<p>Find me in app/views/payments/new.html.erb</p>
-
-<h1>Payment for Invoice ID: <%= @invoice.id %></h1>
+<h1>Payments</h1>
 
 <%= form_with model: Payment.new, url: invoice_payment_path, method: :post do |f| %>
   

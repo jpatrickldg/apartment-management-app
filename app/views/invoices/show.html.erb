@@ -1,8 +1,6 @@
-<h1>Invoices#show</h1>
-<p>Find me in app/views/invoices/show.html.erb</p>
+<h1>Invoice <%= @invoice.id %></h1>
 
 <p><strong>Status: </strong><%= @invoice.status.upcase %></p>
-<p><strong>Invoice ID: </strong><%= @invoice.id %></p>
 <p><strong>Date From: </strong><%= @invoice.date_from %></p>
 <p><strong>Date To: </strong><%= @invoice.date_to %></p>
 <p><strong>Water Bill: </strong><%= @invoice.water_bill %></p>
@@ -17,10 +15,10 @@
   <%= link_to 'Pay', new_invoice_payment_path({:invoice_id => @invoice.id, :amount => @invoice.total_amount}) %>
   <br>
 <% else %>
-  <%= link_to 'Payment Details', invoice_payment_path(@invoice) %>
+  <%= link_to 'Payment Details', payment_path(@invoice.payment) %>
 <% end %>
 
 
 <br>
 
-<%= link_to 'Back', booking_invoices_path(@booking) %>
+<%= link_to 'Back', invoices_path %>

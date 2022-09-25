@@ -14,16 +14,17 @@ Rails.application.routes.draw do
     root 'dashboards#index', as: :authenticated_root
   end
 
-  resources :users
+  resources :users do
+    post :lock, on: :member
+    post :unlock, on: :member
+  end
 
   resources :tenants, only: [:index, :show], shallow: true do
     post :activate, on: :member
     resources :bookings, shallow: true do
       post :deactivate, on: :member
-      resources :invoices, shallow: true do
-        resource :payment, only: [:show, :new, :create, :update] do
-          get :approve, on: :member
-        end
+      resources :invoices, only: [:new, :create], shallow: true do
+        resource :payment, only: [:new, :create]
       end
     end
   end
@@ -33,7 +34,11 @@ Rails.application.routes.draw do
     post :reopen, on: :member
   end
 
-  resources :payments, only: [:index]
+  resources :payments, only: [:index, :show, :update] do
+    get :approve, on: :member
+  end
+
+  resources :invoices, only: [:index, :show, :update]
 
   resources :announcements do
     post :archive, on: :member

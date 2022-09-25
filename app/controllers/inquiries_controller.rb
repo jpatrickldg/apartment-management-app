@@ -1,11 +1,11 @@
 class InquiriesController < ApplicationController
   
   def index
-    email = current_user.email
-    @inquiries = Inquiry.all 
+    @q = Inquiry.ransack(params[:q])
+    @inquiries = @q.result(distinct: true)
     @open = Inquiry.where(status: 'open')
-    @on_going = Inquiry.where(status: 'on_going').where(processed_by: email)
-    @close = Inquiry.where(status: 'close').where(processed_by: email)
+    @on_going = Inquiry.where(status: 'on_going').where(processed_by: current_user.email)
+    @close = Inquiry.where(status: 'close').where(processed_by: current_user.email)
   end
 
   def show

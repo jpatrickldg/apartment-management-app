@@ -1,13 +1,15 @@
 class InvoicesController < ApplicationController
-  before_action :get_booking, only: [:index, :new, :create]
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy] 
+  before_action :get_booking, only: [:new, :create]
+  before_action :set_invoice, only: [:edit, :update, :destroy] 
 
   def index
-    @invoices = @booking.invoices
+    @q = Invoice.ransack(params[:q])
+    @invoices = @q.result(distinct: true)
+    @current_user_invoices = current_user.invoices
   end
 
   def show
-    @booking = Booking.find(@invoice.booking_id)
+    @invoice = Invoice.includes(booking: [:user]).find(params[:id])
   end
 
   def new

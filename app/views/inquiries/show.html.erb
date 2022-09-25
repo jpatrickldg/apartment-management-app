@@ -12,9 +12,10 @@
 <p><strong>Preferred Location: </strong><%= @inquiry.location_preference.capitalize %></p>
 <p><strong>Preferred Room Type: </strong><%= @inquiry.room_type.capitalize %></p>
 <p><strong>Target Move-In Date: </strong><%= @inquiry.move_in_date %></p>
+<p><strong>Receptionist: </strong><%= @inquiry.processed_by %></p>
 <% if @inquiry.close? %>
   <p><strong>Contract Signed? </strong><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
-<% else %>
+<% elsif @inquiry.processed_by == current_user.email %>
   <%= link_to 'Close', edit_inquiry_path(@inquiry) %>
 <% end %>
 <br>
