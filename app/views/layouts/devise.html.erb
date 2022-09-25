@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MWPMI Portal</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="relative flex flex-col min-h-screen justify-between">
+    <nav class="flex-none flex justify-center place-items-center py-4">
+      <span class="self-center text-3xl font-semibold whitespace-nowrap">MWPMI Portal</span>
+    </nav>
+    <div class="flex-none italic text-sm">
+      <%= notice if notice %>
+      <%= alert if alert %>
+    </div>
+    <div class="flex-auto">
+      <%= yield %>
+    </div>
+  </body>
+</html>
