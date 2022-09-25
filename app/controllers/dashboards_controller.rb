@@ -18,8 +18,10 @@ class DashboardsController < ApplicationController
       render "dashboards/cashier"
     elsif current_user.receptionist?
       render "dashboards/receptionist"
-    else
+    elsif current_user.admin?
       render "dashboards/admin"
+    elsif current_user.owner?
+      render "dashboards/owner"
     end
   end
   

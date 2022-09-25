@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :lock, :unlock]
 
   def index
+   if current_user.owner?
+    @q = User.ransack(params[:q])
+   elsif current_user.admin?
     @q = User.where.not(role: 'owner').ransack(params[:q])
+   end
     @users = @q.result(distinct: true)
     @active_users = User.all.where(status: 'active')
     @inactive_users = User.all.where(status: 'inactive')
