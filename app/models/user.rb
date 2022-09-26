@@ -19,9 +19,9 @@ class User < ApplicationRecord
     super && self.active?
   end
 
-  def inactive_message
-    "Sorry, this account has been deactivated"
-  end
+  # def inactive_message
+  #   "Sorry, this account has been deactivated"
+  # end
   
   
 

@@ -12,14 +12,10 @@
   </head>
 
   <body class="relative flex flex-col min-h-screen justify-between">
-    <nav class="flex-none flex justify-center place-items-center py-4">
+    <nav class="flex-none flex justify-center place-items-center py-2">
       <span class="self-center text-3xl font-semibold whitespace-nowrap">MWPMI Portal</span>
     </nav>
-    <div class="flex-none italic text-sm">
-      <%= notice if notice %>
-      <%= alert if alert %>
-    </div>
-    <div class="flex-auto">
+    <div class="flex-auto flex justify-center place-items-center">
       <%= yield %>
     </div>
   </body>
