@@ -1,0 +1,94 @@
+<div class="grid grid-cols-auto gap-4 sm:grid-cols-2 md:grid-cols-3, lg:grid-cols-4">
+  <% if current_user.admin? || current_user.owner? %>
+    <%= link_to users_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+      <div class="flex place-items-center justify-between">
+        <div>
+          <p class="text-4xl font-medium"><%= @users_count %></p>
+          <h1>Users</h1>
+        </div>
+        <div>
+          <i class="fa-solid fa-people-group h-12 text-gray-800"></i>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <%= link_to tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @new_tenants_count %></p>
+        <h1>New Tenants</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-people-group h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @tenants_count %></p>
+        <h1>Active Tenants</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-people-group h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to available_rooms_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @available_space_count %></p>
+        <h1>Available Beds</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-bed h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to concerns_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @open_concerns_count %></p>
+        <h1>Open Concern Tickets</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-ticket h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to inquiries_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @open_inquiries_count %></p>
+        <h1>New Inquiries</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-clipboard-user h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to payments_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @pending_payments_count %></p>
+        <h1>Pending Payments</h1>
+      </div>
+      <div>
+        <i class="fa-regular fa-credit-card h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to active_invoices_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @active_invoices_count %></p>
+        <h1>Active Invoices</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-file-invoice h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  
+  
+</div>

@@ -38,7 +38,9 @@ Rails.application.routes.draw do
     get :approve, on: :member
   end
 
-  resources :invoices, only: [:index, :show, :update]
+  resources :invoices, only: [:index, :show, :update] do
+    get :active, on: :collection
+  end
 
   resources :announcements do
     post :archive, on: :member

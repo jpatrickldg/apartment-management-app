@@ -14,7 +14,7 @@
         <% end %>
       </li>
       
-      <% if current_user.cashier? || current_user.receptionist? %>
+      <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
         <li>
           <%= link_to tenants_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
             <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
@@ -61,13 +61,14 @@
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Invoices</span>
           <% end %>
         </li>
-        <li>
-          <%= link_to payments_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
-            <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
-          <% end %>
-        </li>
       <% end %>
+
+      <li>
+        <%= link_to payments_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
+        <% end %>
+      </li>
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
         <li>
@@ -81,27 +82,36 @@
       <li>
         <%= link_to concerns_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
           <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenant Concerns</span>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Concerns</span>
         <% end %>
       </li>
     </ul>
-    <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 bg-gray-700">
-      <div class="flex-none hidden lg:block">
+    <div>
+      <div class="flex-none flex justify-center place-items-center lg:hidden m-auto w-full p-2">
         <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar, class: 'rounded-sm w-12 block' %>
+          <%= image_tag current_user.avatar, class: 'rounded-sm w-8 block' %>
         <% else %>
-          <%= image_tag ("/assets/user.png"), class: 'rounded-sm block' %>
+          <%= image_tag ("/assets/user.png"), class: 'rounded-sm block w-8' %>
         <% end %>
       </div>
-      <div class="flex flex-auto flex-col text-sm hidden lg:block">
-        <h1><%= current_user.first_name.capitalize %></h1>
-        <h1 class="text-xs"><%= current_user.role.capitalize %></h1>
-      </div>
-      <div>
-        <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-full' do %>
-          <i class="fa-solid fa-right-from-bracket w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-        <% end %>
-      </div>
+      <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 bg-gray-700">
+        <div class="flex-none hidden lg:block">
+          <% if current_user.avatar.attached? %>
+            <%= image_tag current_user.avatar, class: 'rounded-sm w-10 block' %>
+          <% else %>
+            <%= image_tag ("/assets/user.png"), class: 'rounded-sm block w-10' %>
+          <% end %>
+        </div>
+        <div class="flex flex-auto flex-col text-sm hidden lg:block px-3">
+          <h1><%= current_user.first_name.capitalize %></h1>
+          <h1 class="text-xs"><%= current_user.role.capitalize %></h1>
+        </div>
+        <div>
+          <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-full' do %>
+            <i class="fa-solid fa-right-from-bracket w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+          <% end %>
+        </div>
+    </div>
     </div>
   </div>
 </aside>

@@ -1,6 +1,7 @@
 <h1>Invoice <%= @invoice.id %></h1>
 
 <p><strong>Status: </strong><%= @invoice.status.upcase %></p>
+<p><strong>Tenant: </strong><%= @invoice.booking.user.email %></p>
 <p><strong>Date From: </strong><%= @invoice.date_from %></p>
 <p><strong>Date To: </strong><%= @invoice.date_to %></p>
 <p><strong>Water Bill: </strong><%= @invoice.water_bill %></p>

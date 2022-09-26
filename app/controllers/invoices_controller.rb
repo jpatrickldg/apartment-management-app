@@ -8,6 +8,10 @@ class InvoicesController < ApplicationController
     @current_user_invoices = current_user.invoices
   end
 
+  def active
+    @invoices = Invoice.includes(booking: [:user]).where(status: 'active')
+  end
+
   def show
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
   end

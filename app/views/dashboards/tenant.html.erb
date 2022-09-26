@@ -1,46 +1,64 @@
-<h1>Welcome, <%= current_user.role.upcase %></h1>
-
-<h2>Announcements</h2>
-<% if @latest_published_announcement %>
-  <p><strong><%= @latest_published_announcement.title %></strong></p>
-  <p><%= @latest_published_announcement.description %></p>
-<% else %>
-  <p>No announcement found</p>
-<% end %>
-
-<%= link_to 'Profile', profile_path %> <br>
-<%= link_to 'Announcements', announcements_path %><br>
-<%= link_to 'Concerns', concerns_path %><br>
-<%= link_to 'Payments', payments_path %>
-
+<%= render 'shared/announcements' %>
 <br>
-<h2>Payment</h2>
-<% if @active_invoices.any? %>
-  
-  <% @active_invoices.each do |invoice| %>
-    <div>
-      <p><strong>Date From: </strong><%= invoice.date_from %></p>
-      <p><strong>Date To: </strong><%= invoice.date_to %></p>
-      <p><strong>Water Bill: </strong><%= invoice.water_bill %></p>
-      <p><strong>Electricity Bill: </strong><%= invoice.electricity_bill %></p>
-      <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
-      <p><strong>Total Amount: </strong><%= invoice.total_amount %></p>
-      <p><strong>Due Date: </strong><%= invoice.booking.due_date %></p>
-      <% if invoice.payment.present? %>
-        <p><em>Payment Under Review</em></p>
-      <% else %>
-        <%= link_to 'Pay via Online Transfer (Upload Proof)', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}) %>
-        <br>
-        <%= link_to 'Pay via GCash (Integrated)' %>
+
+<div class="w-full border border-gray-300 rounded-md">
+  <div class="p-2 bg-gray-300 rounded-md rounded-b-none">
+    <h2 class="font-medium"><i class="fa-solid fa-receipt w-5 h-5 flex-shrink-0 text-gray-800"></i> Payment Details</h2>
+  </div>
+  <div>
+    <% if @active_invoices.any? %>
+      <% @active_invoices.each do |invoice| %>
+        <div class="sm:hidden p-2 text-sm flex flex-col gap-2 justify-center place-items-center">
+          <div class="text-left m-auto">
+            <p><strong>Total Amount: ₱</strong><%= invoice.total_amount %></p>
+            <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
+            <p><strong>Water Bill: ₱</strong><%= invoice.water_bill %></p>
+            <p><strong>Electricity Bill: ₱</strong><%= invoice.electricity_bill %></p>
+            <p><strong>Date From: </strong><%= invoice.date_from %></p>
+            <p><strong>Date To: </strong><%= invoice.date_to %></p>
+            <p><strong>Due Date: </strong><%= invoice.booking.due_date %></p>
+            <% if invoice.payment.present? %>
+              <p><em>Payment Under Review</em></p>
+            <% else %>
+              <%= link_to 'Online Transfer', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}), class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center mt-2 w-36 m-auto' %>
+              <%= link_to 'GCash', authenticated_root_path, class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 m-auto w-36 mt-2' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="hidden sm:block overflow-x-auto relative">
+          <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-800 uppercase">
+              <th class="py-3 px-3">Total Amount</th>
+              <th class="py-3 px-3">Room Rate</th>
+              <th class="py-3 px-3">Water Bill</th>
+              <th class="py-3 px-3">Electricity Bill</th>
+              <th class="py-3 px-3">Date From</th>
+              <th class="py-3 px-3">Date To</th>
+              <th class="py-3 px-3">Due Date</th>
+            </thead>
+            <tbody>
+              <% @active_invoices.each do |invoice| %>
+                <tr class="bg-white border-b hover:bg-gray-200 text-gray-800">
+                  <td class="py-4 px-3">₱<%= invoice.total_amount %></td>
+                  <td class="py-4 px-3">₱<%= invoice.room_rate %></td>
+                  <td class="py-4 px-3">₱<%= invoice.water_bill %></td>
+                  <td class="py-4 px-3">₱<%= invoice.electricity_bill %></td>
+                  <td class="py-4 px-3"><%= invoice.date_from %></td>
+                  <td class="py-4 px-3"><%= invoice.date_to %></td>
+                  <td class="py-4 px-3"><%= invoice.booking.due_date %></td>
+                  <td class="py-4 px-6 whitespace-nowrap"><%= link_to 'Online Transfer', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}), class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center dark:bg-blue-600 m-auto w-36' %></td>
+                  <td><%= link_to 'GCash', authenticated_root_path, class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center dark:bg-blue-600 m-auto w-36' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% end %>
-    </div>
-    <br>
-  <% end %>
-  
-<% else %>
-  <p><em>No payment due</em></p>
-<% end %>
+    <% else %>
+      <p class="p-2 text-sm"><em>No payment due</em></p>
+    <% end %>
+  </div>
+</div>
 
 <br>
 
-<%= button_to "Sign out", destroy_user_session_path, method: :delete  %> <br>
