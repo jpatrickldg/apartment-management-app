@@ -12,15 +12,15 @@
   </head>
 
   <body class="h-screen overflow-x-hidden">
-    <div class="w-full grid grid-cols-[min-content_1fr] gap-2">
+    <div class="w-full grid grid-cols-[max-content_1fr]">
       <div>
         <%= render 'shared/sidebar' %>
       </div>
       <div class="grid grid-rows-[min-content_1fr] h-screen">
         <div>
-          <h1>Navbar</h1>
+          <%= render 'shared/navbar' %>
         </div>
-        <div class="overflow-y-auto">
+        <div class="overflow-y-auto py-4 px-3">
           <%= notice if notice %>
           <%= alert if alert %>
     
