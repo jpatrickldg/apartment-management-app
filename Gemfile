@@ -77,3 +77,7 @@ end
 gem "ransack", "~> 3.2"
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem "groupdate"
+
+gem "chartkick"
