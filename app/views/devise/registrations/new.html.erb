@@ -1,75 +1,78 @@
 <div class="w-full flex place-items-center justify-center">
-  <div class="w-96">
-    <div class="w-full text-center p-5">
+  <div class="w-[420px]">
+    <div class="w-full text-center p-3 border border-gray-300 rounded-md">
       <h2 class="font-medium text-lg">Register</h2>
       <div class="w-full">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
+          <fieldset class="border border-solid border-gray-300 p-3 rounded-md">
+            <legend class="text-sm text-left font-medium">Login Details</legend>
+            <div class="mb-2">
+              <%= f.email_field :email, placeholder: 'Email', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autofocus: true, autocomplete: "email" %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :email, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.email_field :email, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autofocus: true, autocomplete: "email" %>
-          </div>
+            <div class="mb-2">
+              <%= f.password_field :password, placeholder: 'Password', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :password, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %>
-            <%= f.password_field :password, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
-          </div>
+            <div class="mb-2">
+              <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
+            </div>
+          </fieldset>
+          <fieldset class="border border-solid border-gray-300 p-3 rounded-md mt-3">
+            <legend class="text-sm text-left font-medium">Personal Details</legend>
+            <div class="mb-2">
+              <%= f.text_field :first_name, placeholder: 'First name', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :password_confirmation, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.password_field :password_confirmation, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
-          </div>
+            <div class="mb-2">
+              <%= f.text_field :last_name, placeholder: 'Last name', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :first_name, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.text_field :first_name, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
-          </div>
+            <div class="mb-2">
+              <%= f.label :birthdate, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
+              <%= f.date_field :birthdate, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :last_name, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.text_field :last_name, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
-          </div>
+            <div class="mb-2 text-left flex place-items-center">
+              <%= f.label 'Gender:', class: 'text-sm font-medium text-gray-900 mr-2' %>
+              <%= f.radio_button :gender, 'male', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+              <%= f.label 'Male', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+              <%= f.radio_button :gender, 'female', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+              <%= f.label 'Female', class: 'ml-2 text-sm font-medium text-gray-900' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :birthdate, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.date_field :birthdate %>
-          </div>
+            <div class="mb-2">
+              <%= f.text_field :contact_no, placeholder: 'Contact No.', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+            </div>
 
-          <div class="mb-2">
-            <p>Gender</p>
-            <%= f.radio_button :gender, 'male' %>Male
-            <%= f.radio_button :gender, 'female' %>Female
-          </div>
+            <div class="mb-2">
+              <%= f.text_field :address, placeholder: 'Address', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :contact_no, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.text_field :contact_no, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
-          </div>
+            <div class="text-left flex place-items-center">
+              <%= f.label 'Occupation:', class: 'text-sm font-medium text-gray-900 mr-2' %>
+              <%= f.radio_button :occupation, 'student', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+              <%= f.label 'Student', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+              <%= f.radio_button :occupation, 'reviewee', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+              <%= f.label 'Reviewee', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+            </div>
 
-          <div class="mb-2">
-            <%= f.label :address, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-            <%= f.text_field :address, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
-          </div>
+          </fieldset>
 
-          <div class="mb-2">
-            <p>Occupation</p>
-            <%= f.radio_button :occupation, 'student' %>Student<br />
-            <%= f.radio_button :occupation, 'reviewee' %>Reviewee<br />
-          </div>
           
 
-          <div class="actions">
-            <%= f.submit "Sign up" %>
+          <div class="mb-2 mt-3">
+            <%= f.submit "Register", class: 'w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center' %>
           </div>
         <% end %>
+        <div class="text-left">
+          <span class="text-sm font-medium text-gray-900 t">Already have an account? </span><%= link_to "Log in", new_session_path(resource_name), class: 'text-sm font-medium text-blue-500 hover:underline' %>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 
-<%= render "devise/shared/links" %>
+

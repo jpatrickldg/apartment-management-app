@@ -1,6 +1,12 @@
 <div class="w-full flex place-items-center justify-center">
-  <div class="w-96">
-    <div class="w-full text-center p-5"><h2 class="font-medium text-lg">Log in</h2>
+  <div class="w-[420px]">
+    <div class="w-full text-center p-3 border border-gray-300 rounded-md">
+      <h2 class="font-medium text-lg">Log in</h2>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="flex-none italic text-sm text-red-600 text-left mt-2 mb-2">
+        <%= notice if notice %>
+        <%= alert if alert %>
+      </div>
       <div class="w-full">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="mb-2">
