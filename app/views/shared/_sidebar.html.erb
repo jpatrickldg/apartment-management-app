@@ -1,0 +1,98 @@
+<aside class="h-screen" aria-label="Sidebar">
+  <div class="overflow-y-auto py-4 px-3 bg-gray-50 dark:bg-gray-800 h-screen flex flex-col justify-between">
+    <ul class="space-y-2">
+      <li>
+        <%= link_to authenticated_root_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+          <i class="fa-solid fa-house-user w-5 h-5 flex-shrink-0 text-gray-500"></i>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Dashboard</span>
+        <% end %>
+      </li>
+      <br>
+      <li>
+        <%= link_to profile_path(current_user), class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+          <i class="fa-solid fa-user w-5 h-5 flex-shrink-0 text-gray-500"></i>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Profile</span>
+        <% end %>
+      </li>
+      
+      <% if current_user.cashier? %>
+        <li>
+          <%= link_to tenants_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenants</span>
+          <% end %>
+        </li>
+      <% end %>
+      
+      <% if current_user.admin? || current_user.owner? %>
+        <li>
+          <%= link_to users_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Users</span>
+          <% end %>
+        </li>
+      <% end %>
+      <br>
+      <li>
+        <%= link_to announcements_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+          <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-500"></i>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Announcements</span>
+        <% end %>
+      </li>
+      
+      <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
+        <li>
+          <%= link_to inquiries_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-book w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Inquiries</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to branches_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-city w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Branches/Rooms</span>
+          <% end %>
+        </li>
+      <% end %>
+      
+      <br>
+
+      <% if current_user.admin? || current_user.owner? || current_user.cashier? %>
+        <li>
+          <%= link_to invoices_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-file-invoice w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Invoices</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to payments_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
+          <% end %>
+        </li>
+      <% end %>
+      
+      <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
+        <li>
+          <%= link_to expenses_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+            <i class="fa-solid fa-basket-shopping w-5 h-5 flex-shrink-0 text-gray-500"></i>
+            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Expenses</span>
+          <% end %>
+        </li>
+      <% end %>
+      <br>
+      <li>
+        <%= link_to concerns_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700' do %>
+          <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500"></i>
+          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenant Concerns</span>
+        <% end %>
+      </li>
+    </ul>
+    <div>
+      <%= button_to destroy_user_session_path, method: :delete, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-full' do %>
+        <i class="fa-solid fa-right-from-bracket w-5 h-5 flex-shrink-0 text-gray-500"></i>
+        <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block text-left">Sign out</span>
+      <% end %>
+    </div>
+  </div>
+</aside>
