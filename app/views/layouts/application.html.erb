@@ -11,10 +11,22 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= notice if notice %>
-    <%= alert if alert %>
+  <body class="h-screen overflow-x-hidden">
+    <div class="w-full grid grid-cols-[min-content_1fr] gap-2">
+      <div>
+        <%= render 'shared/sidebar' %>
+      </div>
+      <div class="grid grid-rows-[min-content_1fr] h-screen">
+        <div>
+          <h1>Navbar</h1>
+        </div>
+        <div class="overflow-y-auto">
+          <%= notice if notice %>
+          <%= alert if alert %>
     
-    <%= yield %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
