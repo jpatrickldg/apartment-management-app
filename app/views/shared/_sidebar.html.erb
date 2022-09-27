@@ -2,13 +2,13 @@
   <div class="overflow-y-auto pt-4 bg-gray-50 dark:bg-gray-800 h-screen flex flex-col justify-between">
     <ul class="space-y-2 px-3">
       <li>
-        <%= link_to authenticated_root_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+        <%= link_to authenticated_root_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(authenticated_root_path)}" do %>
           <i class="fa-solid fa-house-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Dashboard</span>
         <% end %>
       </li>
       <li>
-        <%= link_to profile_path(current_user), class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+        <%= link_to profile_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(profile_path)}" do %>
           <i class="fa-solid fa-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Profile</span>
         <% end %>
@@ -16,7 +16,7 @@
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
         <li>
-          <%= link_to tenants_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to tenants_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(tenants_path)}" do %>
             <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenants</span>
           <% end %>
@@ -25,7 +25,7 @@
       
       <% if current_user.admin? || current_user.owner? %>
         <li>
-          <%= link_to users_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to users_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(users_path)}" do %>
             <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Users</span>
           <% end %>
@@ -33,7 +33,7 @@
       <% end %>
 
       <li>
-        <%= link_to announcements_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+        <%= link_to announcements_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(announcements_path)}" do %>
           <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Announcements</span>
         <% end %>
@@ -41,13 +41,13 @@
       
       <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
         <li>
-          <%= link_to inquiries_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to inquiries_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(inquiries_path)}" do %>
             <i class="fa-solid fa-book w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Inquiries</span>
           <% end %>
         </li>
         <li>
-          <%= link_to branches_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to branches_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(branches_path)}" do %>
             <i class="fa-solid fa-city w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Branches/Rooms</span>
           <% end %>
@@ -56,7 +56,7 @@
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? %>
         <li>
-          <%= link_to invoices_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to invoices_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(invoices_path)}" do %>
             <i class="fa-solid fa-file-invoice w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Invoices</span>
           <% end %>
@@ -64,7 +64,7 @@
       <% end %>
 
       <li>
-        <%= link_to payments_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+        <%= link_to payments_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(payments_path)}" do %>
           <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
         <% end %>
@@ -72,7 +72,7 @@
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
         <li>
-          <%= link_to expenses_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+          <%= link_to expenses_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(expenses_path)}" do %>
             <i class="fa-solid fa-basket-shopping w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
             <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Expenses</span>
           <% end %>
@@ -80,7 +80,7 @@
       <% end %>
 
       <li>
-        <%= link_to concerns_path, class: 'flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 justify-center' do %>
+        <%= link_to concerns_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(concerns_path)}" do %>
           <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Concerns</span>
         <% end %>
@@ -94,7 +94,7 @@
           <%= image_tag ("/assets/user.png"), class: 'rounded-sm block w-8' %>
         <% end %>
       </div>
-      <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 bg-gray-700">
+      <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-white hover:bg-gray-700 bg-gray-700">
         <div class="flex-none hidden lg:block">
           <% if current_user.avatar.attached? %>
             <%= image_tag current_user.avatar, class: 'rounded-sm w-10 block' %>
@@ -107,7 +107,7 @@
           <h1 class="text-xs"><%= current_user.role.capitalize %></h1>
         </div>
         <div>
-          <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-full' do %>
+          <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 w-full' do %>
             <i class="fa-solid fa-right-from-bracket w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
           <% end %>
         </div>
