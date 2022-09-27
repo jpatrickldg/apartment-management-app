@@ -1,41 +1,46 @@
-<h1>Expenses</h1>
-
-<% if @expenses.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Amount</th>
-        <th>Processed By</th>
-        <th>Proof</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @expenses.each do |expense| %>
-      <tr>
-        <td><%= expense.title %></td>
-        <td><%= expense.description %></td>
-        <td><%= expense.amount %></td>
-        <td><%= expense.processed_by %></td>
-        
-        <% if expense.proof.attached? %>
-          <td><%= image_tag expense.proof, width: "50px"  %></td>
-        <% else %>
-          <td>NA</td>
+<div>
+  <div class="flex gap-2 place-items-center mb-4">
+    <h2 class="text-xl lg:text-2xl font-bold">Expenses</h2>
+    <%= link_to 'New Expense', new_expense_path, class: 'py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  </div>
+  <% if @expenses.any? %>
+  <div class="overflow-x-auto relative rounded-md border border-gray-200">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+        <tr>
+          <th class="py-3 px-3">Title</th>
+          <th class="py-3 px-3">Description</th>
+          <th class="py-3 px-3">Amount</th>
+          <th class="py-3 px-3">Processed By</th>
+          <th class="py-3 px-3 text-center">Proof</th>
+          <th class="py-3 px-3">
+            <span class="sr-only">View</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @expenses.each do |expense| %>
+        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+          <td class="py-3 px-3"><%= expense.title %></td>
+          <td class="py-3 px-3"><%= truncate(expense.description) %></td>
+          <td class="py-3 px-3">₱<%= expense.amount %></td>
+          <td class="py-3 px-3"><%= expense.processed_by %></td>
+          
+          <% if expense.proof.attached? %>
+            <td class="py-3 px-3 text-center"><%= image_tag expense.proof, width: "50px", class: 'm-auto'  %></td>
+          <% else %>
+            <td class="py-3 px-3 text-center">NA</td>
+          <% end %>
+          
+          <td class="py-3 px-3"><%= link_to 'View', expense_path(expense), class: 'font-medium text-blue-600 hover:underline' %></td>
+        </tr>
         <% end %>
-        
-        <td><%= link_to 'View', expense_path(expense) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <h3>No expenses found</h3>
-<% end %>
+      </tbody>
+    </table>
+  </div>
+  <% else %>
+    <h3>No expenses found</h3>
+  <% end %>
+</div>
 
-<br>
-<br>
-<%= link_to 'Add Expense', new_expense_path %>
-<br>
-<%= link_to 'Back', authenticated_root_path %>
+

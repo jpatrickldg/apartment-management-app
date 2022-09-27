@@ -1,38 +1,38 @@
-<h1>New Expense</h1>
-
-<%= form_with model: @expense do |f| %>
-  
-  <div>
+<div>
+  <h2 class="text-lg lg:text-xl font-bold mb-2">New Expense</h2>
+  <%= form_with model: @expense do |f| %>
     <% if @expense.errors.any? %>
-      <ul>
-        <% @expense.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
+        <% @expense.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
         <% end %>
-      /ul>
+      </div>
     <% end %>
-  </div>
+    <div>
+      <div class="mb-2">
+        <%= f.label :title, class: 'block font-medium mb-1' %> 
+        <%= f.text_field :title, class: 'w-full block border border-gray-200 rounded-lg' %>
+      </div>
 
-  <div>
-    <%= f.label :title %> <br>
-    <%= f.text_field :title %>
-  </div>
+      <div class="mb-2">
+        <%= f.label :description, class: 'block font-medium mb-1' %> 
+        <%= f.text_area :description, :rows => 4, class: 'w-full blcok border border-gray-200 rounded-lg' %>
+      </div>
 
-  <div>
-    <%= f.label :description %> <br>
-    <%= f.text_area :description, :cols => 30, :rows => 10 %>
-  </div>
+      <div class="mb-2">
+        <%= f.label :amount, class: 'block font-medium mb-1' %>
+        <%= f.number_field :amount, class: 'w-full block border border-gray-200 rounded-lg' %>
+      </div>
 
-  <div>
-    <%= f.label :amount %> <br>
-    <%= f.number_field :amount %>
-  </div>
+      <div class="mb-4">
+        <%= f.label 'Proof', class: 'block mb-1 font-medium text-gray-900' %>
+        <%= f.file_field :proof, class: 'block w-full text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none file:bg-gray-200 file:rounded-lg file:hover:cursor-pointer file:hover:bg-gray-300 file:border-none file:p-2 file:rounded-r-none file:px-4' %>
+      </div>
 
-  <div>
-    <%= f.label :proof %> <br>
-    <%= f.file_field :proof %>
-  </div>
-
-  <div>
-    <%= f.submit 'Add Expense' %>
-  </div>
-<% end %>
+      <div class="flex gap-2 items-center">
+        <%= f.submit 'Add Expense', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= link_to 'Cancel', expenses_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      </div>
+    </div>
+  <% end %>
+</div>

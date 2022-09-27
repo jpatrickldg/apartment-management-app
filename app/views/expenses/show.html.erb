@@ -1,18 +1,29 @@
-<h1>Expense</h1>
+<h2 class="text-lg lg:text-xl font-bold mb-4">Expense ID: <%= @expense.id %></h2>
 
-<p><strong>Expense ID: </strong><%= @expense.id %></p>
-<p><strong>Title: </strong><%= @expense.title %></p>
-<p><strong>Description: </strong><%= @expense.description %></p>
-<p><strong>Amount: </strong><%= @expense.amount %></p>
-<p><strong>Processed by: </strong><%= @expense.processed_by %></p>
-
-<p><strong>Proof:</strong></p>
-<% if @expense.proof.attached? %>
-  <%= image_tag @expense.proof, width: "120px", height: "120px" %>
-<% else %>
-  <p><em>No proof uploaded</em></p>
-<% end %>
-
-<br>
-<br>
-<%= link_to 'Back to Expenses', expenses_path %>
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Title:</strong>
+    <p><%= @expense.title %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Description:</strong>
+    <p><%= @expense.description %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Amount:</strong>
+    <p>₱<%= @expense.amount %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Processed by:</strong>
+    <p><%= @expense.processed_by %></p>
+  </div>
+  <div class="flex flex-col gap-2 mb-2">
+    <p><strong>Proof:</strong></p>
+    <% if @expense.proof.attached? %>
+      <%= image_tag @expense.proof, width: "120px", height: "120px" %>
+    <% else %>
+      <p><em>No proof uploaded</em></p>
+    <% end %>
+  </div>
+</div>
+<%= link_to 'Back', expenses_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
