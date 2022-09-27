@@ -71,6 +71,7 @@ class AnnouncementsController < ApplicationController
 
   def check_if_saved_as_draft
     if params[:commit] == "Save as Draft"
+      @announcement.set_published_by(current_user.email)
       @announcement.draft!
     end
   end

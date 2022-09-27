@@ -1,0 +1,28 @@
+<% if announcements.any? %>
+  <div class="overflow-x-auto relative rounded-md border border-gray-200">
+    <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+        <tr>
+          <th class="py-3 px-3 w-1/4">Title</th>
+          <th class="py-3 px-3 w-1/2">Description</th>
+          <th class="py-3 px-3 w-1/4">
+            <span class="sr-only">View</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% announcements.each do |announcement| %>
+        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+          <td class="py-3 px-3 font-medium text-gray-900"><%= announcement.title %></td>
+          <td class="py-3 px-3"><%= truncate(announcement.description) %></td>
+          <td class="py-3 px-3 text-center"><%= link_to 'View', announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div>
+    <p class="italic text-sm">Empty</p>
+  </div>
+<% end %>

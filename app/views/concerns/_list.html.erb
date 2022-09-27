@@ -3,13 +3,13 @@
   <% if concerns.any? %>
     <div class="overflow-x-auto relative rounded-md border border-gray-200">
       <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
           <tr>
-            <th class="py-3 px-3">Date Posted</th>
-            <th class="py-3 px-3">Concern</th>
-            <th class="py-3 px-3">Description</th>
-            <th class="py-3 px-3">Status</th>
-            <th class="py-3 px-3">
+            <th class="py-3 px-3 w-1/8">Date Posted</th>
+            <th class="py-3 px-3 w-1/8">Concern</th>
+            <th class="py-3 px-3 w-1/2">Description</th>
+            <th class="py-3 px-3 w-1/8">Status</th>
+            <th class="py-3 px-3 w-1/8 text-center">
               <span class="sr-only">View</span>
             </th>
           </tr>
@@ -19,7 +19,7 @@
             <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
               <td class="py-3 px-3"><%= concern.created_at.strftime("%Y-%m-%d") %></td>
               <td class="py-3 px-3"><%= concern.title %></td>
-              <td class="py-3 px-3"><%= truncate(concern.description) %></td>
+              <td class="py-3 px-3"><%= truncate(concern.description, length: 80) %></td>
               <td class="py-3 px-3">
                 <% if concern.open? %>
                   <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= concern.status.upcase %></span>
@@ -27,7 +27,7 @@
                   <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= concern.status.upcase %></span>
                 <% end %>
               </td>
-              <td class="py-3 px-3"><%= link_to 'View', concern_path(concern), class: 'font-medium text-blue-600 hover:underline' %></td>
+              <td class="py-3 px-3 text-center"><%= link_to 'View', concern_path(concern), class: 'font-medium text-blue-600 hover:underline' %></td>
             </tr>
           <% end %>
         </tbody>

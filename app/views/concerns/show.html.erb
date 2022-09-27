@@ -27,10 +27,13 @@
   </div>
 </div>
 
-<% if @concern.open? %>
-  <%= link_to 'Close Ticket', close_concern_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
-<% elsif @concern.closed? && current_user.tenant? %>
-  <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-<% end %>
+<div class="flex gap-2 items-center">
+  <% if @concern.open? %>
+    <%= link_to 'Close Ticket', close_concern_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+  <% elsif @concern.closed? && current_user.tenant? %>
+    <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  <% end %>
+  <%= link_to 'Back', concerns_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
 
 
