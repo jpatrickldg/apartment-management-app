@@ -1,27 +1,36 @@
-<h1>Concerns#show</h1>
-<p>Find me in app/views/concerns/show.html.erb</p>
+<h2 class="text-lg lg:text-xl font-bold mb-4">Concern Ticket</h2>
 
-<p><strong>Status: </strong><%= @concern.status.upcase %></p>
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <div class="flex gap-2 place-items-center mb-2">
+  <p><strong>Status: </strong></p>
+  <% if @concern.open? %>
+    <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @concern.status.upcase %></h1>
+  <% elsif @concern.closed? %>
+    <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @concern.status.upcase %></h1>
+  <% end %>
+  </div>
+  <% if !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Posted by: </strong></p>
+      <%= link_to @tenant.email, tenant_path(@tenant), class: 'font-medium text-blue-600 hover:underline' %>
+    </div>
+  <% end %>
 
-<% if !current_user.tenant? %>
-  <p><strong>Posted by: </strong><%= link_to @tenant.email, tenant_path(@tenant) %></p>
-<% end %>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Concern: </strong></p>
+    <p class="underline"><%= @concern.title %></p>
+  </div>
 
-<p><strong>Concern: </strong><%= @concern.title %></p>
-<p><strong>Description:</strong></p>
-<p><%= @concern.description %></p>
-<% if @concern.closed? %>
-  <p><strong>Remarks: </strong><%= @concern.remarks %></p>
-<% end %>
-
+  <div class="mb-2">
+    <p><strong>Description:</strong></p>
+    <p><%= @concern.description %></p>
+  </div>
+</div>
 
 <% if @concern.open? %>
-  <%= link_to 'Close', close_concern_path %>
+  <%= link_to 'Close Ticket', close_concern_path, class: 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-2 text-center w-24' %>
 <% elsif @concern.closed? && current_user.tenant? %>
-  <%= button_to 'Re-Open', reopen_concern_path %>
+  <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2 px-2 text-center w-24' %>
 <% end %>
 
-<br>
-
-<%= link_to 'Back', concerns_path %>
 
