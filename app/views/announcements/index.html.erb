@@ -1,8 +1,6 @@
-<div class="flex justify-center place-items-center gap-2 mb-4">
+<div class="flex place-items-center gap-2 mb-4">
   <h1 class="text-xl lg:text-2xl font-bold">Announcements</h1>
-  <%= link_to new_announcement_path, class: 'flex place-items-center' do %>
-    <i class="fa-solid fa-file-circle-plus text-gray-700 hover:text-green-700 w-5 h-5 lg:w-7 lg:h-7"></i>
-  <% end %>
+  <%= link_to 'New Announcement', new_announcement_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
 
 <div class="mb-6">

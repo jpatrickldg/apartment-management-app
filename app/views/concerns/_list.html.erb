@@ -22,7 +22,7 @@
               <td class="py-3 px-3"><%= truncate(concern.description) %></td>
               <td class="py-3 px-3">
                 <% if concern.open? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= concern.status.upcase %></span>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= concern.status.upcase %></span>
                 <% else %>
                   <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= concern.status.upcase %></span>
                 <% end %>
