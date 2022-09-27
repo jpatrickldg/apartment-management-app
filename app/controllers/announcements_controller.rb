@@ -19,11 +19,12 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
 
-    if @announcement.save!
+    if @announcement.save
       check_if_publishing
+      check_if_saved_as_draft
       redirect_to announcement_path(@announcement), notice: 'New Announcement Added'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,9 +34,10 @@ class AnnouncementsController < ApplicationController
   def update
     if @announcement.update(announcement_params)
       check_if_publishing
+      check_if_saved_as_draft
       redirect_to announcement_path(@announcement), notice: 'Updated Successfully'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -64,6 +66,12 @@ class AnnouncementsController < ApplicationController
     if params[:commit] == "Publish"
       @announcement.published!
       @announcement.set_published_by(current_user.email)
+    end
+  end
+
+  def check_if_saved_as_draft
+    if params[:commit] == "Save as Draft"
+      @announcement.draft!
     end
   end
   

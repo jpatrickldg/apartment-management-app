@@ -5,7 +5,8 @@
   <div class="p-2">
     <% if @latest_published_announcement %>
       <h1 class="font-medium"><%= @latest_published_announcement.title %></h1>
-      <p class="text-sm"><%= @latest_published_announcement.description %></p>
+      <p class="text-sm"><%= truncate(@latest_published_announcement.description) %></p>
+      <%= link_to 'View', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline text-sm'  %>
     <% else %>
       <p>No new announcement</p>
     <% end %>

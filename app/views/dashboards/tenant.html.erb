@@ -25,29 +25,37 @@
             <% end %>
           </div>
         </div>
-        <div class="hidden sm:block overflow-x-auto relative">
+        <div class="hidden sm:block overflow-x-auto relative rounded-md border border-gray-200">
           <table class="w-full text-sm text-left text-gray-500">
-            <thead class="text-xs text-gray-800 uppercase">
-              <th class="py-3 px-3">Total Amount</th>
-              <th class="py-3 px-3">Room Rate</th>
-              <th class="py-3 px-3">Water Bill</th>
-              <th class="py-3 px-3">Electricity Bill</th>
-              <th class="py-3 px-3">Date From</th>
-              <th class="py-3 px-3">Date To</th>
-              <th class="py-3 px-3">Due Date</th>
+            <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+              <tr>
+                <th class="py-3 px-3">Total Amount</th>
+                <th class="py-3 px-3">Room Rate</th>
+                <th class="py-3 px-3">Water Bill</th>
+                <th class="py-3 px-3">Electricity Bill</th>
+                <th class="py-3 px-3">Date From</th>
+                <th class="py-3 px-3">Date To</th>
+                <th class="py-3 px-3">Due Date</th>
+                <th class="py-3 px-3">
+                  <span class="sr-only">Payment</span>
+                </th>
+                <th class="py-3 px-3">
+                  <span class="sr-only">Payment</span>
+                </th>
+              </tr>
             </thead>
             <tbody>
               <% @active_invoices.each do |invoice| %>
-                <tr class="bg-white border-b hover:bg-gray-200 text-gray-800">
-                  <td class="py-4 px-3">₱<%= invoice.total_amount %></td>
-                  <td class="py-4 px-3">₱<%= invoice.room_rate %></td>
-                  <td class="py-4 px-3">₱<%= invoice.water_bill %></td>
-                  <td class="py-4 px-3">₱<%= invoice.electricity_bill %></td>
-                  <td class="py-4 px-3"><%= invoice.date_from %></td>
-                  <td class="py-4 px-3"><%= invoice.date_to %></td>
-                  <td class="py-4 px-3"><%= invoice.booking.due_date %></td>
-                  <td class="py-4 px-6 whitespace-nowrap"><%= link_to 'Online Transfer', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}), class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center dark:bg-blue-600 m-auto w-36' %></td>
-                  <td><%= link_to 'GCash', authenticated_root_path, class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center dark:bg-blue-600 m-auto w-36' %></td>
+                <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+                  <td class="py-3 px-3">₱<%= invoice.total_amount %></td>
+                  <td class="py-3 px-3">₱<%= invoice.room_rate %></td>
+                  <td class="py-3 px-3">₱<%= invoice.water_bill %></td>
+                  <td class="py-3 px-3">₱<%= invoice.electricity_bill %></td>
+                  <td class="py-3 px-3"><%= invoice.date_from %></td>
+                  <td class="py-3 px-3"><%= invoice.date_to %></td>
+                  <td class="py-3 px-3"><%= invoice.booking.due_date %></td>
+                  <td class="py-4 px-3 whitespace-nowrap"><%= link_to 'Online Transfer', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}), class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center m-auto w-36' %></td>
+                  <td class="py-4 px-3 whitespace-nowrap"><%= link_to 'GCash', authenticated_root_path, class: 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center m-auto w-36' %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -55,7 +63,9 @@
         </div>
       <% end %>
     <% else %>
-      <p class="p-2 text-sm"><em>No payment due</em></p>
+      <div>
+        <p class="italic text-sm">No payment due</p>
+      </div>
     <% end %>
   </div>
 </div>
