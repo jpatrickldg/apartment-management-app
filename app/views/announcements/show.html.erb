@@ -1,22 +1,39 @@
-<h1>Announcement</h1>
+<h2 class="text-lg lg:text-xl font-bold mb-4">Announcement</h2>
 
-<p><strong>Status: </strong><%= @announcement.status.upcase %></p>
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Status: </strong></p>
+    <% if @announcement.published? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @announcement.status.upcase %></h1>
+    <% elsif @announcement.draft? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @announcement.status.upcase %></h1>
+    <% elsif @announcement.archived? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= @announcement.status.upcase %></h1>
+    <% end %>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Title: </strong></p>
+    <p class="underline"><%= @announcement.title %></p>
+  </div>
+  <div class="mb-2">
+    <p><strong>Content:</strong></p>
+    <p><%= @announcement.description %></p>
+  </div>
+</div>
 
-<h3><%= @announcement.title %></h3>
-<p><%= @announcement.description %></p>
 
-<br>
 
 <% if current_user.receptionist? || current_user.admin? || current_user.owner? %>
   <% if @announcement.published? %>
-    <%= link_to 'Edit', edit_announcement_path(@announcement) %>
-    <%= button_to 'Archived', archive_announcement_path(@announcement) %>
+    <div class="flex gap-2">
+      <%= link_to 'Edit', edit_announcement_path(@announcement), class: 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center w-24' %>
+      <%= button_to 'Archived', archive_announcement_path(@announcement), class: 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center w-24' %>
+    </div>
   <% end %>
 
   <% if @announcement.archived? %>
-    <%= button_to 'Re-Publish', republish_announcement_path(@announcement) %>
+    <%= button_to 'Re-Publish', republish_announcement_path(@announcement), class: 'text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 px-2 text-center w-24' %>
   <% end %>
 <% end %>
 
 
-<%= link_to 'Back', announcements_path %>

@@ -1,0 +1,26 @@
+<%= form_with model: @announcement, data:{turbo:false}, local: true do |f| %>
+  <% if @announcement.errors.any? %>
+    <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
+      <% @announcement.errors.full_messages.each do |error| %>
+        <div><%= error %></div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="mb-4 w-full bg-gray-50 rounded-lg border border-gray-200">
+
+    <div class="py-2 px-4 bg-white rounded-t-lg">
+      <%= f.label :title, class: 'sr-only' %>
+      <%= f.text_field :title, placeholder: 'Title', class: 'px-0 w-full text-sm text-gray-900 bg-white border-0 focus:ring-0 border-b border-gray-200' %>
+    </div>
+
+    <div class="px-4 bg-white rounded-t-lg">
+      <%= f.label :description, class: 'sr-only' %>
+      <%= f.text_area :description, placeholder: 'Write an announcement...', :rows => 4, class: 'px-0 w-full text-sm text-gray-900 bg-white border-0 focus:ring-0' %>
+    </div>
+
+    <div class="flex gap-2 items-center py-2 px-3 border-t">
+      <%= f.submit 'Publish', class: 'py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+      <%= f.submit 'Save as Draft', class: 'py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+    </div>
+  </div>
+<% end %>

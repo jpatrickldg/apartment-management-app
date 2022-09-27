@@ -1,78 +1,108 @@
-<h1>Announcements</h1>
+<div class="flex justify-center place-items-center gap-2 mb-4">
+  <h1 class="text-xl lg:text-2xl font-bold">Announcements</h1>
+  <%= link_to new_announcement_path, class: 'flex place-items-center' do %>
+    <i class="fa-solid fa-file-circle-plus text-gray-700 hover:text-green-700 w-5 h-5 lg:w-7 lg:h-7"></i>
+  <% end %>
+</div>
 
-<h2>Published</h2>
-<% if @published.any? %>
-  <table>
-    <thead></thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Published by</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @published.each do |announcement| %>
-      <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.description %></td>
-        <td><%= announcement.published_by %></td>
-        <td><%= link_to 'View', announcement_path(announcement) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p><em>No published announcement currently</em></p>
-<% end %>
+<div class="mb-6">
+  <h2 class="text-lg lg:text-xl font-bold">Published</h2>
+  <% if @published.any? %>
+    <div class="overflow-x-auto relative rounded-md border border-gray-200">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+          <tr>
+            <th class="py-3 px-3">Title</th>
+            <th class="py-3 px-3">Description</th>
+            <th class="py-3 px-3">Published by</th>
+            <th class="py-3 px-3">
+              <span class="sr-only">View</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @published.each do |announcement| %>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            <td class="py-3 px-3 font-medium text-gray-900"><%= announcement.title %></td>
+            <td class="py-3 px-3"><%= truncate(announcement.description) %></td>
+            <td class="py-3 px-3"><%= announcement.published_by %></td>
+            <td class="py-3 px-3 text-center"><%= link_to 'View', announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      <p class="italic text-sm">Empty</p>
+    </div>
+  <% end %>
+</div>
 
 <% if current_user.receptionist? || current_user.admin? || current_user.owner? %>
-  <h2>Drafts</h2>
-  <% if @draft.any? %>
-    <table>
-      <thead></thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @draft.each do |announcement| %>
-        <tr>
-          <td><%= announcement.title %></td>
-          <td><%= announcement.description %></td>
-          <td><%= link_to 'Open', edit_announcement_path(announcement) %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p><em>No draft announcements found</em></p>
-  <% end %>
+  <div class="mb-6">
+    <h2 class="text-lg lg:text-xl font-bold">Drafts</h2>
+    <% if @draft.any? %>
+      <div class="overflow-x-auto relative rounded-md border border-gray-200">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+            <tr>
+              <th class="py-3 px-3">Title</th>
+              <th class="py-3 px-3">Description</th>
+              <th class="py-3 px-3">
+                <span class="sr-only">View</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @draft.each do |announcement| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-3 px-3 font-medium text-gray-900"><%= announcement.title %></td>
+              <td class="py-3 px-3"><%= announcement.description %></td>
+              <td class="py-3 px-3 text-center"><%= link_to 'Open', edit_announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div>
+        <p class="italic text-sm">Empty</p>
+      </div>
+    <% end %>
+  </div>
 
-  <h2>Archived</h2>
-  <% if @archived.any? %>
-    <table>
-      <thead></thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @archived.each do |announcement| %>
-        <tr>
-          <td><%= announcement.title %></td>
-          <td><%= announcement.description %></td>
-          <td><%= link_to 'View', announcement_path(announcement) %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p><em>No archived announcements found</em></p>
-  <% end %>
-  <br>
-  <%= link_to 'Add Announcement', new_announcement_path %>
+  <div class="mb-6">
+    <h2 class="text-lg lg:text-xl font-bold">Archives</h2>
+    <% if @archived.any? %>
+      <div class="overflow-x-auto relative rounded-md border border-gray-200">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+            <tr>
+              <th class="py-3 px-3">Title</th>
+              <th class="py-3 px-3">Description</th>
+              <th class="py-3 px-3">
+                <span class="sr-only">View</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @archived.each do |announcement| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-3 px-3 font-medium text-gray-900"><%= announcement.title %></td>
+              <td class="py-3 px-3"><%= announcement.description %></td>
+              <td class="py-3 px-3 text-center"><%= link_to 'View', announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div>
+        <p class="italic text-sm">Empty</p>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
 
@@ -80,5 +110,3 @@
 
 
 
-<br><br>
-<%= link_to 'Back', authenticated_root_path %>
