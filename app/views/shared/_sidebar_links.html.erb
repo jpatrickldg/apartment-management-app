@@ -1,0 +1,50 @@
+<li>
+  <%= link_to path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(path)}" do %>
+
+    <% if path.include? "profile" %>
+      <i class="fa-solid fa-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Profile</span>
+
+    <% elsif path.include? "tenants" %>
+      <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenants</span>
+
+    <% elsif path.include? "users" %>
+      <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Users</span>
+
+    <% elsif path.include? "announcements" %>
+      <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Announcements</span>
+
+    <% elsif path.include? "inquiries" %>
+      <i class="fa-solid fa-book w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Inquiries</span>
+
+    <% elsif path.include? "branches" %>
+      <i class="fa-solid fa-city w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Branches/Rooms</span>
+
+    <% elsif path.include? "invoices" %>
+      <i class="fa-solid fa-file-invoice w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Invoices</span>
+
+    <% elsif path.include? "payments" %>
+      <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
+
+    <% elsif path.include? "expenses" %>
+      <i class="fa-solid fa-basket-shopping w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Expenses</span>
+
+    <% elsif path.include? "concerns" %>
+      <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Concerns</span>
+
+    <% else %>
+      <i class="fa-solid fa-house-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Dashboard</span>
+      
+    <% end %>
+  <% end %>
+</li>

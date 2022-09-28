@@ -1,93 +1,38 @@
 <aside class="h-screen" aria-label="Sidebar">
   <div class="overflow-y-auto pt-4 bg-gray-50 dark:bg-gray-800 h-screen flex flex-col justify-between">
     <ul class="space-y-2 px-3">
-      <li>
-        <%= link_to authenticated_root_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(authenticated_root_path)}" do %>
-          <i class="fa-solid fa-house-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Dashboard</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to profile_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(profile_path)}" do %>
-          <i class="fa-solid fa-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Profile</span>
-        <% end %>
-      </li>
+      <%= render 'shared/sidebar_links', path: authenticated_root_path %>
+      <%= render 'shared/sidebar_links', path: profile_path %>
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
-        <li>
-          <%= link_to tenants_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(tenants_path)}" do %>
-            <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Tenants</span>
-          <% end %>
-        </li>
+        <%= render 'shared/sidebar_links', path: tenants_path %>
       <% end %>
       
       <% if current_user.admin? || current_user.owner? %>
-        <li>
-          <%= link_to users_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(users_path)}" do %>
-            <i class="fa-solid fa-users w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Users</span>
-          <% end %>
-        </li>
+        <%= render 'shared/sidebar_links', path: users_path %>
       <% end %>
 
-      <li>
-        <%= link_to announcements_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(announcements_path)}" do %>
-          <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Announcements</span>
-        <% end %>
-      </li>
+      <%= render 'shared/sidebar_links', path: announcements_path %>
       
       <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
-        <li>
-          <%= link_to inquiries_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(inquiries_path)}" do %>
-            <i class="fa-solid fa-book w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Inquiries</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to branches_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(branches_path)}" do %>
-            <i class="fa-solid fa-city w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Branches/Rooms</span>
-          <% end %>
-        </li>
+        <%= render 'shared/sidebar_links', path: inquiries_path %>
+        <%= render 'shared/sidebar_links', path: branches_path %>
       <% end %>
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? %>
-        <li>
-          <%= link_to invoices_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(invoices_path)}" do %>
-            <i class="fa-solid fa-file-invoice w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Invoices</span>
-          <% end %>
-        </li>
+        <%= render 'shared/sidebar_links', path: invoices_path %>
       <% end %>
 
-      <li>
-        <%= link_to payments_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(payments_path)}" do %>
-          <i class="fa-regular fa-credit-card w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Payments</span>
-        <% end %>
-      </li>
+      <%= render 'shared/sidebar_links', path: payments_path %>
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
-        <li>
-          <%= link_to expenses_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(expenses_path)}" do %>
-            <i class="fa-solid fa-basket-shopping w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-            <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Expenses</span>
-          <% end %>
-        </li>
+        <%= render 'shared/sidebar_links', path: expenses_path %>
       <% end %>
 
-      <li>
-        <%= link_to concerns_path, class: "flex items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 justify-center #{'bg-gray-700' if current_page?(concerns_path)}" do %>
-          <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-          <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Concerns</span>
-        <% end %>
-      </li>
+      <%= render 'shared/sidebar_links', path: concerns_path %>
     </ul>
     <div>
-      <div class="flex-none flex justify-center place-items-center lg:hidden m-auto w-full p-2">
+      <div class="trial flex-none flex justify-center place-items-center lg:hidden m-auto w-full p-2">
         <% if current_user.avatar.attached? %>
           <%= image_tag current_user.avatar, class: 'rounded-sm w-8 block' %>
         <% else %>
