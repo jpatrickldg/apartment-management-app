@@ -1,10 +1,10 @@
 <div>
-  <div class="flex flex-col gap-2 place-items-center mb-4">
+  <div class="flex gap-2 place-items-center mb-4">
     <h2 class="text-xl lg:text-2xl font-bold">Expenses</h2>
-    <%= link_to 'New Expense', new_expense_path, class: 'py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <%= link_to 'New Expense', new_expense_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
   </div>
   <% if @expenses.any? %>
-  <div class="overflow-x-auto relative rounded-md border border-gray-200">
+  <div class="overflow-x-auto relative rounded-md">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-800 uppercase bg-gray-200">
         <tr>

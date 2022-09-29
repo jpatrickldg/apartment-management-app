@@ -11,8 +11,10 @@ class TenantsController < ApplicationController
   def show
     @tenant = User.find(params[:id])
     @active = @tenant.bookings.find_by(status: 'active')
-    @room = Room.find(@active.room_id)
-    @branch = Branch.find(@room.branch_id)
+    if @active
+      @room = Room.find(@active.room_id)
+      @branch = Branch.find(@room.branch_id)
+    end
   end
 
   def activate
