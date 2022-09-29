@@ -1,7 +1,7 @@
 class Inquiry < ApplicationRecord
   # after_update :set_processed_by_if_on_going
 
-  enum status: [ :open, :on_going, :close ]
+  enum status: [ :open, :on_going, :closed ]
 
   def set_processed_by_if_on_going(user_email)
     if self.on_going?

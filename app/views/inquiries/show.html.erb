@@ -1,23 +1,68 @@
-<h1>Inquiry</h1>
+<h1 class="text-lg lg:text-xl font-bold mb-4">Inquiry ID: <%= @inquiry.id %></h1>
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Status:</strong></p>
+    <% if @inquiry.open? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @inquiry.status.upcase %></h1>
+    <% elsif @inquiry.on_going? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @inquiry.status.upcase %></h1>
+    <% elsif @inquiry.closed? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @inquiry.status.upcase %></h1>
+    <% end %>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Full Name:</strong></p>
+    <p><%= @inquiry.first_name.capitalize %> <%= @inquiry.last_name.capitalize %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Gender:</strong></p>
+    <p><%= @inquiry.gender.capitalize %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Email:</strong></p>
+    <p><%= @inquiry.email %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Contact No:</strong></p>
+    <p><%= @inquiry.contact_no %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Preferred Location:</strong></p>
+    <p><%= @inquiry.location_preference.capitalize %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Preferred Room Type:</strong></p>
+    <p><%= @inquiry.room_type.capitalize %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Target Move-In Date:</strong></p>
+    <p><%= @inquiry.move_in_date %></p>
+  </div>
+  
+  <% if (current_user.admin? || current_user.owner?) && !@inquiry.open? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Receptionist:</strong></p>
+      <p><%= @inquiry.processed_by %></p>
+    </div>
+  <% end %>
 
-<p><strong>Status: </strong><%= @inquiry.status.upcase %></p>
+  <% if @inquiry.closed? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Contract Signed?</strong></p>
+      <p><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
+    </div>
+  <% end %>
+</div>
 
-<p><strong>Inquiry ID: </strong><%= @inquiry.id %></p>
-<p><strong>First Name: </strong><%= @inquiry.first_name %></p>
-<p><strong>Last Name: </strong><%= @inquiry.last_name %></p>
-<p><strong>Gender: </strong><%= @inquiry.gender.capitalize %></p>
-<p><strong>Email: </strong><%= @inquiry.email %></p>
-<p><strong>Contact: </strong><%= @inquiry.contact_no %></p>
-<p><strong>Occupation: </strong><%= @inquiry.occupation.capitalize %></p>
-<p><strong>Preferred Location: </strong><%= @inquiry.location_preference.capitalize %></p>
-<p><strong>Preferred Room Type: </strong><%= @inquiry.room_type.capitalize %></p>
-<p><strong>Target Move-In Date: </strong><%= @inquiry.move_in_date %></p>
-<p><strong>Receptionist: </strong><%= @inquiry.processed_by %></p>
-<% if @inquiry.close? %>
-  <p><strong>Contract Signed? </strong><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
-<% elsif @inquiry.processed_by == current_user.email %>
-  <%= link_to 'Close', edit_inquiry_path(@inquiry) %>
-<% end %>
-<br>
 
-<%= link_to 'Back', inquiries_path %>
+<div class="flex gap-2 items-center">
+  <% if @inquiry.on_going? %>
+    <% if @inquiry.processed_by == current_user.email %>
+      <%= link_to 'Close Ticket', close_inquiry_path(@inquiry), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <% end %>
+  <% end %>
+
+  <%= link_to 'Back', inquiries_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
+
+

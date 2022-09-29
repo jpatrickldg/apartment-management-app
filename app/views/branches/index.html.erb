@@ -7,10 +7,10 @@
       <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
         <tr>
           <th class="p-3">Room Code</th>
-          <th class="p-3">Monthly Rate</th>
-          <th class="p-3">Occupants</th>
-          <th class="p-3">Capacity</th>
-          <th class="p-3">Available</th>
+          <th class="p-3 text-center">Monthly Rate</th>
+          <th class="p-3 text-center">Occupants</th>
+          <th class="p-3 text-center">Capacity</th>
+          <th class="p-3 text-center">Available</th>
           <th class="py-3 px-3 text-center">
               <span class="sr-only">View</span>
           </th>
@@ -21,10 +21,10 @@
         <% ordered_rooms.each do |room| %>
           <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
             <td class="p-3 font-bold"><%= room.room_code.upcase %></td>
-            <td class="p-3"><%= room.monthly_rate %></td>
-            <td class="p-3"><%= room.occupants_count %></td>
-            <td class="p-3"><%= room.capacity_count %></td>
-            <td class="p-3"><%= room.available_count %></td>
+            <td class="p-3 text-center">₱<%= room.monthly_rate %></td>
+            <td class="p-3 text-center"><%= room.occupants_count %></td>
+            <td class="p-3 text-center"><%= room.capacity_count %></td>
+            <td class="p-3 text-center"><%= room.available_count %></td>
             <td class="p-3 text-center"><%= link_to 'View', [branch, room], class: 'font-medium text-blue-600 hover:underline' %></td>
           </tr>
         <% end %>

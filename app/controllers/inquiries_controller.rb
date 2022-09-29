@@ -5,7 +5,7 @@ class InquiriesController < ApplicationController
     @inquiries = @q.result(distinct: true)
     @open = Inquiry.where(status: 'open')
     @on_going = Inquiry.where(status: 'on_going').where(processed_by: current_user.email)
-    @close = Inquiry.where(status: 'close').where(processed_by: current_user.email)
+    @close = Inquiry.where(status: 'closed').where(processed_by: current_user.email)
   end
 
   def show
@@ -31,7 +31,7 @@ class InquiriesController < ApplicationController
     end
   end
 
-  def edit
+  def close
     @inquiry = Inquiry.find(params[:id]) 
   end
 
@@ -40,7 +40,7 @@ class InquiriesController < ApplicationController
     if @inquiry.update(inquiry_params)
       redirect_to authenticated_root_path, notice: 'Updated Successfully'
     else
-      render :edit
+      render :close
     end
   end
 
