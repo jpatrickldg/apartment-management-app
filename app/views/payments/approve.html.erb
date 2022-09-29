@@ -1,27 +1,30 @@
-<h1>Approve Payment</h1>
+<h1 class="text-lg lg:text-xl font-bold mb-4">Approve Payment</h1>
 
-<%= form_with model: @payment, url: payment_path(@payment), method: :patch do |f| %>
+<div class="max-w-sm">
+  <%= form_with model: @payment, data: {turbo: false} do |f| %>
 
-  <div>
     <% if @payment.errors.any? %>
-      <ul>
-        <% @payment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+        <% @payment.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
         <% end %>
-      /ul>
+      </div>
     <% end %>
-  </div>
 
-  <%= f.hidden_field :status, value: 'approved' %>
-  <%= f.hidden_field :processed_by, value: current_user.email %>
+    <%= f.hidden_field :status, value: 'approved' %>
+    <%= f.hidden_field :processed_by, value: current_user.email %>
 
-  <div>
-    <%= f.label :remarks %> <br>
-    <%= f.text_field :remarks %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :remarks, class: 'block font-medium mb-1' %>
+      <%= f.text_field :remarks, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+    </div>
 
-  <div>
-    <%= f.submit 'Approve' %>
-  </div>
+    <div class="flex gap-2 items-center">
+      <%= f.submit 'Approve', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      
+      <%= link_to 'Cancel', payment_path(@payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
 
-<% end %>
+  <% end %>
+
+</div>

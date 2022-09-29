@@ -1,2 +1,27 @@
-<h1>Payments#edit</h1>
-<p>Find me in app/views/payments/edit.html.erb</p>
+<h1 class="text-lg lg:text-xl font-bold mb-4">Update Proof</h1>
+
+<div class="max-w-sm">
+  <%= form_with model: @payment, data: {turbo: false} do |f| %>
+    
+    <% if @payment.errors.any? %>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+        <% @payment.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <div class="mb-4">
+      <%= f.label :proof, class: 'block font-medium mb-1' %>
+      <%= f.file_field :proof, class: 'block w-full text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none file:bg-gray-200 file:rounded-lg file:hover:cursor-pointer file:hover:bg-gray-300 file:border-none file:p-2 file:rounded-r-none file:px-4' %>
+    </div>
+    
+
+    <div class="flex gap-2 items-center">
+      <%= f.submit 'Update', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      
+      <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+  <% end %>
+</div>
+

@@ -1,4 +1,4 @@
-<% if tenant.any? %>
+<% if tenants.any? %>
   <div class="overflow-x-auto relative rounded-md">
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% tenant.each do |tenant| %>
+        <% tenants.each do |tenant| %>
           <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
             <td class="p-3 font-bold"><%= tenant.email %></td>
             <td class="p-3"><%= tenant.first_name %></td>

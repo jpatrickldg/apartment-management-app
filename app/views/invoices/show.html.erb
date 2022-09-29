@@ -46,7 +46,8 @@
       <%= link_to 'View Payment Details', payment_path(@invoice.payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     </div>
   <% else %>
-    <div>
+    <div class="flex gap-2 place-items-center">
+      <%= link_to 'Cash Payment', new_invoice_payment_path(@invoice), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <%= link_to 'Update Invoice', edit_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     </div>
   <% end %>

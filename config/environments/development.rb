@@ -75,4 +75,7 @@ Rails.application.configure do
     address: '127.0.0.1',
     port: 1025
   }
+
+  #NGROK
+  config.hosts << /[a-z0-9-.]+\.ngrok\.io/
 end
