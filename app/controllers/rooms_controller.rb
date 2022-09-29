@@ -22,7 +22,9 @@ class RoomsController < ApplicationController
   end
 
   def available
-    @available_rooms = Room.where('available_count > 0').order(:room_code)
+    # @q = Branch.joins(:rooms).where(rooms: { available_count: > 0 }).ransack(params[:q])
+    @q = Room.includes(:branch).where('available_count > 0').order(:room_code).ransack(params[:q])
+    @available_rooms = @q.result(distinct: true)
     @branches = Branch.all
   end
 

@@ -8,7 +8,7 @@
         <h1 class="font-bold"><%= @latest_published_announcement.title %></h1>
       </div>
       <div class="w-full p-2 border-t-gray-200">
-        <p class="text-sm"><%= truncate(@latest_published_announcement.description, length: 80) %> <%= link_to 'See more', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline' %></p>
+        <p class="text-sm"><%= truncate(@latest_published_announcement.description, length: 80) %> <%= link_to 'See more details...', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline' %></p>
       </div>
     <% else %>
       <p>No new announcement</p>

@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :inquiries do
     post :assists, on: :member
+    get :close, on: :member
   end
   resources :expenses
   resources :branches, only: [:index, :show] do

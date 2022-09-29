@@ -2,12 +2,12 @@
 
 <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
   <div class="flex gap-2 place-items-center mb-2">
-  <p><strong>Status: </strong></p>
-  <% if @concern.open? %>
-    <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @concern.status.upcase %></h1>
-  <% elsif @concern.closed? %>
-    <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @concern.status.upcase %></h1>
-  <% end %>
+    <p><strong>Status:</strong></p>
+    <% if @concern.open? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @concern.status.upcase %></h1>
+    <% elsif @concern.closed? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @concern.status.upcase %></h1>
+    <% end %>
   </div>
   <% if !current_user.tenant? %>
     <div class="flex gap-2 place-items-center mb-2">
