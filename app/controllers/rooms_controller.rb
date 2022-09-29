@@ -7,7 +7,18 @@ class RoomsController < ApplicationController
 
   def show
     @room = @branch.rooms.find(params[:id])
-    @tenants = @room.users
+    tenants = @room.users
+    @active = []
+    @inactive = []
+    tenants.each do |tenant|
+      tenant.bookings.each do |booking|
+        if booking.active?
+          @active.push(tenant)
+        else
+          @inactive.push(tenant)
+        end
+      end
+    end
   end
 
   def available
