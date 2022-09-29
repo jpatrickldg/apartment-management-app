@@ -1,25 +1,55 @@
-<h1>Invoice <%= @invoice.id %></h1>
+<h1 class="text-lg lg:text-xl font-bold mb-4">Invoice <%= @invoice.id %></h1>
 
-<p><strong>Status: </strong><%= @invoice.status.upcase %></p>
-<p><strong>Tenant: </strong><%= @invoice.booking.user.email %></p>
-<p><strong>Date From: </strong><%= @invoice.date_from %></p>
-<p><strong>Date To: </strong><%= @invoice.date_to %></p>
-<p><strong>Water Bill: </strong><%= @invoice.water_bill %></p>
-<p><strong>Electricity Bill: </strong><%= @invoice.electricity_bill %></p>
-<p><strong>Room Rate: </strong><%= @invoice.room_rate %></p>
-<p><strong>Total Amount: </strong><%= @invoice.total_amount %></p>
-<p><strong>Remarks: </strong><%= @invoice.remarks %></p>
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Status:</strong></p>
+    <% if @invoice.active? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @invoice.status.upcase %></h1>
+    <% elsif @invoice.paid? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @invoice.status.upcase %></h1>
+    <% end %>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Tenant:</strong></p>
+    <p><%= @invoice.booking.user.email %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Date From:</strong></p>
+    <p><%= @invoice.date_from %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Date To:</strong></p>
+    <p><%= @invoice.date_to %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Water Bill:</strong></p>
+    <p>₱<%= @invoice.water_bill %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Electricity Bill:</strong></p>
+    <p>₱<%= @invoice.electricity_bill %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Room Rate:</strong></p>
+    <p>₱<%= @invoice.room_rate %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Total Amount:</strong></p>
+    <p>₱<%= @invoice.total_amount %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Remarks:</strong></p>
+    <p><%= @invoice.remarks %></p>
+  </div>
+  <% if @invoice.paid? %>
+    <div>
+      <%= link_to 'View Payment Details', payment_path(@invoice.payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+  <% else %>
+    <div>
+      <%= link_to 'Update Invoice', edit_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+  <% end %>
+</div>
 
-<br>
-
-<% if !@invoice.payment.present? %>
-  <%= link_to 'Pay', new_invoice_payment_path({:invoice_id => @invoice.id, :amount => @invoice.total_amount}) %>
-  <br>
-<% else %>
-  <%= link_to 'Payment Details', payment_path(@invoice.payment) %>
-<% end %>
-
-
-<br>
-
-<%= link_to 'Back', invoices_path %>
+<%= link_to 'Back', invoices_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>

@@ -5,7 +5,9 @@ class Invoice < ApplicationRecord
   before_create :set_total_amount
   after_save :set_booking_due_date, if: Proc.new { paid? }
 
-  enum status: [ :active, :paid, :void ]
+  enum status: [ :active, :paid ]
+
+  validates :remarks, presence: true
 
   def set_processed_by(user_email)
     self.processed_by = user_email

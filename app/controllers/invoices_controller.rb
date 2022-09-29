@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:edit, :update, :destroy] 
 
   def index
-    @q = Invoice.ransack(params[:q])
+    @q = Invoice.includes(booking: [:user]).ransack(params[:q])
     @invoices = @q.result(distinct: true)
     @current_user_invoices = current_user.invoices
   end
@@ -14,6 +14,7 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
+    @booking = Booking.find(@invoice.booking_id)
   end
 
   def new
@@ -22,7 +23,7 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice = @booking.invoices.build(invoice_params)
-    if @invoice.save!
+    if @invoice.save
       @invoice.set_processed_by(current_user.email)
       redirect_to booking_path(@booking), notice: 'Invoice Added'
     else 
@@ -35,7 +36,7 @@ class InvoicesController < ApplicationController
 
   def update
     if @invoice.update(invoice_params)
-      redirect_to authenticated_root_path, notice: 'Invoice Updated'
+      redirect_to invoice_path(@invoice), notice: 'Invoice Updated'
     else
       render :edit
     end
@@ -46,7 +47,7 @@ class InvoicesController < ApplicationController
   end
 
   def get_booking
-    @booking = Booking.find(params[:booking_id])
+    @booking = Booking.includes(:room).find(params[:booking_id])
   end
   
   def set_invoice

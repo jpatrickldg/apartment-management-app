@@ -1,0 +1,52 @@
+<% if @invoices.any? %>
+  <div class="overflow-x-auto relative rounded-md">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+        <tr>
+          <% if current_page?(invoices_path) %>
+            <th class="p-3">Status</th>
+          <% end %>
+          <th class="p-3">Tenant</th>
+          <th class="p-3 text-center">Room Rate</th>
+          <th class="p-3 text-center">Water Bill</th>
+          <th class="p-3 text-center">Electricity Bill</th>
+          <th class="p-3 text-center">Total Amount</th>
+          <th class="p-3">Remarks</th>
+          <th class="p-3">Processed By</th>
+          <th class="p-3 text-center">
+            <span class="sr-only">View</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoices.each do |invoice| %>
+        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+          
+          <% if current_page?(invoices_path) %>
+            <td class="p-3">
+              <% if invoice.active? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= invoice.status.upcase %></span>
+              <% elsif invoice.paid? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= invoice.status.upcase %></span>
+              <% end %>
+            </td>
+          <% end %>
+          
+          <td class="p-3 font-medium"><%= invoice.booking.user.email %></td>
+          <td class="p-3 text-center">₱<%= invoice.room_rate %></td>
+          <td class="p-3 text-center">₱<%= invoice.water_bill %></td>
+          <td class="p-3 text-center">₱<%= invoice.electricity_bill %></td>
+          <td class="p-3 text-center">₱<%= invoice.total_amount %></td>
+          <td class="p-3"><%= invoice.remarks %></td>
+          <td class="p-3"><%= invoice.processed_by %></td>
+          <td class="p-3 text-center"><%= link_to 'View', invoice_path(invoice), class: 'font-medium text-blue-600 hover:underline' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div>
+    <p class="italic text-sm">No Invoice Found</p>
+  </div>
+<% end %>
