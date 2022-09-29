@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     post :reopen, on: :member
   end
 
-  resources :payments, only: [:index, :show, :update] do
+  resources :payments, only: [:index, :show, :edit, :update] do
     get :approve, on: :member
   end
 

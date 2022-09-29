@@ -7,6 +7,8 @@ class Payment < ApplicationRecord
   enum payment_mode: [ :cash, :transfer, :gcash ]
   enum status: [ :pending, :cancelled, :approved ]
 
+  validates :remarks, presence: true
+
   def set_processed_by(user_email)
     self.processed_by = user_email
   end

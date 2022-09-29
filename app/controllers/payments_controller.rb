@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :get_invoice, only: [:new, :create]
-  before_action :set_payment, only: [:update, :approve]
+  before_action :set_payment, only: [:edit, :update, :approve]
 
   def index
     @q = Payment.ransack(params[:q])
@@ -19,7 +19,7 @@ class PaymentsController < ApplicationController
   def create
     @payment = @invoice.build_payment(payment_params)
     check_if_by_cashier
-    if @payment.save!
+    if @payment.save
       redirect_to payment_path(@payment), notice: 'Payment Submitted'
     end
   end

@@ -1,7 +1,9 @@
 <div>
   <div class="flex gap-2 place-items-center mb-4">
     <h2 class="text-xl lg:text-2xl font-bold">Expenses</h2>
-    <%= link_to 'New Expense', new_expense_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <% if !current_user.tenant? %>
+      <%= link_to 'New Expense', new_expense_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <% end %>
   </div>
   <% if @expenses.any? %>
   <div class="overflow-x-auto relative rounded-md">

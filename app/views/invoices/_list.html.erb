@@ -25,9 +25,9 @@
           <% if current_page?(invoices_path) %>
             <td class="p-3">
               <% if invoice.active? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= invoice.status.upcase %></span>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-700"><%= invoice.status.upcase %></span>
               <% elsif invoice.paid? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= invoice.status.upcase %></span>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= invoice.status.upcase %></span>
               <% end %>
             </td>
           <% end %>
