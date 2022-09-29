@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     post :activate, on: :member
     resources :bookings, shallow: true do
       post :deactivate, on: :member
-      resources :invoices, only: [:new, :create], shallow: true do
+      resources :invoices, only: [:new, :create, :edit, :update], shallow: true do
         resource :payment, only: [:new, :create]
       end
     end
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     get :approve, on: :member
   end
 
-  resources :invoices, only: [:index, :show, :update] do
+  resources :invoices, only: [:index, :show] do
     get :active, on: :collection
   end
 
@@ -49,7 +49,6 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
   resources :inquiries do
     post :assists, on: :member
-    get :close, on: :member
   end
   resources :expenses
   resources :branches, only: [:index, :show] do

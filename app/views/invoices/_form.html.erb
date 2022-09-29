@@ -1,0 +1,45 @@
+<%= form_with model: [@booking, @invoice], data:{turbo:false} do |f| %>
+  <% if @invoice.errors.any? %>
+    <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+      <% @invoice.errors.full_messages.each do |error| %>
+        <div><%= error %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="mb-2">
+    <%= f.label :date_from, class: 'block font-medium mb-1' %> 
+    <%= f.date_field :date_from, :value => @invoice.booking.due_date - 1.month, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="mb-2">
+    <%= f.label :date_to, class: 'block font-medium mb-1' %>
+    <%= f.date_field :date_to, :value => @invoice.booking.due_date, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="mb-2">
+    <%= f.label :room_rate, class: 'block font-medium mb-1' %>
+    <%= f.number_field :room_rate, :value => @invoice.booking.room.monthly_rate, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="mb-2">
+    <%= f.label :water_bill, class: 'block font-medium mb-1' %>
+    <%= f.number_field :water_bill, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="mb-2">
+    <%= f.label :electricity_bill, class: 'block font-medium mb-1' %>
+    <%= f.number_field :electricity_bill, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :remarks, class: 'block font-medium mb-1' %>
+    <%= f.text_field :remarks, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+  </div>
+
+  <div class="flex gap-2 items-center">
+    <%= f.submit class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+    
+    <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  </div>
+<% end %>

@@ -42,7 +42,7 @@
   <br>
 
   <% if @booking.active? %>
-    <%= link_to 'New Invoice', new_booking_invoice_path({ :booking_id => @booking, :room_rate => @booking.room.monthly_rate, :date_from => @booking.due_date - 1.month, :date_to => @booking.due_date }) %>
+    <%= link_to 'New Invoice', new_booking_invoice_path(@booking) %>
   <% end %>
 <% end %>
 <%= button_to 'Deactivate', deactivate_booking_path %>
