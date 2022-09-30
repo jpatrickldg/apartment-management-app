@@ -12,7 +12,7 @@
       </div>
     <% end %>
   <% end %>
-  <%= link_to tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
+  <%= link_to new_tenants_tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
     <div class="flex place-items-center justify-between">
       <div>
         <p class="text-4xl font-medium"><%= @new_tenants_count %></p>
@@ -23,7 +23,7 @@
       </div>
     </div>
   <% end %>
-  <%= link_to tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
+  <%= link_to active_tenants_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
     <div class="flex place-items-center justify-between">
       <div>
         <p class="text-4xl font-medium"><%= @tenants_count %></p>
