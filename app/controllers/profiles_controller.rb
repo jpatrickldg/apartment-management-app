@@ -1,21 +1,16 @@
 class ProfilesController < ApplicationController
+  before_action :set_user
 
   def show
-    @user = current_user
     if @user.tenant?
-      if @user.bookings.any?
-        @booking = @user.bookings.where(status: 'active').last
-        @room = Room.find(@booking.room_id)
-      end
+      @active_booking = @user.bookings.includes(room: [:branch]).find_by(status: 'active')
     end
   end
 
   def edit
-    @user = current_user
   end
 
   def update
-    @user = current_user
     if @user.update(user_params)
       redirect_to profile_path, notice: 'Updated Successfully'
     else
@@ -24,7 +19,6 @@ class ProfilesController < ApplicationController
   end
 
   def purge_avatar
-    @user = current_user
     if @user.avatar.attached?
       @user.avatar.purge
       redirect_to profile_path, notice: 'Avatar Deleted'
@@ -33,8 +27,12 @@ class ProfilesController < ApplicationController
 
   private
 
+  def set_user
+    @user = current_user
+  end
+
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :contact_no, :address, :avatar)
+    params.require(:user).permit(:first_name, :last_name, :contact_no, :address, :emergency_contact_person, :emergency_contact_no, :avatar)
   end
 
 end

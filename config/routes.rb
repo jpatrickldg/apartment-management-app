@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     post :unlock, on: :member
   end
 
+  resource :user, only: [] do
+    get :change_password, on: :collection
+    patch :update_password, on: :collection
+  end
+
   resources :tenants, only: [:index, :show], shallow: true do
     post :activate, on: :member
     get :new_tenants, on: :collection
@@ -38,6 +43,12 @@ Rails.application.routes.draw do
 
   resources :payments, only: [:index, :show, :edit, :update] do
     get :approve, on: :member
+
+  end
+
+  resource :payment, only: [] do
+    get :success, on: :collection
+    get :failed, on: :collection 
   end
 
   resources :invoices, only: [:index, :show] do

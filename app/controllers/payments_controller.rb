@@ -8,6 +8,14 @@ class PaymentsController < ApplicationController
     @current_user_payments = current_user.payments
   end
 
+  def success
+    
+  end
+
+  def failed
+    
+  end
+
   def show
     @payment = Payment.includes(:invoice).find(params[:id])
   end
