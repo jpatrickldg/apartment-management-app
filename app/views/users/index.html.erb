@@ -1,42 +1,51 @@
+<div class="mb-4">
+  <div class="flex gap-3 place-items-center text-xl lg:text-2xl font-bold mb-2">
+    <h1>Users</h1>
+    <span class="font-medium">|</span>
+    <%= link_to 'Add User', new_user_path, class: 'text-blue-600 hover:underline' %>
+  </div>
+  <div class="mb-4">
+    <%= search_form_for @q do |f| %>
+      <div class="relative">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
+        </div>
+        <%= f.search_field :email_or_first_name_or_last_name_cont, placeholder: 'Search User', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+        <%= f.submit 'Search', class: 'text-white absolute right-20 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 hover:cursor-pointer'  %>
+        <%= link_to 'Clear', users_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+      </div>
+    <% end %>
+  </div>
+  <% if @users.any? %>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3">Email</th>
+            <th class="p-3">First Name</th>
+            <th class="p-3">Last Name</th>
+            <th class="p-3"><%= sort_link(@q, :role, 'Role', default_order: :desc ) %></th>
+            <th class="p-3">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3"><%= link_to user.email, user_path(user), class: 'font-medium text-blue-600 hover:underline' %></td>
+              <td class="p-3"><%= user.first_name %></td>
+              <td class="p-3"><%= user.last_name %></td>
+              <td class="p-3"><%= user.role.capitalize %></td>
+              <td class="p-3"><%= user.status.capitalize %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      <p class="italic text-sm">User not found</p>
+    </div>
+  <% end %>
+</div>
 
-<h1>Users | <%= link_to 'Add Users', new_user_path %></h1>
-
-<%= search_form_for @q do |f| %>
-  <%= f.search_field :email_cont, placeholder: 'Search User' %>
-  <%= f.submit  %>
-  <%= link_to 'Clear', users_path %>
-<% end %>
-
-
-<% if @users.any? %>
-  <table>
-    <thead>
-      <th>Email</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th><%= sort_link(@q, :role, 'Role', default_order: :desc ) %></th>
-      <th>Status</th>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.email %></td>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.role.capitalize %></td>
-          <td><%= user.status.capitalize %></td>
-          <td><%= link_to 'View', user_path(user) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p><em>User not found</em></p>
-<% end %>
-
-<br>
-<br>
-<%= link_to 'Back to Dashboard', authenticated_root_path %>
-
-
-
+<%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
