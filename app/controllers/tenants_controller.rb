@@ -1,26 +1,35 @@
 class TenantsController < ApplicationController
+  before_action :get_tenants
 
   def index
-    @tenants = User.where(role: 'tenant')
-    @tenants_with_booking = @tenants.joins(:bookings).where(bookings: {status: 'active'})
-    @new_tenants = @tenants.where.missing(:bookings)
-    @returnees = @tenants.joins(:bookings).where(bookings: {status: 'inactive'})
-    @inactive_tenants = @tenants.where(status: 'inactive')
+    @q = @tenants.ransack(params[:q])
+    @tenants = @q.result(distinct: true)
   end
   
+  def new_tenants
+    @q = @tenants.where.missing(:bookings).ransack(params[:q])
+    @tenants = @q.result(distinct: true)
+  end
+
+  def active
+    @q = @tenants.includes(:bookings).where(bookings: {status: 'active'}).ransack(params[:q])
+    @tenants = @q.result(distinct: true)
+  end
+
   def show
     @tenant = User.find(params[:id])
-    @active = @tenant.bookings.find_by(status: 'active')
-    if @active
-      @room = Room.find(@active.room_id)
-      @branch = Branch.find(@room.branch_id)
-    end
+    @active_booking = @tenant.bookings.includes(room: [:branch]).find_by(status: 'active')
   end
+
 
   def activate
     @tenant = User.find(params[:id])
     @tenant.active!
-    redirect_to tenant_path(@tenant)
+    redirect_to tenant_path(@tenant), notice: 'Tenant Activated'
+  end
+
+  def get_tenants
+    @tenants = User.where(role: 'tenant')
   end
   
 

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   resources :tenants, only: [:index, :show], shallow: true do
     post :activate, on: :member
+    get :new_tenants, on: :collection
+    get :active, on: :collection
     resources :bookings, shallow: true do
       post :deactivate, on: :member
       resources :invoices, only: [:new, :create, :edit, :update], shallow: true do
