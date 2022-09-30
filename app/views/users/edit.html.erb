@@ -1,33 +1,53 @@
-<h1>Edit Role</h1>
+<h1 class="text-lg lg:text-xl font-bold mb-4">Edit Role</h1>
 
-<h2><%= @user.email %> | <%= @user.role.upcase %></h2>
+<h2 class="lg:text-lg font-medium mb-4"><%= @user.email %> | <%= @user.role.capitalize %></h2>
 
-<%= form_with model: @user, url: user_path, method: :patch do |f| %>
+<div class="max-w-sm">
+  <%= form_with model: @user, data: {turbo: false} do |f| %>
 
-  <div>
     <% if @user.errors.any? %>
-      <ul>
-        <% @user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+        <% @user.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
         <% end %>
-      /ul>
+      </div>
     <% end %>
-  </div>
 
-  <div>
-    <p>Role</p>
-    <%= f.radio_button :role, 'tenant' %>Tenant<br />
-    <%= f.radio_button :role, 'receptionist' %>Receptionist<br />
-    <%= f.radio_button :role, 'cashier' %>Cashier<br />
-    <% if current_user.owner? %>
-      <%= f.radio_button :role, 'admin' %>Admin<br />
-    <% end %>
-    
-  </div>
-  <br>
-  <div>
-    <%= f.submit 'Update Role' %>
-  </div>
+    <div class="mb-4">
+      <div class="flex flex-col gap-2 justify-center">
+        <p class="font-medium">Role:</p>
+        <div class="flex gap-2 place-items-center">
+          <%= f.radio_button :role, 'tenant' %>
+          <%= f.label 'Tenant' %>
+        </div>
+        <div class="flex gap-2 place-items-center">
+          <%= f.radio_button :role, 'receptionist' %>
+          <%= f.label 'Receptionist' %>
+        </div>
+        <div class="flex gap-2 place-items-center">
+          <%= f.radio_button :role, 'cashier' %>
+          <%= f.label 'Cashier' %>
+        </div>
+        <% if current_user.owner? %>
+          <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :role, 'admin' %>
+            <%= f.label 'Admin' %>
+          </div>
+          <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :role, 'owner' %>
+            <%= f.label 'Owner' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-<% end %>
+    <div class="flex gap-2 items-center">
+      <%= f.submit 'Update Role', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      
+      <%= link_to 'Cancel', user_path(@user), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+
+  <% end %>
+</div>
+
 

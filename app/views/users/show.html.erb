@@ -1,28 +1,57 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="mb-4">
+  <div class="mb-4">
+    <h1 class="text-lg lg:text-xl font-bold mb-1">User Details</h1>
+  </div>
+  <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Status:</strong></p>
+      <% if @user.active? %>
+        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @user.status.upcase %></p>
+      <% elsif @user.inactive? %>
+        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @user.status.upcase %></p>
+      <% end %>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>User Role:</strong></p>
+      <p><%= @user.role %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Email:</strong></p>
+      <p><%= @user.email %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Full Name:</strong></p>
+      <p><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Gender:</strong></p>
+      <p><%= @user.gender.capitalize %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Birthdate:</strong></p>
+      <p><%= @user.birthdate %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Contact No:</strong></p>
+      <p><%= @user.contact_no %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-6">
+      <p><strong>Address:</strong></p>
+      <p><%= @user.address.capitalize %></p>
+    </div>
 
-<p><strong>Account Status: </strong><%= @user.status.upcase %></p>
-<p><strong>Email: </strong><%= @user.email %></p>
-<p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
-<p><strong>Gender: </strong><%= @user.gender.capitalize %></p>
-<p><strong>Birthdate: </strong><%= @user.birthdate %></p>
-<p><strong>User Role: </strong><%= @user.role.capitalize %></p>
-<p><strong>Contact No.: </strong><%= @user.contact_no %></p>
-<p><strong>Address: </strong><%= @user.address.capitalize %></p>
-<p><strong>Account Creation Date: </strong><%= @user.created_at %></p>
-<h3>In Case Of Emergency</h3>
-<p><strong>Contact Person: </strong><%= @user.emergency_contact_person %></p>
-<p><strong>Contact No.: </strong><%= @user.emergency_contact_no %></p>
+    <div class="flex gap-2 place-items-center">
+      <%= link_to 'Update Role', edit_user_path(@user), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% if @user.active? %>
+        <%= button_to 'Lock Account', lock_user_path(@user), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% else %>
+        <%= button_to 'Unlock Account', unlock_user_path(@user), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% end %>
+    </div>
+  
+  </div>
+</div>
+
+<%= link_to 'Back', users_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 
 
-<hr>
-<% if @user.active? %>
-  <td><%= button_to 'Lock Account', lock_user_path(@user) %></td>
-<% else %>
-  <td><%= button_to 'Unlock Account', unlock_user_path(@user) %></td>
-<% end %>
-<br>
-<%= link_to 'Update Role', edit_user_path(@user) %>
-<br>
-
-<%= link_to 'Back', users_path %>
