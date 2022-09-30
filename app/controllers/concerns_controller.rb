@@ -17,9 +17,10 @@ class ConcernsController < ApplicationController
 
   def create
     @concern = @tenant.concerns.build(concern_params)
-    if @concern.save!
-      redirect_to concern_path(@concern), notice: 'Concern Ticket Created'
+    if @concern.save
+      redirect_to concern_path(@concern), notice: 'Ticket Created'
     else
+      render :new
     end
   end
 
@@ -28,7 +29,7 @@ class ConcernsController < ApplicationController
 
   def update
     if @concern.update(concern_params)
-      redirect_to concern_path(@concern), notice: 'Concern Ticket Updated'
+      redirect_to concern_path(@concern), notice: 'Ticket Updated'
     else
       render :edit
     end

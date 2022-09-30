@@ -8,8 +8,8 @@
   <div>
     <% if @active_invoices.any? %>
       <% @active_invoices.each do |invoice| %>
-        <div class="sm:hidden p-2 text-sm flex flex-col gap-2 justify-center place-items-center">
-          <div class="text-left m-auto">
+        <div class="sm:hidden p-2 text-sm flex flex-col gap-2 justify-center">
+          <div>
             <p><strong>Total Amount: ₱</strong><%= invoice.total_amount %></p>
             <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
             <p><strong>Water Bill: ₱</strong><%= invoice.water_bill %></p>

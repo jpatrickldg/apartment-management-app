@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :lock, :unlock]
 
   def index
-   if current_user.owner?
-    @q = User.ransack(params[:q])
-   elsif current_user.admin?
-    @q = User.where.not(role: 'owner').ransack(params[:q])
-   end
+    if current_user.owner?
+      @q = User.ransack(params[:q])
+    elsif current_user.admin?
+      @q = User.where.not(role: 'owner').ransack(params[:q])
+    end
     @users = @q.result(distinct: true)
     @active_users = User.all.where(status: 'active')
     @inactive_users = User.all.where(status: 'inactive')
@@ -29,6 +29,20 @@ class UsersController < ApplicationController
   end
 
   def edit
+  end
+
+  def change_password
+    @user = current_user 
+  end
+
+  def update_password
+    @user = current_user
+    if @user.update(user_params)
+      sign_in(current_user, bypass: true)
+      redirect_to profile_path, notice: 'Password Changed'
+    else
+      render :change_password
+    end
   end
 
   def update

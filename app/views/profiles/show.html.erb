@@ -1,47 +1,68 @@
-<h1>Profile</h1>
-
-<p><strong>Avatar:</strong></p>
-<% if current_user.avatar.attached? %>
-  <%= image_tag current_user.avatar, width: "80px", height: "80px" %>
-  <br>
-  <%= link_to 'Remove', purge_avatar_profile_path %>
-<% else %>
-  <%= image_tag ("/assets/user.png"), width: "80px", height: "80px" %>
-  <p><em>You have not added an avatar</em></p>
-<% end %>
-
-<% if current_user.role == 'tenant' %>
-  <p><strong>Email: </strong><%= @user.email %></p>
-  <p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
-  <p><strong>Gender: </strong><%= @user.gender.capitalize %></p>
-  <p><strong>Birthdate: </strong><%= @user.birthdate %></p>
-  <p><strong>Occupation: </strong><%= @user.occupation.capitalize %></p>
-  <p><strong>Contact No.: </strong><%= @user.contact_no %></p>
-
-  <hr>
-
-  <h2>Tenancy Details</h2>
-  <% if @booking.present? %>
-    <p><strong>Booking ID: </strong><%= @booking.id %></p>
-    <p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
-    <p><strong>Payment Due Date: </strong><%= @booking.due_date %></p>
-    <p><strong>Room Code: </strong><%= @room.room_code.upcase %></p>
-    <p><strong>Monthly Rate: </strong><%= @room.monthly_rate %></p>
-  <% else %>
-    <p><em>User has no booking</em></p>
-  <% end %>
-<% else %>
-  <p><strong>Email: </strong><%= @user.email %></p>
-  <p><strong>Full Name: </strong><%= "#{@user.first_name} #{@user.last_name}" %></p>
-  <p><strong>Gender: </strong><%= @user.gender.capitalize %></p>
-  <p><strong>Birthdate: </strong><%= @user.birthdate %></p>
-  <p><strong>Role: </strong><%= @user.role.capitalize %></p>
-  <p><strong>Contact No.: </strong><%= @user.contact_no %></p>
-<% end %>
-
-<%= link_to 'Edit', edit_profile_path %>
-<br>
-<br>
-<%= link_to 'Back', authenticated_root_path %>
-
+<div class="mb-4 max-w-sm">
+  <div class="mb-4">
+    <div class="mb-4">
+      <h1 class="text-lg lg:text-xl font-bold mb-1 max-w">User Profile</h1>
+    </div>
+    <div class="mb-2">
+      <% if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, class: 'max-w-[200px] h-auto rounded-lg' %>
+        <%= link_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
+      <% else %>
+        <%= image_tag ("/assets/user.png"), class: 'max-w-[200px] h-auto rounded-lg mb-2' %>
+        <p class="text-sm italic">You have not added an avatar</p>
+      <% end %>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Email:</strong></p>
+      <p><%= @user.email %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Full Name:</strong></p>
+      <p><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Gender:</strong></p>
+      <p><%= @user.gender.capitalize %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Birthdate:</strong></p>
+      <p><%= @user.birthdate %></p>
+    </div>
+    
+    <% if @user.tenant? %>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p><strong>Occupation:</strong></p>
+        <p><%= @user.occupation %></p>
+      </div>
+    <% else %>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p><strong>Role:</strong></p>
+        <p><%= @user.role.capitalize %></p>
+      </div>
+    <% end %>
+    
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Contact No:</strong></p>
+      <p><%= @user.contact_no %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-6">
+      <p><strong>Address:</strong></p>
+      <p><%= @user.address.capitalize %></p>
+    </div>
+    <h1 class="mb-2 font-bold underline">In Case of Emergency</h1>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Contact Person:</strong></p>
+      <p><%= @user.emergency_contact_person %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Contact No:</strong></p>
+      <p><%= @user.emergency_contact_no %></p>
+    </div>
+  </div>
+  <div class="flex gap-2 place-items-center mb-4">
+    <%= link_to 'Edit Profile', edit_profile_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <%= link_to 'Change Password', change_password_user_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  </div>
+  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
 

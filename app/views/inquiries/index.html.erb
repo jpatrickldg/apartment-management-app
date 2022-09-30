@@ -3,17 +3,17 @@
   <% if current_user.receptionist? %>
 
     <div class="mb-4">
-      <h2 class="text-lg lg:text-xl font-bold">Open Inquiries</h2>
+      <h2 class="text-lg lg:text-xl font-bold mb-2">Open Inquiries</h2>
       <%= render 'list', inquiries: @open %>
     </div>
 
     <div class="mb-4">
-      <h2 class="text-lg lg:text-xl font-bold">Inquiries you are Assisting</h2>
+      <h2 class="text-lg lg:text-xl font-bold mb-2">Inquiries you are Assisting</h2>
       <%= render 'list', inquiries: @on_going %>
     </div>
 
     <div class="mb-4">
-      <h2 class="text-lg lg:text-xl font-bold">Inquiries you Assisted</h2>
+      <h2 class="text-lg lg:text-xl font-bold mb-2">Inquiries you Assisted</h2>
       <%= render 'list', inquiries: @close %>
     </div>
 
