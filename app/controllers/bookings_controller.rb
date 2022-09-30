@@ -42,10 +42,16 @@ class BookingsController < ApplicationController
   end
 
   def deactivate
-    @booking.inactive!
-    @booking.set_room_occupants_once_inactive_or_destroyed
-    @booking.deactivate_tenant_account
-    redirect_to booking_path(@booking), notice: 'Booking deactivated'
+    @active_invoice = @booking.invoices.where(status: 'active')
+
+    if @active_invoice.present?
+      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an active Invoice'
+    else
+      @booking.inactive!
+      @booking.set_room_occupants_once_inactive_or_destroyed
+      @booking.deactivate_tenant_account
+      redirect_to booking_path(@booking), notice: 'Booking deactivated'
+    end
   end
 
   private
