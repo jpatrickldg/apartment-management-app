@@ -13,6 +13,14 @@ class User < ApplicationRecord
   
   enum status: [ :active, :inactive ]
   enum role: [ :tenant, :receptionist, :cashier, :maintenance, :owner, :admin ]
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :birthdate, presence: true
+  validates :gender, presence: true
+  validates :contact_no, presence: true, length: { is: 11 }
+  validates :address, presence: true
+  validates :role, presence: true
   
 
   def active_for_authentication?

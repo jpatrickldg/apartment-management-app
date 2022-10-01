@@ -1,5 +1,6 @@
 class InquiriesController < ApplicationController
-  
+  layout "landing_page", only: [:new]
+
   def index
     @q = Inquiry.ransack(params[:q])
     @inquiries = @q.result(distinct: true)
