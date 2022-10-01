@@ -5,6 +5,7 @@ FactoryBot.define do
     last_name { "Test" }
     gender { "female" }
     contact_no { "09123232231" }
+    occupation { "student" }
     location_preference { "test location" }
     room_type { "test room" }
     move_in_date { Date.today }

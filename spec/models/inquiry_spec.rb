@@ -4,6 +4,11 @@ RSpec.describe Inquiry, type: :model do
 
   context 'Before accepting inquiry' do
 
+    it 'is valid with valid attributes' do
+      inquiry = create(:inquiry)
+      expect(inquiry).to be_valid
+    end
+
     it 'will not accept inquiry with empty first name' do
       inquiry = build(:inquiry, first_name: nil)
       expect(inquiry).to_not be_valid

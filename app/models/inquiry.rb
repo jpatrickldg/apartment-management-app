@@ -7,6 +7,7 @@ class Inquiry < ApplicationRecord
   validates :last_name, presence: true
   validates :gender, presence: true
   validates :contact_no, presence: true, length: { is: 11 }
+  validates :occupation, presence: true
   validates :location_preference, presence: true
   validates :room_type, presence: true
   validates :move_in_date, presence: true
