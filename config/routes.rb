@@ -46,11 +46,6 @@ Rails.application.routes.draw do
 
   end
 
-  resource :payment, only: [] do
-    get :success, on: :collection
-    get :failed, on: :collection 
-  end
-
   resources :invoices, only: [:index, :show] do
     get :active, on: :collection
   end

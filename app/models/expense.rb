@@ -1,8 +1,8 @@
 class Expense < ApplicationRecord
   has_one_attached :proof
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: {minimum:10, maximum:30}
+  validates :description, presence: true, length: {minimum:10, maximum:100}
   validates :amount, presence: true
   validates :processed_by, presence: true
   validates :proof, presence: true

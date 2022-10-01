@@ -17,9 +17,8 @@ class BookingsController < ApplicationController
 
   def create
     @booking = @tenant.bookings.build(booking_params)
-    if @booking.save!
+    if @booking.save
       @booking.set_processed_by(current_user.email)
-      @booking.update_room_occupants
       redirect_to booking_path(@booking), notice: 'Booking Added'
     else
       render :new
@@ -32,9 +31,6 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      if @booking.inactive?
-        @booking.set_room_occupants_once_inactive_or_destroyed
-      end
       redirect_to booking_path(@booking), notice: 'Booking Updated'
     else
       render :edit
@@ -48,8 +44,6 @@ class BookingsController < ApplicationController
       redirect_to booking_path(@booking), notice: 'Failed. Tenant has an active Invoice'
     else
       @booking.inactive!
-      @booking.set_room_occupants_once_inactive_or_destroyed
-      @booking.deactivate_tenant_account
       redirect_to booking_path(@booking), notice: 'Booking deactivated'
     end
   end

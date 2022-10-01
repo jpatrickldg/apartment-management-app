@@ -1,9 +1,9 @@
 class Announcement < ApplicationRecord
-  # after_update :set_published_by_if_published
 
   enum status: [ :draft, :archived, :published ]
 
-  validates :title, presence: true
+  validates :title, presence: true, length: {minimum:10, maximum:30}
+  validates :description, presence: true, length: {minimum:10, maximum:100}
 
   def set_published_by(user_email)
     if self.published?

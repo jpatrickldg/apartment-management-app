@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :expense do
-    title { "Test" }
+    title { "Test Expense" }
     description { "Testing expense with rspec" }
     amount { 500 }
     processed_by { "test@example.com" }

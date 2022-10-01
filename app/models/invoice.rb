@@ -7,7 +7,12 @@ class Invoice < ApplicationRecord
 
   enum status: [ :active, :paid ]
 
-  validates :remarks, presence: true
+  validates :water_bill, presence: true
+  validates :electricity_bill, presence: true
+  validates :room_rate, presence: true
+  validates :date_from, presence: true
+  validates :date_to, presence: true
+  validates :remarks, presence: true, length: {minimum:5, maximum:30}
 
   def set_processed_by(user_email)
     self.processed_by = user_email
