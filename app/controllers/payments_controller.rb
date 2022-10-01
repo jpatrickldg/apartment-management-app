@@ -8,14 +8,6 @@ class PaymentsController < ApplicationController
     @current_user_payments = current_user.payments
   end
 
-  def success
-    
-  end
-
-  def failed
-    
-  end
-
   def show
     @payment = Payment.includes(:invoice).find(params[:id])
   end
@@ -27,6 +19,7 @@ class PaymentsController < ApplicationController
   def create
     @payment = @invoice.build_payment(payment_params)
     check_if_by_cashier
+    @payment.initiated_by = current_user.email
     if @payment.save
       redirect_to payment_path(@payment), notice: 'Payment Submitted'
     end

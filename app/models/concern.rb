@@ -3,6 +3,7 @@ class Concern < ApplicationRecord
   
   enum status: [ :open, :closed ]
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: {minimum:10, maximum:30}
+  validates :description, presence: true, length: {minimum:10, maximum:100}
 end
+
