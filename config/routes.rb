@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    get :active, on: :collection
     post :lock, on: :member
     post :unlock, on: :member
   end

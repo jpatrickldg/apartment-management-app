@@ -14,6 +14,11 @@ class UsersController < ApplicationController
     @inactive_users = User.all.where(status: 'inactive')
   end
 
+  def active
+    @q = User.where(status: 'active').ransack(params[:q])
+    @users = @q.result(distinct: true)
+  end
+
   def show
   end
 
