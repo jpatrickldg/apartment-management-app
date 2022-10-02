@@ -5,11 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+Payment.destroy_all 
+Invoice.destroy_all 
 Booking.destroy_all 
-User.destroy_all
 Inquiry.destroy_all
-Room.destroy_all 
-Branch.destroy_all
+Concern.destroy_all
+Expense.destroy_all
+Announcement.destroy_all
+User.destroy_all
 
 
 User.create([
@@ -21,8 +24,8 @@ User.create([
     last_name: 'admin',
     birthdate: Date.today,
     gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09123456789',
+    address: 'Trial Address 1',
     role: 'admin',
     occupation: 'admin',
     confirmed_at: Time.now
@@ -35,8 +38,8 @@ User.create([
     last_name: 'owner',
     birthdate: Date.today,
     gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09213456789',
+    address: 'Trial Address 2',
     role: 'owner',
     occupation: 'owner',
     confirmed_at: Time.now
@@ -49,8 +52,8 @@ User.create([
     last_name: 'receptionist1',
     birthdate: Date.today,
     gender: 'female',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09432123213',
+    address: 'Trial Address 3',
     role: 'receptionist',
     occupation: 'staff',
     confirmed_at: Time.now
@@ -63,8 +66,8 @@ User.create([
     last_name: 'receptionist2',
     birthdate: Date.today,
     gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09432123211',
+    address: 'Trial Address 4',
     role: 'receptionist',
     occupation: 'staff',
     confirmed_at: Time.now
@@ -77,8 +80,8 @@ User.create([
     last_name: 'cashier1',
     birthdate: Date.today,
     gender: 'female',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09432123242',
+    address: 'Trial Address 5',
     role: 'cashier',
     occupation: 'staff',
     confirmed_at: Time.now
@@ -91,37 +94,9 @@ User.create([
     last_name: 'cashier2',
     birthdate: Date.today,
     gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: '09432123457',
+    address: 'Trial Address 6',
     role: 'cashier',
-    occupation: 'staff',
-    confirmed_at: Time.now
-  },
-  {
-    email: 'maintenance1@test.com',
-    password: '123456',
-    password_confirmation: '123456',
-    first_name: 'maintenance1',
-    last_name: 'maintenance1',
-    birthdate: Date.today,
-    gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
-    role: 'maintenance',
-    occupation: 'staff',
-    confirmed_at: Time.now
-  },
-  {
-    email: 'maintenance2@test.com',
-    password: '123456',
-    password_confirmation: '123456',
-    first_name: 'maintenance2',
-    last_name: 'maintenance2',
-    birthdate: Date.today,
-    gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
-    role: 'maintenance',
     occupation: 'staff',
     confirmed_at: Time.now
   }
@@ -136,12 +111,12 @@ User.create([
     last_name: "Test#{x+1}",
     birthdate: Date.today,
     gender: 'male',
-    contact_no: '123456',
-    address: 'qc',
+    contact_no: "0912345678#{x}",
+    address: "Trial Address #{x+6}",
     role: 'tenant',
     occupation: 'student',
     emergency_contact_person: "Parent#{x}",
-    emergency_contact_no: "123456#{x}",
+    emergency_contact_no: "0912545678#{x}",
     confirmed_at: Time.now
   })
 end

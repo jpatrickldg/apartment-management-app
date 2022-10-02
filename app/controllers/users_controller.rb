@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy, :lock, :unlock]
+  before_action :check_restriction, except: [:change_password, :update_password]
 
   def index
     if current_user.owner?
@@ -38,7 +40,7 @@ class UsersController < ApplicationController
   def update_password
     @user = current_user
     if @user.update(user_params)
-      sign_in(current_user, bypass: true)
+      bypass_sign_in(@user)
       redirect_to profile_path, notice: 'Password Changed'
     else
       render :change_password
@@ -67,6 +69,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def check_restriction
+    if current_user.tenant? || current_user.receptionist? || current_user.cashier?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])

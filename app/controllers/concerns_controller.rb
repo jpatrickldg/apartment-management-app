@@ -1,6 +1,8 @@
 class ConcernsController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_tenant, only: [:index, :new, :create]
   before_action :set_concern, only: [:show, :edit, :update, :destroy, :reopen, :close]
+  before_action :restrict_user, only: [:new, :create]
 
   def index
     @concerns = Concern.all.includes(:user).order(status: :asc)
@@ -24,26 +26,33 @@ class ConcernsController < ApplicationController
     end
   end
 
-  def edit
+  def close
   end
 
   def update
     if @concern.update(concern_params)
-      redirect_to concern_path(@concern), notice: 'Ticket Updated'
+      redirect_to concern_path(@concern), notice: 'Ticket Closed'
     else
-      render :edit
+      render :close
     end
-  end
-
-  def destroy
-  end
-
-  def close
   end
   
   def reopen
-    @concern.open!
-    redirect_to concern_path(@concern), notice: 'Ticket Re-Opened'
+    if @concern.user_id == current_user.id
+      @concern.open!
+      redirect_to concern_path(@concern), notice: 'Ticket Re-Opened'
+    else
+      redirect_to concerns_path, notice: 'Access Denied'
+    end
+  end
+
+  
+  private
+  
+  def restrict_user
+    if !current_user.tenant?
+      redirect_to concerns_path, notice: 'Access Denied'
+    end
   end
 
   def get_tenant
@@ -54,11 +63,8 @@ class ConcernsController < ApplicationController
     @concern = Concern.find(params[:id])
   end
 
-  private
-
   def concern_params
     params.require(:concern).permit(:user_id, :title, :description, :status, :assisted_by, :remarks)
   end
   
-
 end

@@ -1,5 +1,7 @@
 class TenantsController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_tenants
+  before_action :check_restriction
 
   def index
     @q = @tenants.ransack(params[:q])
@@ -31,7 +33,14 @@ class TenantsController < ApplicationController
   def get_tenants
     @tenants = User.where(role: 'tenant')
   end
+
+  private
   
+  def check_restriction
+    if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
 end
 

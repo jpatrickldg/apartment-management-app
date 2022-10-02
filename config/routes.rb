@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     post :activate, on: :member
     get :new_tenants, on: :collection
     get :active, on: :collection
-    resources :bookings, shallow: true do
+    resources :bookings, except: [:index, :destroy], shallow: true do
       post :deactivate, on: :member
       resources :invoices, only: [:new, :create, :edit, :update], shallow: true do
         resource :payment, only: [:new, :create]
@@ -36,14 +36,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :concerns do
+  resources :bookings, only: [:index]
+
+  resources :concerns, except: [:edit, :destroy] do
     get :close, on: :member
     post :reopen, on: :member
   end
 
-  resources :payments, only: [:index, :show, :edit, :update] do
+  resources :payments, only: [:index, :show] do
     get :approve, on: :member
-
+    patch :approve_payment, on: :member
+    get :change_proof, on: :member
+    patch :update_proof, on: :member
   end
 
   resources :invoices, only: [:index, :show] do
@@ -54,20 +58,25 @@ Rails.application.routes.draw do
     post :archive, on: :member
     post :republish, on: :member
   end
+
   resources :dashboard, only: [:index]
-  resources :inquiries do
+
+  resources :inquiries, except: [:edit, :destroy] do
     post :assists, on: :member
-  end
-  resources :expenses
-  resources :branches, only: [:index, :show] do
-    resources :rooms, only: [:index, :show]
+    get :close, on: :member
   end
 
-  get '/rooms/available' => 'rooms#available', as: 'available_rooms'
+  resources :expenses, only: [:index, :show, :new, :create]
+  resources :branches, only: [:index, :show] do
+    resources :rooms, only: [:show]
+  end
+
+  resources :rooms, only: [] do
+    get :available, on: :collection
+  end
 
   resource :profile, only: [:show, :edit, :update] do
-    get 'purge_avatar', on: :collection
+    post :purge_avatar, on: :collection
   end
-  resolve('Profile') { [:profile] }
 
 end

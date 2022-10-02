@@ -1,7 +1,7 @@
 <h1 class="text-lg lg:text-xl font-bold mb-4">Approve Payment</h1>
 
 <div class="max-w-sm">
-  <%= form_with model: @payment, data: {turbo: false} do |f| %>
+  <%= form_with model: @payment, data: {turbo: false}, url: approve_payment_payment_path(@payment), method: :patch do |f| %>
 
     <% if @payment.errors.any? %>
       <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
@@ -10,9 +10,6 @@
         <% end %>
       </div>
     <% end %>
-
-    <%= f.hidden_field :status, value: 'approved' %>
-    <%= f.hidden_field :processed_by, value: current_user.email %>
 
     <div class="mb-4">
       <%= f.label :remarks, class: 'block font-medium mb-1' %>

@@ -1,10 +1,8 @@
 class ProfilesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user
 
   def show
-    if @user.tenant?
-      @active_booking = @user.bookings.includes(room: [:branch]).find_by(status: 'active')
-    end
   end
 
   def edit

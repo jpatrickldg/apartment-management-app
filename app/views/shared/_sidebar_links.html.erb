@@ -41,6 +41,10 @@
       <i class="fa-solid fa-flag w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
       <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Concerns</span>
 
+    <% elsif path.include? "bookings" %>
+      <i class="fa-regular fa-calendar-check w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
+      <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Bookings</span>
+
     <% else %>
       <i class="fa-solid fa-house-user w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
       <span class="flex-1 ml-3 whitespace-nowrap hidden lg:block">Dashboard</span>

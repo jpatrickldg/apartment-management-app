@@ -1,6 +1,7 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_announcement, only: [ :show, :edit, :update, :archive, :republish ]
+  before_action :check_if_tenant, except: [:index]
 
   def index
     @announcements = Announcement.all 
@@ -18,7 +19,6 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(announcement_params)
-
     if @announcement.save
       check_if_publishing
       check_if_saved_as_draft
@@ -53,6 +53,12 @@ class AnnouncementsController < ApplicationController
   end
 
   private
+
+  def check_if_tenant
+    if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
   def set_announcement
     @announcement = Announcement.find(params[:id])

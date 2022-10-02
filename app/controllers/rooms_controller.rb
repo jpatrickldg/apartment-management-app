@@ -1,9 +1,7 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_branch, only: [:index, :show]
-
-  def index
-    @rooms = @branch.rooms
-  end
+  before_action :check_restriction
 
   def show
     @room = @branch.rooms.find(params[:id])
@@ -22,13 +20,18 @@ class RoomsController < ApplicationController
   end
 
   def available
-    # @q = Branch.joins(:rooms).where(rooms: { available_count: > 0 }).ransack(params[:q])
     @q = Room.includes(:branch).where('available_count > 0').order(:room_code).ransack(params[:q])
     @available_rooms = @q.result(distinct: true)
     @branches = Branch.all
   end
 
   private
+
+  def check_restriction
+    if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
   def get_branch
     @branch = Branch.find(params[:branch_id])

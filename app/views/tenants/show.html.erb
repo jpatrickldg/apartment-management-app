@@ -1,56 +1,56 @@
 <div class="mb-4">
   <div class="mb-4">
-    <h1 class="text-lg lg:text-xl font-bold mb-1">Tenant Details</h1>
-  </div>
-  <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Status:</strong></p>
-      <% if @tenant.active? %>
-        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @tenant.status.upcase %></p>
-      <% elsif @tenant.inactive? %>
-        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @tenant.status.upcase %></p>
-      <% end %>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Email:</strong></p>
-      <p><%= @tenant.email %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Full Name:</strong></p>
-      <p><%= @tenant.first_name.capitalize %> <%= @tenant.last_name.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Gender:</strong></p>
-      <p><%= @tenant.gender.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Birthdate:</strong></p>
-      <p><%= @tenant.birthdate %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Occupation:</strong></p>
-      <p><%= @tenant.occupation.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact No:</strong></p>
-      <p><%= @tenant.contact_no %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-6">
-      <p><strong>Address:</strong></p>
-      <p><%= @tenant.address.capitalize %></p>
-    </div>
-    <h1 class="mb-2 font-bold underline">In Case of Emergency</h1>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact Person:</strong></p>
-      <p><%= @tenant.emergency_contact_person %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact No:</strong></p>
-      <p><%= @tenant.emergency_contact_no %></p>
+    <h1 class="text-lg lg:text-xl font-bold">Tenant Details</h1>
+    <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4 flex flex-col justify-center gap-2">
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Status:</strong></p>
+        <% if @tenant.active? %>
+          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @tenant.status.upcase %></p>
+        <% elsif @tenant.inactive? %>
+          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @tenant.status.upcase %></p>
+        <% end %>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Email:</strong></p>
+        <p><%= @tenant.email %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Full Name:</strong></p>
+        <p><%= @tenant.first_name.capitalize %> <%= @tenant.last_name.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Gender:</strong></p>
+        <p><%= @tenant.gender.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Birthdate:</strong></p>
+        <p><%= @tenant.birthdate %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Occupation:</strong></p>
+        <p><%= @tenant.occupation.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Contact No:</strong></p>
+        <p><%= @tenant.contact_no %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-4">
+        <p><strong>Address:</strong></p>
+        <p><%= @tenant.address.capitalize %></p>
+      </div>
+      <h1 class="font-bold underline">In Case of Emergency</h1>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Contact Person:</strong></p>
+        <p><%= @tenant.emergency_contact_person %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-4">
+        <p><strong>Contact No:</strong></p>
+        <p><%= @tenant.emergency_contact_no %></p>
+      </div>
     </div>
     
     <% if @tenant.inactive? %>
-      <% if @tenant.inactive? %>
+      <% if !current_user.cashier? %>
         <%= button_to 'Activate', activate_tenant_path(@tenant), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     <% end %>
@@ -58,7 +58,7 @@
 
   <% if @tenant.active? %>
     <div class="mb-4">
-      <h1 class="text-lg lg:text-xl font-bold mb-1">Tenancy Details</h1>
+      <h1 class="text-lg lg:text-xl font-bold">Tenancy Details</h1>
       <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
         <% if @active_booking.present? %>
           <div class="flex gap-2 place-items-center mb-2">
@@ -72,6 +72,14 @@
           <div class="flex gap-2 place-items-center mb-2">
             <p><strong>Payment Due Date:</strong></p>
             <p><%= @active_booking.due_date %></p>
+          </div>
+          <div class="flex gap-2 place-items-center mb-2">
+            <p><strong>Branch:</strong></p>
+            <p><%= @active_booking.room.branch.branch_type %></p>
+          </div>
+          <div class="flex gap-2 place-items-center mb-2">
+            <p><strong>Address:</strong></p>
+            <p><%= @active_booking.room.branch.address %></p>
           </div>
           <div class="flex gap-2 place-items-center mb-2">
             <p><strong>Room Code:</strong></p>
@@ -91,8 +99,12 @@
             <% end %>
           </div>
         <% else %>
-          <p class="mb-2">Tenant has no active booking</p>
-          <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+          <div class="flex gap-2 place-items-center">
+            <p class="text-sm italic">Tenant has no active booking</p>    
+            <% if !current_user.cashier? %>
+              <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>

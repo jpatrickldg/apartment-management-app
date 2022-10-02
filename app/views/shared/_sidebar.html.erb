@@ -23,6 +23,10 @@
         <%= render 'shared/sidebar_links', path: invoices_path %>
       <% end %>
 
+      <% if current_user.tenant? %>
+        <%= render 'shared/sidebar_links', path: bookings_path %>
+      <% end %>
+
       <%= render 'shared/sidebar_links', path: payments_path %>
       
       <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
