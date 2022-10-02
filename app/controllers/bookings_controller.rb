@@ -1,12 +1,16 @@
 class BookingsController < ApplicationController
-  before_action :get_tenant, only: [:index, :new, :create]
-  before_action :set_booking, only: [:edit, :update, :destroy, :deactivate]
+  before_action :authenticate_user!
+  before_action :check_restriction, except: [:index]
+  before_action :check_if_not_tenant, only: [:index]
+  before_action :get_tenant, only: [:new, :create]
+  before_action :set_booking, only: [:edit, :update, :deactivate]
+
+  def index
+    @bookings = current_user.bookings.order(status: :asc)
+  end
 
   def show
     @booking = Booking.includes(:user, room: [:branch]).find(params[:id])
-    # @tenant = User.find(@booking.user_id)
-    # @room = Room.find(@booking.room_id)
-    # @branch = Branch.find(@room.branch_id)
     @invoices = @booking.invoices.order(status: :asc)
   end
 
@@ -19,7 +23,7 @@ class BookingsController < ApplicationController
     @booking = @tenant.bookings.build(booking_params)
     if @booking.save
       @booking.set_processed_by(current_user.email)
-      redirect_to booking_path(@booking), notice: 'Booking Added'
+      redirect_to tenant_path(@tenant), notice: 'Booking Created'
     else
       render :new
     end
@@ -31,7 +35,7 @@ class BookingsController < ApplicationController
 
   def update
     if @booking.update(booking_params)
-      redirect_to booking_path(@booking), notice: 'Booking Updated'
+      redirect_to bookings_path, notice: 'Booking Updated'
     else
       render :edit
     end
@@ -41,14 +45,26 @@ class BookingsController < ApplicationController
     @active_invoice = @booking.invoices.where(status: 'active')
 
     if @active_invoice.present?
-      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an active Invoice'
+      redirect_to tenants_path, notice: 'Failed. Tenant has an active Invoice'
     else
       @booking.inactive!
-      redirect_to booking_path(@booking), notice: 'Booking deactivated'
+      redirect_to tenants_path, notice: 'Booking Deactivated'
     end
   end
 
   private
+
+  def check_restriction
+    if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
+
+  def check_if_not_tenant
+    if !current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
   def get_tenant
     @tenant = User.find(params[:tenant_id])

@@ -1,0 +1,49 @@
+<div class="mb-4">
+  <h1 class="text-xl lg:text-2xl font-bold mb-2">Bookings</h1>
+  <% if @bookings.any? %>
+    <% @bookings.each do |booking| %>
+      <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Status:</strong></p>
+          <% if booking.active? %>
+            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= booking.status.upcase %></h1>
+          <% elsif booking.inactive? %>
+            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= booking.status.upcase %></h1>
+          <% end %>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Booking ID:</strong></p>
+          <p><%= booking.id %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Move-In Date:</strong></p>
+          <p><%= booking.move_in_date %></p>
+        </div>
+        <% if booking.move_out_date? %>
+          <div class="flex gap-2 place-items-center mb-2">
+            <p><strong>Move-Out Date:</strong></p>
+            <p><%= booking.move_out_date %></p>
+          </div>
+        <% end %>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Payment Due Date:</strong></p>
+          <p><%= booking.due_date %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Room Code:</strong></p>
+          <p><%= booking.room.room_code %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p><strong>Monthly Rate:</strong></p>
+          <p>₱<%= booking.room.monthly_rate %></p>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div>
+      <p class="italic text-sm">You have no active booking yet. Please wait for our staff to process your contract.</p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>

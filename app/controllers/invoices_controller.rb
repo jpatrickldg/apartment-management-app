@@ -1,6 +1,9 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_restriction
+  before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
-  before_action :set_invoice, only: [:edit, :update, :destroy] 
+  before_action :set_invoice, only: [:edit, :update] 
 
   def index
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
@@ -32,18 +35,35 @@ class InvoicesController < ApplicationController
   end
 
   def edit
+    if @invoice.processed_by != current_user.email 
+      redirect_to invoice_path(@invoice), notice: 'Access Denied'
+    end
   end
 
   def update
-    if @invoice.update(invoice_params)
-      redirect_to invoice_path(@invoice), notice: 'Invoice Updated'
+    if @invoice.processed_by != current_user.email 
+      redirect_to invoice_path(@invoice), notice: 'Access Denied'
     else
-      render :edit
+      if @invoice.update(invoice_params)
+        redirect_to invoice_path(@invoice), notice: 'Invoice Updated'
+      else
+        render :edit
+      end
     end
-    
   end
 
-  def destroy
+  private
+
+  def check_restriction
+    if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
+
+  def check_if_receptionist
+    if current_user.receptionist?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
   end
 
   def get_booking
@@ -54,11 +74,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
   end
 
-  private
-
   def invoice_params
     params.require(:invoice).permit(:booking_id, :water_bill, :electricity_bill, :total_amount, :date_from, :date_to, :remarks, :processed_by, :status, :room_rate )
   end
-  
-
 end

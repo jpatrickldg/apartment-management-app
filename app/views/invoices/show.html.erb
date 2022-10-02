@@ -37,6 +37,12 @@
     <p><strong>Total Amount:</strong></p>
     <p>₱<%= @invoice.total_amount %></p>
   </div>
+  <% if !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Processed by:</strong></p>
+      <p><%= @invoice.processed_by %></p>
+    </div>
+  <% end %>
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Remarks:</strong></p>
     <p><%= @invoice.remarks %></p>

@@ -67,7 +67,8 @@ RSpec.describe Invoice, type: :model do
 
   context "if status is paid after save" do
     it 'will update booking due date' do
-      invoice = create(:invoice)
+      booking = create(:booking, due_date: Date.today)
+      invoice = create(:invoice, booking_id: booking.id)
       booking = Booking.find(invoice.booking_id)
       before_update = booking.due_date
       invoice.paid!

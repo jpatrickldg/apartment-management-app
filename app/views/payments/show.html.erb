@@ -80,7 +80,7 @@
 <div class="flex gap-2 place-items-center">
   
   <% if @payment.pending? && current_user.email == @payment.initiated_by %>
-    <%= link_to 'Update Proof', edit_payment_path(@payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <%= link_to 'Update Proof', change_proof_payment_path(@payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
   <% end %>
   
   <% if @payment.pending? && current_user.cashier? %>

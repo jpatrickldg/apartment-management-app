@@ -2,7 +2,7 @@
   <div class="mb-2">
     <h1 class="text-lg lg:text-xl font-bold"> <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-800"></i> Announcement</h1>
   </div>
-  <div class="border border-gray-200 rounded-lg">
+  <div class="border border-gray-200 rounded-lg p-2">
     <% if @latest_published_announcement %>
       <div class="w-full bg-gray-200 p-2">
         <h1 class="font-bold"><%= @latest_published_announcement.title %></h1>
@@ -11,7 +11,9 @@
         <p class="text-sm"><%= truncate(@latest_published_announcement.description, length: 80) %> <%= link_to 'See more details', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline' %></p>
       </div>
     <% else %>
-      <p>No new announcement</p>
+      <div>
+        <p class="italic text-sm">No New Announcement</p>
+      </div>
     <% end %>
   </div>
 </div>

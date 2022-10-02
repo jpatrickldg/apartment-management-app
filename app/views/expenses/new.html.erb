@@ -1,6 +1,6 @@
 <div>
   <h2 class="text-lg lg:text-xl font-bold mb-2">New Expense</h2>
-  <%= form_with model: @expense do |f| %>
+  <%= form_with model: @expense, data: {turbo: false} do |f| %>
     <% if @expense.errors.any? %>
       <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
         <% @expense.errors.full_messages.each do |error| %>

@@ -1,16 +1,14 @@
 <h1>Inquiry Form</h1>
 
-<%= form_with model: @inquiry do |f| %>
+<%= form_with model: @inquiry, data: {turbo: false} do |f| %>
   
-  <div>
-    <% if @inquiry.errors.any? %>
-      <ul>
-        <% @inquiry.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+  <% if @inquiry.errors.any? %>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+        <% @inquiry.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
         <% end %>
-      /ul>
+      </div>
     <% end %>
-  </div>
 
   <div>
     <%= f.label :email %> <br>
