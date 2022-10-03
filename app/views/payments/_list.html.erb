@@ -58,11 +58,11 @@
               <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
               <td class="p-3">
                 <% if payment.approved? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= payment.status.upcase %></span>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= payment.status.upcase %></span>
                 <% elsif payment.pending? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-700"><%= payment.status.upcase %></span>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= payment.status.upcase %></span>
                 <% elsif payment.cancelled? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-700"><%= payment.status.upcase %></span>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= payment.status.upcase %></span>
                 <% end %>
               </td>
 

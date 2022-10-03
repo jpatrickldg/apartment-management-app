@@ -1,68 +1,64 @@
-<div class="mb-4 max-w-sm">
-  <div class="mb-4">
-    <div class="mb-4">
-      <h1 class="text-lg lg:text-xl font-bold mb-1 max-w">User Profile</h1>
-    </div>
-    <div class="mb-2">
-      <% if current_user.avatar.attached? %>
-        <%= image_tag current_user.avatar, class: 'max-w-[200px] h-auto rounded-lg' %>
-        <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
-      <% else %>
-        <%= image_tag ("https://cdn-icons-png.flaticon.com/512/847/847969.png"), class: 'max-w-[200px] h-auto rounded-lg mb-2' %>
-        <p class="text-sm italic">You have not added an avatar</p>
-      <% end %>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Email:</strong></p>
+<div class="flex flex-col gap-5 lg:gap-10 m-2 lg:flex-row lg:mx-8 lg:my-4">
+  <div class="flex flex-col gap-2 p-5 lg:px-20 place-items-center justify-center bg-gray-200 rounded-lg">
+    <% if current_user.avatar.attached? %>
+      <%= image_tag current_user.avatar, class: 'max-w-[180px] h-auto rounded-lg' %>
+      <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline text-sm' %>
+    <% else %>
+      <%= image_tag ("user.png"), class: 'max-w-[150px] h-auto rounded-lg mb-2' %>
+    <% end %>
+    <h1 class="font-medium text-lg"><%= @user.first_name.upcase %> <%= @user.last_name.upcase %></h1>
+    <%= link_to 'Edit Profile', edit_profile_path, class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <%= link_to 'Change Password', change_password_user_path, class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  </div>
+  <div class="flex flex-col p-5 lg:px-10 gap-2 justify-center bg-gray-200 rounded-lg flex-grow">
+    <h1 class="font-bold text-xl mb-4 underline">Profile</h1>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Email:</strong></p>
       <p><%= @user.email %></p>
     </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Full Name:</strong></p>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Full Name:</strong></p>
       <p><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></p>
     </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Gender:</strong></p>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Gender:</strong></p>
       <p><%= @user.gender.capitalize %></p>
     </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Birthdate:</strong></p>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Birthdate:</strong></p>
       <p><%= @user.birthdate %></p>
     </div>
     
     <% if @user.tenant? %>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Occupation:</strong></p>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Occupation:</strong></p>
         <p><%= @user.occupation %></p>
       </div>
     <% else %>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Role:</strong></p>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Role:</strong></p>
         <p><%= @user.role.capitalize %></p>
       </div>
     <% end %>
     
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact No:</strong></p>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Contact No:</strong></p>
       <p><%= @user.contact_no %></p>
     </div>
     <div class="flex gap-2 place-items-center mb-6">
-      <p><strong>Address:</strong></p>
+      <p class="lg:min-w-[150px]"><strong>Address:</strong></p>
       <p><%= @user.address.capitalize %></p>
     </div>
-    <h1 class="mb-2 font-bold underline">In Case of Emergency</h1>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact Person:</strong></p>
-      <p><%= @user.emergency_contact_person %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contact No:</strong></p>
-      <p><%= @user.emergency_contact_no %></p>
-    </div>
+    <% if current_user.tenant? %>
+      <h1 class="mb-2 font-bold underline">In Case of Emergency</h1>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Contact Person:</strong></p>
+        <p><%= @user.emergency_contact_person %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Contact No:</strong></p>
+        <p><%= @user.emergency_contact_no %></p>
+      </div>
+    <% end %>
   </div>
-  <div class="flex gap-2 place-items-center mb-4">
-    <%= link_to 'Edit Profile', edit_profile_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-    <%= link_to 'Change Password', change_password_user_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-  </div>
-  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
-

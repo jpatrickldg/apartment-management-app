@@ -28,7 +28,7 @@
         <tbody>
           <% @available_rooms.each do |room| %>
             <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-              <td class="p-3 font-bold"><%= link_to room.room_code, [@branches.find(room.branch_id), room], class: 'text-blue-600 hover:underline' %></td>
+              <td class="p-3 font-medium"><%= link_to room.room_code, [@branches.find(room.branch_id), room], class: 'text-blue-600 hover:underline' %></td>
               <td class="p-3"><%= room.branch.branch_type %></td>
               <td class="p-3"><%= room.branch.address %></td>
               <td class="p-3 text-center"><%= room.occupants_count %></td>

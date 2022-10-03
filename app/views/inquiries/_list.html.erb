@@ -28,7 +28,7 @@
               <% elsif inquiry.closed? %>
                 <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= inquiry.status.upcase %></span>
               <% elsif inquiry.on_going? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-400"><%= inquiry.status.upcase %></span>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= inquiry.status.upcase %></span>
               <% end %>
             </td>
             <td class="p-3"><%= inquiry.first_name.capitalize %></td>

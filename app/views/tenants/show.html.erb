@@ -24,13 +24,19 @@
       </thead>
       <tbody>
         <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-          <td class="p-3 font-medium"><%= @tenant.status.capitalize %></td>
+          <td class="p-3">
+            <% if @tenant.active? %>
+              <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @tenant.status.upcase %></span>
+            <% elsif @tenant.inactive? %>
+              <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @tenant.status.upcase %></span>
+            <% end %>
+          </td>
           <td class="p-3">
             <% if current_user.avatar.attached? %>
               <%= image_tag current_user.avatar, class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
               <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
             <% else %>
-              <%= image_tag ("https://cdn-icons-png.flaticon.com/512/847/847969.png"), class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
+              <%= image_tag ("user.png"), class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
             <% end %>
           </td>
           <td class="p-3"><%= @tenant.email %></td>
