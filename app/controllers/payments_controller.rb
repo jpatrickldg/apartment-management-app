@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_if_receptionist, only: [:new, :create, :edit, :update]
+  before_action :check_ownership, only: [:show]
   before_action :get_invoice, only: [:new, :create]
   before_action :set_payment, only: [:change_proof, :update_proof, :approve, :approve_payment]
 
@@ -52,6 +53,13 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def check_ownership
+    @payment = Payment.includes(invoice: [booking: [:user]]).find(params[:id])
+    if current_user.tenant? && @payment.invoice.booking.user.id != current_user.id
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
 
   def check_if_receptionist
     if current_user.receptionist?

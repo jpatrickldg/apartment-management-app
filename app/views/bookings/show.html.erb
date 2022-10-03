@@ -1,56 +1,101 @@
-<h1>Booking Details</h1>
-
-
-<p><strong>Status: </strong><%= @booking.status.upcase %></p>
-<p><strong>Tenant: </strong><%= "#{@booking.user.first_name} #{@booking.user.last_name}" %></p>
-<p><strong>Branch: </strong><%= @booking.room.branch.branch_type %> | <%= @booking.room.branch.address %></p>
-<p><strong>Room: </strong><%= @booking.room.room_code %></p>
-<p><strong>Monthly Rate: </strong><%= @booking.room.monthly_rate %></p>
-<p><strong>Move-In Date: </strong><%= @booking.move_in_date %></p>
-<p><strong>Due Date: </strong><%= @booking.due_date %></p>
-
-<% if current_user.cashier? %>
-  <h1>Active Invoice/s for this Booking</h1>
-
-  <% if @invoices.any? %>
-    <table>
-      <thead>
-        <th>Status</th>
-        <th>Date Posted</th>
-        <th>Posted By</th>
-        <th>Total Amount</th>
-      </thead>
-      <tbody>
-        <% @invoices.each do |invoice| %>
-          <tr>
-            <td><%= invoice.status.upcase %></td>
-            <td><%= invoice.created_at %></td>
-            <td><%= invoice.processed_by %></td>
-            <td><%= invoice.total_amount %></td>
-            <td><%= link_to 'View Details', invoice_path(invoice) %></td>
-          </tr>
+<div class="mb-6">
+  <div class="mb-4">
+    <h1 class="text-lg lg:text-xl font-bold mb-2">Booking Details</h1>
+    <div class="flex flex-col gap-2 justify-center border border-gray-200 px-3 py-4 rounded-lg">
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Status:</strong></p>
+        <% if @booking.active? %>
+          <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @booking.status.upcase %></h1>
+        <% elsif @booking.inactive? %>
+          <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @booking.status.upcase %></h1>
         <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p><em>No Active Invoice Found</em></p>
-  <% end %>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Tenant:</strong></p>
+        <p><%= @booking.user.email %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Branch:</strong></p>
+        <p><%= @booking.room.branch.branch_type %> | <%= @booking.room.branch.address %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Room:</strong></p>
+        <p><%= @booking.room.room_code %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Monthly Rate:</strong></p>
+        <p>₱<%= @booking.room.monthly_rate %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Move-In Date:</strong></p>
+        <p><%= @booking.move_in_date %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Move-Out Date:</strong></p>
+        <p><%= @booking.move_out_date ? @booking.move_out_date : '-' %></p>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p><strong>Due Date:</strong></p>
+        <p><%= @booking.due_date %></p>
+      </div>
+      <% if @booking.active? %>
+        <%= link_to 'Deactivate', deactivate_booking_path, class: 'block w-fit py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% end %>
+    </div>
+  </div>
 
+  <div class="mb-4">
+    <div class="flex gap-2 place-items-center mb-2">
+      <h1 class="text-lg lg:text-xl font-bold">Invoices</h1>
+      <% if @booking.active? %>
+        <%= link_to 'New Invoice', new_booking_invoice_path(@booking), class: 'block w-fit py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% end %>
+    </div>
+    <% if @booking.invoices.any? %>
+      <div class="overflow-x-auto relative rounded-md">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+            <tr>
+              <th class="p-3">Status</th>
+              <th class="p-3 text-center">Total Amount</th>
+              <th class="p-3">Date From</th>
+              <th class="p-3">Date To</th>
+              <th class="p-3">Payment Date</th>
+              <th class="p-3">Remarks</th>
+              <th class="p-3">Processed By</th>
+              <th class="p-3 text-center">
+                <span class="sr-only">View</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @booking.invoices.each do |invoice| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3">
+                <% if invoice.active? %>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-700"><%= invoice.status.upcase %></span>
+                <% elsif invoice.paid? %>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= invoice.status.upcase %></span>
+                <% end %>
+              </td>
+              <td class="p-3 text-center">₱<%= invoice.total_amount %></td>
+              <td class="p-3"><%= invoice.date_from %></td>
+              <td class="p-3"><%= invoice.date_to %></td>
+              <td class="p-3"><%= invoice.payment.updated_at.strftime("%Y-%m-%d") %></td>
+              <td class="p-3"><%= invoice.remarks %></td>
+              <td class="p-3"><%= invoice.processed_by %></td>
+              <td class="p-3 text-center"><%= link_to 'View', invoice_path(invoice), class: 'font-medium text-blue-600 hover:underline' %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div>
+        <p class="text-sm italic">Booking has no invoice yet</p>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-  <br>
-
-  <br>
-
-  <% if @booking.active? %>
-    <%= link_to 'New Invoice', new_booking_invoice_path(@booking) %>
-  <% end %>
-<% end %>
-<%= button_to 'Deactivate', deactivate_booking_path %>
-
-
-
-<br>
-
-<%= link_to 'Back', tenants_path %>
-
-
+<%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>

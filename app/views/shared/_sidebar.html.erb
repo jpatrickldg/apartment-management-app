@@ -19,13 +19,11 @@
         <%= render 'shared/sidebar_links', path: branches_path %>
       <% end %>
       
-      <% if current_user.admin? || current_user.owner? || current_user.cashier? %>
-        <%= render 'shared/sidebar_links', path: invoices_path %>
-      <% end %>
+      <%# if current_user.admin? || current_user.owner? || current_user.cashier? %>
+        <%#= render 'shared/sidebar_links', path: invoices_path %>
+      <%# end %>
 
-      <% if current_user.tenant? %>
-        <%= render 'shared/sidebar_links', path: bookings_path %>
-      <% end %>
+      <%= render 'shared/sidebar_links', path: bookings_path %>
 
       <%= render 'shared/sidebar_links', path: payments_path %>
       
@@ -36,7 +34,7 @@
       <%= render 'shared/sidebar_links', path: concerns_path %>
     </ul>
     <div>
-      <div class="trial flex-none flex justify-center place-items-center lg:hidden m-auto w-full p-2">
+      <div class="flex-none flex justify-center place-items-center lg:hidden m-auto w-full p-2">
         <% if current_user.avatar.attached? %>
           <%= image_tag current_user.avatar, class: 'rounded-sm w-8 block' %>
         <% else %>

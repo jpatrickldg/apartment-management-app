@@ -8,7 +8,7 @@
         <%= image_tag current_user.avatar, class: 'max-w-[200px] h-auto rounded-lg' %>
         <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
       <% else %>
-        <%= image_tag ("/assets/user.png"), class: 'max-w-[200px] h-auto rounded-lg mb-2' %>
+        <%= image_tag ("https://cdn-icons-png.flaticon.com/512/847/847969.png"), class: 'max-w-[200px] h-auto rounded-lg mb-2' %>
         <p class="text-sm italic">You have not added an avatar</p>
       <% end %>
     </div>

@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     get :new_tenants, on: :collection
     get :active, on: :collection
     resources :bookings, except: [:index, :destroy], shallow: true do
-      post :deactivate, on: :member
+      get :deactivate, on: :member
+      patch :update_deactivate, on: :member
       resources :invoices, only: [:new, :create, :edit, :update], shallow: true do
         resource :payment, only: [:new, :create]
       end

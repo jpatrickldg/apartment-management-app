@@ -6,17 +6,10 @@ RSpec.describe "Bookings", type: :request do
   let (:tenant) { create(:user, role: 'tenant') }
 
   describe "GET /index" do
-    it "returns index page if user is tenant" do
+    it "returns index page" do
       sign_in tenant
       get bookings_path
       expect(response).to have_http_status(200)
-    end
-
-    it 'redirects if user is not tenant' do
-      sign_in admin
-      get bookings_path
-      expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
     end
   end
 
@@ -37,15 +30,22 @@ RSpec.describe "Bookings", type: :request do
     end
   end
 
-  describe "POST #deactivate" do
+  describe "PATCH #deactivate" do
     it 'sets booking status to inactive' do
       sign_in admin
+      user = create(:user)
 
-      booking = create(:booking)
-      post deactivate_booking_path(booking)
+      booking = create(:booking, user_id: user.id)
+      before_update = user.status
+      booking_params = {
+        move_out_date: Date.today
+      }
+      patch update_deactivate_booking_path(booking), params: { booking: booking_params }
       booking.reload
+      user.reload
 
       expect(booking.status).to eq 'inactive'  
+      expect(user.status).to eq 'inactive'  
       expect(flash[:notice]).to match('Booking Deactivated')
     end
 
@@ -53,10 +53,11 @@ RSpec.describe "Bookings", type: :request do
       sign_in admin
       booking = create(:booking)
       invoice = create(:invoice, booking_id: booking.id)
-
-      post deactivate_booking_path(booking)
+      booking_params = {
+        move_out_date: Date.today
+      }
+      patch update_deactivate_booking_path(booking), params: { booking: booking_params }
       booking.reload
-      expect(response).to redirect_to(tenants_path)
       expect(flash[:notice]).to match('Failed. Tenant has an active Invoice')
     end
   end

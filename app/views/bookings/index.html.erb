@@ -1,48 +1,21 @@
 <div class="mb-4">
   <h1 class="text-xl lg:text-2xl font-bold mb-2">Bookings</h1>
-  <% if @bookings.any? %>
-    <% @bookings.each do |booking| %>
-      <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Status:</strong></p>
-          <% if booking.active? %>
-            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= booking.status.upcase %></h1>
-          <% elsif booking.inactive? %>
-            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= booking.status.upcase %></h1>
-          <% end %>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Booking ID:</strong></p>
-          <p><%= booking.id %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Move-In Date:</strong></p>
-          <p><%= booking.move_in_date %></p>
-        </div>
-        <% if booking.move_out_date? %>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Move-Out Date:</strong></p>
-            <p><%= booking.move_out_date %></p>
-          </div>
-        <% end %>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Payment Due Date:</strong></p>
-          <p><%= booking.due_date %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Room Code:</strong></p>
-          <p><%= booking.room.room_code %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Monthly Rate:</strong></p>
-          <p>₱<%= booking.room.monthly_rate %></p>
-        </div>
-      </div>
-    <% end %>
+  <% if current_user.tenant? %>
+    <%= render 'list', bookings: @current_user_bookings %>
   <% else %>
-    <div>
-      <p class="italic text-sm">You have no active booking yet. Please wait for our staff to process your contract.</p>
+    <div class="mb-4">
+      <%= search_form_for @q do |f| %>
+        <div class="relative">
+          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
+          </div>
+          <%= f.search_field :processed_by_or_user_email_cont, placeholder: 'Search Payment', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+          <%= f.submit 'Search', class: 'text-white absolute right-20 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 hover:cursor-pointer'  %>
+          <%= link_to 'Clear', bookings_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+        </div>
+      <% end %>
     </div>
+    <%= render 'list', bookings: @bookings %>
   <% end %>
 </div>
 

@@ -1,115 +1,174 @@
-<div class="mb-4">
-  <div class="mb-4">
-    <h1 class="text-lg lg:text-xl font-bold">Tenant Details</h1>
-    <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4 flex flex-col justify-center gap-2">
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Status:</strong></p>
-        <% if @tenant.active? %>
-          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @tenant.status.upcase %></p>
-        <% elsif @tenant.inactive? %>
-          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @tenant.status.upcase %></p>
+<div class="mb-4 flex flex-col gap-4">
+  <h1 class="text-xl lg:text-2xl font-bold">Tenant Details</h1>
+  <div class="overflow-x-auto relative rounded-md">
+    <div class="flex gap-2 place-items-center mb-2">
+      <h1 class="lg:text-lg font-bold">Account Details</h1>
+      <% if @tenant.inactive? %>
+        <% if !current_user.cashier? %>
+          <%= button_to 'Activate', activate_tenant_path(@tenant), class: 'block w-fit py-1 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         <% end %>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Email:</strong></p>
-        <p><%= @tenant.email %></p>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Full Name:</strong></p>
-        <p><%= @tenant.first_name.capitalize %> <%= @tenant.last_name.capitalize %></p>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Gender:</strong></p>
-        <p><%= @tenant.gender.capitalize %></p>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Birthdate:</strong></p>
-        <p><%= @tenant.birthdate %></p>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Occupation:</strong></p>
-        <p><%= @tenant.occupation.capitalize %></p>
-      </div>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Contact No:</strong></p>
-        <p><%= @tenant.contact_no %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-4">
-        <p><strong>Address:</strong></p>
-        <p><%= @tenant.address.capitalize %></p>
-      </div>
-      <h1 class="font-bold underline">In Case of Emergency</h1>
-      <div class="flex gap-2 place-items-center">
-        <p><strong>Contact Person:</strong></p>
-        <p><%= @tenant.emergency_contact_person %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-4">
-        <p><strong>Contact No:</strong></p>
-        <p><%= @tenant.emergency_contact_no %></p>
-      </div>
-    </div>
-    
-    <% if @tenant.inactive? %>
-      <% if !current_user.cashier? %>
-        <%= button_to 'Activate', activate_tenant_path(@tenant), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
+    </div>
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+        <tr>
+          <th class="p-3 w-1/12">Status</th>
+          <th class="p-3 w-1/12 text-center">Avatar</th>
+          <th class="p-3">Email</th>
+          <th class="p-3">First Name</th>
+          <th class="p-3">Last Name</th>
+          <th class="p-3">Gender</th>
+          <th class="p-3">Birthdate</th>
+          <th class="p-3">Occupation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+          <td class="p-3 font-medium"><%= @tenant.status.capitalize %></td>
+          <td class="p-3">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
+              <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
+            <% else %>
+              <%= image_tag ("https://cdn-icons-png.flaticon.com/512/847/847969.png"), class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
+            <% end %>
+          </td>
+          <td class="p-3"><%= @tenant.email %></td>
+          <td class="p-3"><%= @tenant.first_name %></td>
+          <td class="p-3"><%= @tenant.last_name %></td>
+          <td class="p-3"><%= @tenant.gender.capitalize %></td>
+          <td class="p-3"><%= @tenant.birthdate %></td>
+          <td class="p-3"><%= @tenant.occupation.capitalize %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="overflow-x-auto relative rounded-md">
+    <h1 class="lg:text-lg font-bold">Contact Details</h1>
+    <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+        <tr>
+          <th class="p-3">Contact No</th>
+          <th class="p-3">Address</th>
+          <th class="p-3">Emergency Contact Person</th>
+          <th class="p-3">Emergency Contact No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+          <td class="p-3 font-medium"><%= @tenant.contact_no %></td>
+          <td class="p-3 w-3/5"><%= @tenant.address %></td>
+          <td class="p-3"><%= @tenant.emergency_contact_person.capitalize %></td>
+          <td class="p-3"><%= @tenant.emergency_contact_no %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="overflow-x-auto relative rounded-md">
+    <div class="flex gap-2 place-items-center mb-2">
+      <h1 class="lg:text-lg font-bold">Bookings</h1>
+      <% if @tenant.active? && !@tenant.bookings.where(status: 'active').any? && !current_user.cashier? %>
+        <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <% end %>
+    </div>
+    <% if @tenant.bookings.includes(:room).any? %>
+      <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3 w-1/12">ID</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Room</th>
+            <th class="p-3 text-center">Move-In Date</th>
+            <th class="p-3 text-center">Move-Out Date</th>
+            <th class="p-3 text-center">Due Date</th>
+            <th class="p-3">Processed by</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tenant.bookings.each do |booking| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3 font-medium"><%= link_to booking.id, booking_path(booking), class: 'text-blue-600 hover:underline' %></td>
+              <td class="p-3 font-medium"><%= booking.status.capitalize %></td>
+              <td class="p-3"><%= booking.room.room_code %></td>
+              <td class="p-3 text-center"><%= booking.move_in_date %></td>
+              <td class="p-3 text-center"><%= booking.move_out_date ? booking.move_out_date : '-' %></td>
+              <td class="p-3 text-center"><%= booking.due_date %></td>
+              <td class="p-3"><%= booking.processed_by %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div>
+        <p class="text-sm italic">Empty</p>
+      </div>
     <% end %>
   </div>
-
-  <% if @tenant.active? %>
-    <div class="mb-4">
-      <h1 class="text-lg lg:text-xl font-bold">Tenancy Details</h1>
-      <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-        <% if @active_booking.present? %>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Booking ID:</strong></p>
-            <p><%= @active_booking.id %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Move-In Date:</strong></p>
-            <p><%= @active_booking.move_in_date %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Payment Due Date:</strong></p>
-            <p><%= @active_booking.due_date %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Branch:</strong></p>
-            <p><%= @active_booking.room.branch.branch_type %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Address:</strong></p>
-            <p><%= @active_booking.room.branch.address %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Room Code:</strong></p>
-            <p><%= @active_booking.room.room_code %></p>
-          </div>
-          <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Monthly Rate:</strong></p>
-            <p>₱<%= @active_booking.room.monthly_rate %></p>
-          </div>
-          
-          <div class="flex gap-2 place-items-center">
-            <% if current_user.admin? || current_user.owner? || current_user.cashier? %>
-              <%= link_to 'New Invoice', new_booking_invoice_path(@active_booking), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-            <% end %>
-            <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
-              <%= button_to 'Deactivate', deactivate_booking_path(@active_booking), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-            <% end %>
-          </div>
-        <% else %>
-          <div class="flex gap-2 place-items-center">
-            <p class="text-sm italic">Tenant has no active booking</p>    
-            <% if !current_user.cashier? %>
-              <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+  <% if @tenant.invoices.includes(:booking).any? %>
+    <div class="overflow-x-auto relative rounded-md">
+      <h1 class="lg:text-lg font-bold">Invoices</h1>
+      <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3 w-1/12">ID</th>
+            <th class="p-3 w-[120px]">Booking ID</th>
+            <th class="p-3 w-1/12">Status</th>
+            <th class="p-3 text-center">Total Amount</th>
+            <th class="p-3 text-center">Date From</th>
+            <th class="p-3 text-center">Date To</th>
+            <th class="p-3 text-center">Processed by</th>
+            <th class="p-3">Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tenant.invoices.each do |invoice| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3 font-medium"><%= link_to invoice.id, invoice_path(invoice), class: 'text-blue-600 hover:underline' %></td>
+              <td class="p-3"><%= invoice.booking.id %></td>
+              <td class="p-3 font-medium"><%= invoice.status.capitalize %></td>
+              <td class="p-3 text-center">₱<%= invoice.total_amount %></td>
+              <td class="p-3 text-center"><%= invoice.date_from %></td>
+              <td class="p-3 text-center"><%= invoice.date_to %></td>
+              <td class="p-3 text-center"><%= invoice.processed_by %></td>
+              <td class="p-3"><%= invoice.remarks %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   <% end %>
-</div>
+  <% if @tenant.payments.includes(:invoice).any? %>
+    <div class="overflow-x-auto relative rounded-md">
+      <h1 class="lg:text-lg font-bold">Payments</h1>
+      <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3 w-1/12">ID</th>
+            <th class="p-3 w-1/12">Invoice ID</th>
+            <th class="p-3 w-1/12">Status</th>
+            <th class="p-3 text-center">Amount</th>
+            <th class="p-3 text-center">Mode of Payment</th>
+            <th class="p-3 text-center">Initiated by</th>
+            <th class="p-3 text-center">Processed by</th>
+            <th class="p-3">Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tenant.payments.each do |payment| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
+              <td class="p-3"><%= payment.invoice.id %></td>
+              <td class="p-3 font-medium"><%= payment.status.capitalize %></td>
+              <td class="p-3 text-center">₱<%= payment.amount %></td>
+              <td class="p-3 text-center"><%= payment.payment_mode.capitalize %></td>
+              <td class="p-3 text-center"><%= payment.initiated_by %></td>
+              <td class="p-3 text-center"><%= payment.processed_by %></td>
+              <td class="p-3"><%= payment.remarks %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 
-<%= link_to 'Back', tenants_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-
+<%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>

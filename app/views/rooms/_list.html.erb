@@ -4,20 +4,16 @@
       <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
         <tr>
           <th class="p-3">Email</th>
-          <th class="p-3">First Name</th>
-          <th class="p-3">Last Name</th>
-          <th class="p-3 text-center">
-            <span class="sr-only">Profile</span>
-          </th>
+          <th class="p-3 text-center">First Name</th>
+          <th class="p-3 text-center">Last Name</th>
         </tr>
       </thead>
       <tbody>
         <% tenants.each do |tenant| %>
           <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-            <td class="p-3 font-bold"><%= tenant.email %></td>
-            <td class="p-3"><%= tenant.first_name %></td>
-            <td class="p-3"><%= tenant.last_name %></td>
-            <td class="p-3 text-center"><%= link_to 'Profile', tenant_path(tenant), class: 'font-medium text-blue-600 hover:underline' %></td>
+            <td class="p-3"><%= link_to tenant.email, tenant_path(tenant), class: 'font-medium text-blue-600 hover:underline' %></td>
+            <td class="p-3 text-center"><%= tenant.first_name %></td>
+            <td class="p-3 text-center"><%= tenant.last_name %></td>
           </tr>
         <% end %>
       </tbody>

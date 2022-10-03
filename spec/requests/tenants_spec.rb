@@ -34,8 +34,8 @@ RSpec.describe "Tenants", type: :request do
       create(:booking, user_id: user1.id)
       get new_tenants_tenants_path
       expect(response).to have_http_status(200)
-      expect(response.body).to_not include("Reviewee")
-      expect(response.body).to include("Student")
+      expect(response.body).to_not include(user1.email)
+      expect(response.body).to include(user2.email)
     end
 
     it 'redirects if user is tenant' do

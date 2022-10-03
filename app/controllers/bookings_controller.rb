@@ -1,12 +1,15 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction, except: [:index]
-  before_action :check_if_not_tenant, only: [:index]
+  before_action :check_restriction, except: [:index, :show]
+  before_action :check_ownership, only: [:show]
   before_action :get_tenant, only: [:new, :create]
-  before_action :set_booking, only: [:edit, :update, :deactivate]
+  before_action :set_booking, only: [:edit, :update, :deactivate, :update_deactivate]
+  before_action :check_active_invoice, only: [:deactivate, :update_deactivate]
 
   def index
-    @bookings = current_user.bookings.order(status: :asc)
+    @q = Booking.includes(:user).ransack(params[:q])
+    @bookings = @q.result(distinct: true)
+    @current_user_bookings = current_user.bookings.order(status: :asc)
   end
 
   def show
@@ -42,13 +45,14 @@ class BookingsController < ApplicationController
   end
 
   def deactivate
-    @active_invoice = @booking.invoices.where(status: 'active')
+  end
 
-    if @active_invoice.present?
-      redirect_to tenants_path, notice: 'Failed. Tenant has an active Invoice'
+  def update_deactivate
+    @booking.status = 'inactive'
+    if @booking.update(booking_params)
+      redirect_to booking_path(@booking), notice: 'Booking Deactivated'
     else
-      @booking.inactive!
-      redirect_to tenants_path, notice: 'Booking Deactivated'
+      render :deactivate
     end
   end
 
@@ -60,9 +64,18 @@ class BookingsController < ApplicationController
     end
   end
 
-  def check_if_not_tenant
-    if !current_user.tenant?
+  def check_ownership
+    @booking = Booking.includes(:user).find(params[:id])
+    if current_user.tenant? && @booking.user.id != current_user.id
       redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
+
+  def check_active_invoice
+    @booking = Booking.find(params[:id])
+    @active_invoice = @booking.invoices.where(status: 'active')
+    if @active_invoice.present?
+      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an active Invoice'
     end
   end
 

@@ -1,0 +1,27 @@
+<h1 class="text-lg lg:text-xl font-bold mb-4">Deactivate Booking</h1>
+
+<div class="max-w-sm">
+  <%= form_with model: @booking, data: {turbo: false}, url: update_deactivate_booking_path(@booking), method: :patch do |f| %>
+
+    <% if @booking.errors.any? %>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+        <% @booking.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :move_out_date, class: 'block font-medium mb-1' %>
+      <%= f.date_field :move_out_date, required: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+    </div>
+
+    <div class="flex gap-2 items-center">
+      <%= f.submit 'Deactivate', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      
+      <%= link_to 'Cancel', booking_path(@booking), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+
+  <% end %>
+
+</div>

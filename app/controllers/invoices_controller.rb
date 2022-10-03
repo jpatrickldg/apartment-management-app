@@ -1,6 +1,7 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction
+  before_action :check_restriction, except: [:show]
+  before_action :check_ownership, only: [:show]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
   before_action :set_invoice, only: [:edit, :update] 
@@ -56,6 +57,13 @@ class InvoicesController < ApplicationController
 
   def check_restriction
     if current_user.tenant?
+      redirect_to authenticated_root_path, notice: 'Access Denied'
+    end
+  end
+
+  def check_ownership
+    @invoice = Invoice.includes(booking: [:user]).find(params[:id])
+    if current_user.tenant? && @invoice.booking.user.id != current_user.id
       redirect_to authenticated_root_path, notice: 'Access Denied'
     end
   end

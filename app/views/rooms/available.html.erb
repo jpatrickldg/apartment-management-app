@@ -23,21 +23,17 @@
             <th class="p-3 text-center">Occupants</th>
             <th class="p-3 text-center">Capacity</th>
             <th class="p-3 text-center">Available</th>
-            <th class="p-3 text-center">
-              <span class="sr-only">View</span>
-            </th>
           </tr>
         </thead>
         <tbody>
           <% @available_rooms.each do |room| %>
             <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-              <td class="p-3 font-bold"><%= room.room_code %></td>
+              <td class="p-3 font-bold"><%= link_to room.room_code, [@branches.find(room.branch_id), room], class: 'text-blue-600 hover:underline' %></td>
               <td class="p-3"><%= room.branch.branch_type %></td>
               <td class="p-3"><%= room.branch.address %></td>
               <td class="p-3 text-center"><%= room.occupants_count %></td>
               <td class="p-3 text-center"><%= room.capacity_count %></td>
               <td class="p-3 text-center"><%= room.available_count %></td>
-              <td class="p-3 text-center"><%= link_to 'View', [@branches.find(room.branch_id), room], class: 'font-medium text-blue-600 hover:underline' %></td>
             </tr>
           <% end %>
         </tbody>
