@@ -4,6 +4,7 @@ class PaymentsController < ApplicationController
   before_action :check_ownership, only: [:show]
   before_action :get_invoice, only: [:new, :create]
   before_action :set_payment, only: [:change_proof, :update_proof, :approve, :approve_payment]
+  skip_before_action :verify_authenticity_token, :authenticate_user!, only: [:listen]
 
   def index
     @q = Payment.ransack(params[:q])
@@ -12,9 +13,29 @@ class PaymentsController < ApplicationController
   end
 
   def listen
-
+    data = JSON.parse(request.body.read)
+    type = data['data']['attributes']['type']
     
-    render(status: :ok)
+    if type == "link.payment.paid"
+      source_id = data['data']['attributes']['data']['id']
+      amount = data['data']['attributes']['data']['attributes']['amount']
+      
+      #get invoice_id passed as description 
+      invoice_id = data['data']['attributes']['data']['attributes']['description'].to_i
+
+      payment_type = data['data']['attributes']['data']['attributes']['payments'][0]['data']['attributes']['source']['type']
+
+      Payment.create!(
+        invoice_id: invoice_id,
+        amount: amount / 100,
+        payment_mode: 'paymongo',
+        status: 'approved',
+        remarks: payment_type,
+        initiated_by: 'tenant'
+      )
+    end
+    render :json => {:status => 200}
+    # redirect_to authenticated_root_path, status: :ok
   end
 
   def show
