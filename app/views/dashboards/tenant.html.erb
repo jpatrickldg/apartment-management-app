@@ -10,19 +10,12 @@
       <% @active_invoices.each do |invoice| %>
         <div class="sm:hidden p-2 text-sm flex flex-col gap-2 justify-center">
           <div>
-            <p><strong>Total Amount: ₱</strong><%= invoice.total_amount %></p>
-            <p><strong>Room Rate: </strong><%= invoice.room_rate %></p>
-            <p><strong>Water Bill: ₱</strong><%= invoice.water_bill %></p>
-            <p><strong>Electricity Bill: ₱</strong><%= invoice.electricity_bill %></p>
+            <p><strong>Total Amount: ₱</strong><%= (invoice.total_amount * 1.025).ceil(2) %></p>
+
             <p><strong>Date From: </strong><%= invoice.date_from %></p>
             <p><strong>Date To: </strong><%= invoice.date_to %></p>
             <p><strong>Due Date: </strong><%= invoice.booking.due_date %></p>
-            <% if invoice.payment.present? %>
-              <p><em>Payment Under Review</em></p>
-            <% else %>
-              <%= link_to 'Online Transfer', new_invoice_payment_path(invoice), class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center mt-2 w-36 m-auto' %>
-              <%= button_to 'GCash', links_path(amount: invoice.total_amount, description: invoice.remarks), method: :post, class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-2 text-center dark:bg-blue-600 m-auto w-36 mt-2' %>
-            <% end %>
+            <%= link_to 'View', payment_invoice_path(invoice), class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-1 px-1 text-center m-auto' %>
           </div>
         </div>
         <div class="hidden sm:block overflow-x-auto relative rounded-md border border-gray-200">
@@ -30,36 +23,27 @@
             <thead class="text-xs text-gray-800 uppercase bg-gray-200">
               <tr>
                 <th class="py-3 px-3">Total Amount</th>
-                <th class="py-3 px-3">Room Rate</th>
-                <th class="py-3 px-3">Water Bill</th>
-                <th class="py-3 px-3">Electricity Bill</th>
                 <th class="py-3 px-3">Date From</th>
                 <th class="py-3 px-3">Date To</th>
                 <th class="py-3 px-3">Due Date</th>
-                
                 <th class="py-3 px-3">
-                  <span class="sr-only">Payment</span>
-                </th>
-                <th class="py-3 px-3">
-                  <span class="sr-only">Payment</span>
+                  <span class="sr-only">View</span>
                 </th>
               </tr>
             </thead>
             <tbody>
               <% @active_invoices.each do |invoice| %>
                 <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-                  <td class="py-3 px-3 font-bold">₱<%= invoice.total_amount %></td>
-                  <td class="py-3 px-3">₱<%= invoice.room_rate %></td>
-                  <td class="py-3 px-3">₱<%= invoice.water_bill %></td>
-                  <td class="py-3 px-3">₱<%= invoice.electricity_bill %></td>
+                  <td class="py-3 px-3 font-bold">₱<%= (invoice.total_amount * 1.025).ceil(2) %></td>
                   <td class="py-3 px-3"><%= invoice.date_from %></td>
                   <td class="py-3 px-3"><%= invoice.date_to %></td>
                   <td class="py-3 px-3"><%= invoice.booking.due_date %></td>
                   <% if invoice.payment.present? %>
                     <td class="p-3 italic">Payment Under Review</td>
                   <% else %>
-                    <td class="py-4 px-3 whitespace-nowrap"><%= link_to 'Online Transfer', new_invoice_payment_path({:invoice_id => invoice.id, :amount => invoice.total_amount}), class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-1 px-1 text-center m-auto' %></td>
-                    <td class="py-4 px-3 whitespace-nowrap"><%= button_to 'GCash', links_path, params: {amount: invoice.total_amount, description: invoice.remarks}, method: :post, data: {turbo: false}, class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-1 px-3 text-center m-auto' %></td>
+                    <td class="py-4 px-3 whitespace-nowrap">
+                      <%= link_to 'View', payment_invoice_path(invoice), class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm py-1 px-1 text-center m-auto' %>
+                    </td>
                   <% end %>
                 </tr>
               <% end %>

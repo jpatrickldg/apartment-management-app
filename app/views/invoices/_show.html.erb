@@ -1,0 +1,79 @@
+<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+  <h1 class="text-lg lg:text-xl font-bold mb-4">Invoice <%= @invoice.id %></h1>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p><strong>Status:</strong></p>
+    <% if @invoice.active? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-orange-600">UNPAID</h1>
+    <% elsif @invoice.paid? %>
+      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @invoice.status.upcase %></h1>
+    <% end %>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Remarks:</strong></p>
+    <p><%= @invoice.remarks %></p>
+  </div>
+  <% if !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p class="lg:w-[150px]"><strong>Tenant:</strong></p>
+      <p><%= @invoice.booking.user.email %></p>
+    </div>
+  <% end %>
+
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Date From:</strong></p>
+    <p><%= @invoice.date_from %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Date To:</strong></p>
+    <p><%= @invoice.date_to %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Water Bill:</strong></p>
+    <p><%= number_to_currency(@invoice.water_bill, precision: 2, unit: '₱') %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Electricity Bill:</strong></p>
+    <p><%= number_to_currency(@invoice.electricity_bill, precision: 2, unit: '₱') %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
+    <p class="lg:w-[150px]"><strong>Room Rate:</strong></p>
+    <p><%= number_to_currency(@invoice.room_rate, precision: 2, unit: '₱')%></p>
+  </div>
+  <% if !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p class="lg:w-[150px]"><strong>Processed by:</strong></p>
+      <p><%= @invoice.processed_by %></p>
+    </div>
+  <% end %>
+  <% if current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p class="lg:w-[150px]"><strong>Convenience Fee:</strong></p>
+      <p><%= number_to_currency(((@invoice.total_amount / 0.975) - @invoice.total_amount), precision: 2, unit: '₱')  %></p>
+    </div>
+    <div class="flex flex-col gap-2 justify-center mb-8 mt-8">
+      <p class="lg:w-[150px]"><strong>Total Amount:</strong></p>
+      <p class="text-3xl font-medium"><%= number_to_currency((@invoice.total_amount / 0.975), precision: 2, unit: '₱') %></p>
+    </div>
+  <% else %>
+    <div class="flex flex-col gap-2 justify-center mb-8 mt-8">
+      <p class="lg:w-[150px]"><strong>Total Amount:</strong></p>
+      <p class="text-3xl font-medium"><%= number_to_currency(@invoice.total_amount, precision: 2, unit: '₱') %></p>
+    </div>
+  <% end %>
+  <% if @invoice.paid? %>
+    <div>
+      <%= link_to 'View Payment Details', payment_path(@invoice.payment), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+  <% end %>
+  
+  <% if @invoice.active? && current_user.tenant? %>
+    <%= button_to 'SEND PAYMENT', links_path, params: {amount: @invoice.total_amount / 0.975, description: @invoice.id}, method: :post, data: {turbo: false}, class: 'block text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg py-1.5 px-5 text-center' %>
+  <% end %>
+  
+  <% if @invoice.active? && !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center">
+      <%= link_to 'Cash Payment', new_invoice_payment_path(@invoice), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <%= link_to 'Update Invoice', edit_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    </div>
+  <% end %>
+</div>

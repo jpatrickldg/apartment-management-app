@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
 
   after_save :set_invoice_status
 
-  enum payment_mode: [ :cash, :transfer, :gcash ]
+  enum payment_mode: [ :cash, :paymongo ]
   enum status: [ :pending, :cancelled, :approved ]
 
   validates :amount, presence: true

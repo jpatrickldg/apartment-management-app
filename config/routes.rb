@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   end
 
   resources :invoices, only: [:index, :show] do
+    get :payment, on: :member
     get :active, on: :collection
   end
 

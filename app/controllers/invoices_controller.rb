@@ -1,10 +1,10 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction, except: [:show, :links]
-  before_action :check_ownership, only: [:show]
+  before_action :check_restriction, except: [:show, :links, :payment]
+  before_action :check_ownership, only: [:show, :payment]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
-  before_action :set_invoice, only: [:edit, :update] 
+  before_action :set_invoice, only: [:edit, :update, :payment] 
 
   def index
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
@@ -27,6 +27,9 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
     @booking = Booking.find(@invoice.booking_id)
+  end
+
+  def payment
   end
 
   def new
