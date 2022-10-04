@@ -11,6 +11,12 @@ class PaymentsController < ApplicationController
     @current_user_payments = current_user.payments
   end
 
+  def listen
+
+    
+    render(status: :ok)
+  end
+
   def show
     @payment = Payment.includes(:invoice).find(params[:id])
   end

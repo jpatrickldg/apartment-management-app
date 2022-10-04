@@ -1,78 +1,74 @@
-<div class="mb-4">
-  <div class="mb-4">
-    <h1 class="text-lg lg:text-xl font-bold mb-1">Payment Summary</h1>
-    <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Date From:</strong></p>
-        <p><%= @payment.invoice.date_from %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Date To:</strong></p>
-        <p><%= @payment.invoice.date_to %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Water Bill:</strong></p>
-        <p><%= @payment.invoice.water_bill %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Electricity Bill:</strong></p>
-        <p><%= @payment.invoice.electricity_bill %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Room Rate:</strong></p>
-        <p><%= @payment.invoice.room_rate %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Total Amount:</strong></p>
-        <p><%= @payment.invoice.total_amount %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Remarks:</strong></p>
-        <p><%= @payment.invoice.remarks %></p>
-      </div>
+<div class="mb-4 flex flex-col gap-2">
+  <div class="flex flex-col gap-2 border border-gray-200 px-3 lg:px-6 py-4 rounded-lg mb-4 flex-auto">
+    <h1 class="text-lg lg:text-xl font-bold mb-2 underline">Payment Summary</h1>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Date From:</strong></p>
+      <p><%= @payment.invoice.date_from %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Date To:</strong></p>
+      <p><%= @payment.invoice.date_to %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Water Bill:</strong></p>
+      <p>₱<%= @payment.invoice.water_bill %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Electricity Bill:</strong></p>
+      <p>₱<%= @payment.invoice.electricity_bill %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Room Rate:</strong></p>
+      <p>₱<%= @payment.invoice.room_rate %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Total Amount:</strong></p>
+      <p>₱<%= @payment.invoice.total_amount %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Remarks:</strong></p>
+      <p><%= @payment.invoice.remarks %></p>
     </div>
   </div>
-  <div class="mb-4">
-    <h1 class="text-lg lg:text-xl font-bold mb-1">Payment Details</h1>
-    <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Status:</strong></p>
-        <% if @payment.pending? %>
-          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @payment.status.upcase %></p>
-        <% elsif @payment.approved? %>
-          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @payment.status.upcase %></p>
-        <% elsif @payment.cancelled? %>
-          <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @payment.status.upcase %></p>
-        <% end %>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Amount:</strong></p>
-        <p><%= @payment.amount %></p>
-      </div>
-      <div class="flex gap-2 place-items-center mb-2">
-        <p><strong>Mode of Payment:</strong></p>
-        <p><%= @payment.payment_mode.capitalize %></p>
-      </div>
-
-      <% if @payment.approved? || @payment.cancelled? %>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Remarks:</strong></p>
-          <p><%= @payment.remarks ? @payment.remarks.capitalize : 'NA' %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Processed by:</strong></p>
-          <p><%= @payment.processed_by %></p>
-        </div>
+  <div class="flex flex-col gap-2 border border-gray-200 px-3 lg:px-6 py-4 rounded-lg mb-4 flex-auto">
+    <h1 class="text-lg lg:text-xl font-bold mb-2 underline">Payment Details</h1>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Status:</strong></p>
+      <% if @payment.pending? %>
+        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @payment.status.upcase %></p>
+      <% elsif @payment.approved? %>
+        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @payment.status.upcase %></p>
+      <% elsif @payment.cancelled? %>
+        <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @payment.status.upcase %></p>
       <% end %>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Amount:</strong></p>
+      <p>₱<%= @payment.amount %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="lg:min-w-[150px]"><strong>Mode of Payment:</strong></p>
+      <p><%= @payment.payment_mode.capitalize %></p>
+    </div>
 
-      <div class="flex flex-col gap-2 justify-center mb-2">
-        <p><strong>Proof of Payment:</strong></p>
-          <% if @payment.proof.attached? %>
-            <%= image_tag @payment.proof, width: "200px" %>
-          <% else %>
-            <p>No proof attached</p>
-          <% end %>
+    <% if @payment.approved? || @payment.cancelled? %>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Remarks:</strong></p>
+        <p><%= @payment.remarks ? @payment.remarks.capitalize : 'NA' %></p>
       </div>
+      <div class="flex gap-2 place-items-center">
+        <p class="lg:min-w-[150px]"><strong>Processed by:</strong></p>
+        <p><%= @payment.processed_by %></p>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col gap-2 justify-center">
+      <p class="lg:min-w-[150px]"><strong>Proof of Payment:</strong></p>
+        <% if @payment.proof.attached? %>
+          <%= image_tag @payment.proof, width: "200px" %>
+        <% else %>
+          <p>No proof attached</p>
+        <% end %>
     </div>
   </div>
 </div>

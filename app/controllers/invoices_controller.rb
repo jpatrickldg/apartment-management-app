@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction, except: [:show]
+  before_action :check_restriction, except: [:show, :links]
   before_action :check_ownership, only: [:show]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
@@ -10,6 +10,14 @@ class InvoicesController < ApplicationController
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
     @invoices = @q.result(distinct: true)
     @current_user_invoices = current_user.invoices
+  end
+
+  def links
+    amount = params[:amount].to_f * 100
+    description = params[:description]
+    response = Paymongo::Links::Create.call(amount, description)
+    url = response['data']['attributes']['checkout_url']
+    redirect_to url, allow_other_host: true
   end
 
   def active

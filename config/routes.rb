@@ -81,4 +81,7 @@ Rails.application.routes.draw do
     post :purge_avatar, on: :collection
   end
 
+  post '/listen' => 'payments#listen'
+  post '/links' => 'invoices#links' 
+
 end

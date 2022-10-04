@@ -81,7 +81,7 @@
               <td class="p-3 text-center">₱<%= invoice.total_amount %></td>
               <td class="p-3"><%= invoice.date_from %></td>
               <td class="p-3"><%= invoice.date_to %></td>
-              <td class="p-3"><%= invoice.payment.updated_at.strftime("%Y-%m-%d") %></td>
+              <td class="p-3"><%= invoice.payment ? invoice.payment.updated_at.strftime("%Y-%m-%d") : '-' %></td>
               <td class="p-3"><%= invoice.remarks %></td>
               <td class="p-3"><%= invoice.processed_by %></td>
               <td class="p-3 text-center"><%= link_to 'View', invoice_path(invoice), class: 'font-medium text-blue-600 hover:underline' %></td>
