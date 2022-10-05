@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
 
       Payment.create!(
         invoice_id: invoice_id,
-        amount: amount / 100,
+        amount: amount / 100.0,
         payment_mode: 'paymongo',
         status: 'approved',
         remarks: payment_type,
@@ -53,7 +53,7 @@ class PaymentsController < ApplicationController
       redirect_to payment_path(@payment), notice: 'Payment Submitted'
     end
   end
-
+  
   def change_proof
   end
 

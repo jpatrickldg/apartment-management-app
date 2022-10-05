@@ -21,7 +21,7 @@
           <% ordered_rooms.each do |room| %>
             <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
               <td class="p-3"><%= link_to room.room_code.upcase, [branch, room], class: 'font-medium text-blue-600 hover:underline' %></td>
-              <td class="p-3 font-medium text-center"><%= number_to_currency(room.monthly_rate, precision: 2, unit: '₱') %></td>
+              <td class="p-3 font-medium text-center"><%= number_to_currency(room.monthly_rate, unit: '₱') %></td>
               <td class="p-3 text-center"><%= room.occupants_count %></td>
               <td class="p-3 text-center"><%= room.capacity_count %></td>
               <td class="p-3 text-center"><%= room.available_count %></td>

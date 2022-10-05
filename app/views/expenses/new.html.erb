@@ -23,7 +23,7 @@
 
       <div class="mb-2">
         <%= f.label :amount, class: 'block font-medium mb-1' %>
-        <%= f.number_field :amount, class: 'w-full block border border-gray-200 rounded-lg' %>
+        <%= f.number_field :amount, step: 0.01, class: 'w-full block border border-gray-200 rounded-lg' %>
       </div>
 
       <div class="mb-4">

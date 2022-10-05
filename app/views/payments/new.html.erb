@@ -15,7 +15,7 @@
 
     <div class="mb-2">
       <%= f.label :amount, class: 'block font-medium mb-1' %>
-      <%= f.number_field :amount, :value => @invoice.total_amount, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'  %>
+      <%= f.number_field :amount, step: 0.01, :value => @invoice.total_amount, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'  %>
     </div>
 
     <%= f.hidden_field :initiated_by, value: current_user.email %>

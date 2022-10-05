@@ -34,6 +34,5 @@ RSpec.describe Payment, type: :model do
       invoice.reload
       expect(invoice.status).to_not eq before_save  
     end
-  end
-  
+  end  
 end

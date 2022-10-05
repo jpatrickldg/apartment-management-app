@@ -13,7 +13,7 @@
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Amount:</strong>
-    <p><%= number_to_currency(@expense.amount, precision: 2, unit: '₱') %></p>
+    <p><%= number_to_currency(@expense.amount, unit: '₱') %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Processed by:</strong>

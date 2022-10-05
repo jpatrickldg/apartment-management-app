@@ -31,10 +31,10 @@
           <% end %>
           
           <td class="p-3 font-medium"><%= invoice.booking.user.email %></td>
-          <td class="p-3 text-center"><%= number_to_currency(invoice.room_rate, precision: 2, unit: '₱') %></td>
-          <td class="p-3 text-center"><%= number_to_currency(invoice.water_bill, precision: 2, unit: '₱') %></td>
-          <td class="p-3 text-center"><%= number_to_currency(invoice.electricity_bill, precision: 2, unit: '₱') %></td>
-          <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, precision: 2, unit: '₱') %></td>
+          <td class="p-3 text-center"><%= number_to_currency(invoice.room_rate, unit: '₱') %></td>
+          <td class="p-3 text-center"><%= number_to_currency(invoice.water_bill, unit: '₱') %></td>
+          <td class="p-3 text-center"><%= number_to_currency(invoice.electricity_bill, unit: '₱') %></td>
+          <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
           <td class="p-3 text-center"><%= invoice.remarks %></td>
           <td class="p-3 text-center"><%= invoice.processed_by %></td>
         </tr>

@@ -129,7 +129,7 @@
                 <td class="p-3 font-medium"><%= link_to invoice.id, invoice_path(invoice), class: 'text-blue-600 hover:underline' %></td>
                 <td class="p-3 text-center"><%= invoice.booking.id %></td>
                 <td class="p-3 font-medium text-center"><%= invoice.status.capitalize %></td>
-                <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, precision: 2, unit: '₱') %></td>
+                <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
                 <td class="p-3 text-center"><%= invoice.date_from %></td>
                 <td class="p-3 text-center"><%= invoice.date_to %></td>
                 <td class="p-3 text-center"><%= invoice.processed_by %></td>
@@ -162,7 +162,7 @@
                 <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
                 <td class="p-3 text-center"><%= payment.invoice.id %></td>
                 <td class="p-3 font-medium text-center"><%= payment.status.capitalize %></td>
-                <td class="p-3 text-center"><%= number_to_currency(payment.amount, precision: 2, unit: '₱') %></td>
+                <td class="p-3 text-center"><%= number_to_currency(payment.amount, unit: '₱') %></td>
                 <td class="p-3 text-center"><%= payment.payment_mode.capitalize %></td>
                 <td class="p-3 text-center"><%= payment.initiated_by.capitalize %></td>
                 <td class="p-3 text-center"><%= payment.processed_by ? payment.processed_by : '-' %></td>

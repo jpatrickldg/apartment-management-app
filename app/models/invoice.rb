@@ -1,9 +1,9 @@
 class Invoice < ApplicationRecord
   belongs_to :booking
-  has_one :payment
+  has_one :payment, dependent: :destroy
 
-  before_create :set_total_amount
-  after_save :set_booking_due_date, if: Proc.new { paid? }
+  before_save :set_total_amount
+  after_save :set_booking_due_date
 
   enum status: [ :unpaid, :paid ]
 
@@ -26,6 +26,7 @@ class Invoice < ApplicationRecord
   end  
 
   def set_booking_due_date
+    return unless self.paid?
     booking = Booking.find(self.booking_id)
     booking.due_date += 1.month
     booking.save!

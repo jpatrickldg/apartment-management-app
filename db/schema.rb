@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_24_014014) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_05_122914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_014014) do
   create_table "expenses", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.float "amount"
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "processed_by"
@@ -112,9 +112,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_014014) do
 
   create_table "invoices", force: :cascade do |t|
     t.bigint "booking_id", null: false
-    t.float "water_bill", default: 0.0, null: false
-    t.float "electricity_bill", default: 0.0, null: false
-    t.float "total_amount", default: 0.0, null: false
+    t.decimal "water_bill", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "electricity_bill", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "total_amount", precision: 8, scale: 2, default: "0.0", null: false
     t.date "date_from"
     t.date "date_to"
     t.string "remarks"
@@ -122,12 +122,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_014014) do
     t.string "processed_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "room_rate"
+    t.decimal "room_rate", precision: 8, scale: 2, default: "0.0", null: false
     t.index ["booking_id"], name: "index_invoices_on_booking_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.float "amount"
+    t.decimal "amount", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "invoice_id", null: false
@@ -136,12 +136,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_014014) do
     t.string "processed_by"
     t.string "remarks"
     t.string "initiated_by"
+    t.string "reference_no"
+    t.string "paymongo_reference"
     t.index ["invoice_id"], name: "index_payments_on_invoice_id"
   end
 
   create_table "rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
-    t.float "monthly_rate"
+    t.decimal "monthly_rate", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "room_code"

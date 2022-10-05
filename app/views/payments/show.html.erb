@@ -39,20 +39,20 @@
     <% if @payment.paymongo? %>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Invoice Amount:</strong></p>
-        <p><%= number_to_currency(@payment.invoice.total_amount,precision: 2, unit: '₱') %></p>
+        <p><%= number_to_currency(@payment.invoice.total_amount,unit: '₱') %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Convenience Fee:</strong></p>
-        <p><%= number_to_currency(((@payment.invoice.total_amount / 0.975) - @payment.invoice.total_amount), precision: 2, unit: '₱') %></p>
+        <p><%= number_to_currency(((@payment.invoice.total_amount / 0.975) - @payment.invoice.total_amount), unit: '₱') %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, precision: 2, unit: '₱') %></p>
+        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, unit: '₱') %></p>
       </div>
     <% elsif @payment.cash? %>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, precision: 2, unit: '₱') %></p>
+        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, unit: '₱') %></p>
       </div>
     <% end %>
   </div>

@@ -31,6 +31,9 @@ class InvoicesController < ApplicationController
 
   def payment
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
+    if @invoice.paid?
+      redirect_to authenticated_root_path, notice: 'Invalid Request'
+    end
   end
 
   def new

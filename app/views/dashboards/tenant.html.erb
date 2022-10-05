@@ -12,7 +12,7 @@
         <div class="sm:hidden p-2 text-sm flex flex-col gap-2 justify-center">
           <div class="flex place-items-center gap-2">
             <p class="w-28"><strong>Total Amount:</strong></p>
-            <p><%= number_to_currency(((invoice.total_amount * 1.025).ceil(2)), precision: 2, unit: '₱') %></p>
+            <p><%= number_to_currency(invoice.total_amount, unit: '₱') %></p>
           </div>
           <div class="flex place-items-center gap-2">
             <p class="w-28"><strong>Date From:</strong></p>
@@ -46,7 +46,7 @@
             <tbody>
               <% @unpaid_invoices.each do |invoice| %>
                 <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-                  <td class="py-3 px-3 font-bold"><%= number_to_currency(((invoice.total_amount * 1.025).ceil(2)), precision: 2, unit: '₱') %></td>
+                  <td class="py-3 px-3 font-bold"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
                   <td class="py-3 px-3 text-center"><%= invoice.date_from %></td>
                   <td class="py-3 px-3 text-center"><%= invoice.date_to %></td>
                   <td class="py-3 px-3 text-center"><%= invoice.booking.due_date %></td>

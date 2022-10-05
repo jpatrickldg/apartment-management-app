@@ -6,7 +6,7 @@
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p class="w-40"><strong>Monthly Rate: </strong></p>
-    <p><%= number_to_currency(@room.monthly_rate, precision: 2, unit: '₱') %></p>
+    <p><%= number_to_currency(@room.monthly_rate, unit: '₱') %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p class="w-40"><strong>Occupants: </strong></p>

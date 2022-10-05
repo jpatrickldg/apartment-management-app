@@ -41,21 +41,21 @@
     <div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Room Rate:</strong></p>
-        <p><%= number_to_currency(@invoice.room_rate, precision: 2, unit: '₱') %></p>
+        <p><%= number_to_currency(@invoice.room_rate, unit: '₱') %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Meralco:</strong></p>
-        <p><%= number_to_currency(@invoice.electricity_bill, precision: 2, unit: '₱') %></p>
+        <p><%= number_to_currency(@invoice.electricity_bill, unit: '₱') %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Maynilad:</strong></p>
-        <p><%= number_to_currency(@invoice.water_bill, precision: 2, unit: '₱') %></p>
+        <p><%= number_to_currency(@invoice.water_bill, unit: '₱') %></p>
       </div>
     </div>
     <div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@invoice.total_amount, precision: 2, unit: '₱') %></p>
+        <p class="font-bold text-lg"><%= number_to_currency(@invoice.total_amount, unit: '₱') %></p>
       </div>
     </div>
     <div class="flex gap-2 place-items-center">

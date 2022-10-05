@@ -30,7 +30,7 @@
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Monthly Rate:</strong></p>
-      <p><%= number_to_currency(@booking.room.monthly_rate, precision: 2, unit: '₱') %></p>
+      <p><%= number_to_currency(@booking.room.monthly_rate, unit: '₱') %></p>
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Move-In Date:</strong></p>
@@ -80,7 +80,7 @@
                   <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= invoice.status.upcase %></span>
                 <% end %>
               </td>
-              <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, precision: 2, unit: '₱') %></td>
+              <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
               <td class="p-3 text-center"><%= invoice.date_from %></td>
               <td class="p-3 text-center"><%= invoice.date_to %></td>
               <td class="p-3 text-center"><%= invoice.payment ? invoice.payment.updated_at.strftime("%Y-%m-%d") : '-' %></td>
