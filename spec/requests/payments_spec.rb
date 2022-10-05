@@ -47,7 +47,7 @@ RSpec.describe "Payments", type: :request do
     it 'approves payment' do
       sign_in cashier
 
-      invoice = create(:invoice, status: 'active')
+      invoice = create(:invoice, status: 'unpaid')
       payment = create(:payment, initiated_by: tenant, status: 'pending', invoice_id: invoice.id)
       payment_params = {
         remarks: 'Test Received'

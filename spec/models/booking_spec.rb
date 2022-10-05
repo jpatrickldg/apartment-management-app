@@ -67,7 +67,7 @@ RSpec.describe Booking, type: :model do
   end
   
   context "before deactivating" do
-    it 'will fail if any invoice is active' do
+    it 'will fail if any invoice is unpaid' do
       booking = create(:booking)
       invoice = create(:invoice, booking_id: booking.id)
       booking.status = 'inactive'

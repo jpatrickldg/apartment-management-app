@@ -1,19 +1,13 @@
-<div>
-  <div class="mb-2">
-    <h1 class="text-lg lg:text-xl font-bold"> <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-800"></i> Announcement</h1>
-  </div>
-  <div class="border border-gray-200 rounded-lg p-2">
-    <% if @latest_published_announcement %>
-      <div class="w-full bg-gray-200 p-2">
-        <h1 class="font-bold"><%= @latest_published_announcement.title %></h1>
-      </div>
-      <div class="w-full p-2 border-t-gray-200">
-        <p class="text-sm"><%= truncate(@latest_published_announcement.description, length: 80) %> <%= link_to 'See more details', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline' %></p>
-      </div>
-    <% else %>
-      <div>
-        <p class="italic text-sm">No new announcement</p>
-      </div>
-    <% end %>
-  </div>
+<div class="flex place-items-center gap-2 bg-gray-200 p-2 rounded-lg rounded-b-none">
+  <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-800"></i>
+  <h1 class="font-bold">Announcement</h1>
 </div>
+<div class="w-full p-2 border-t-gray-200">
+  <% if @latest_published_announcement %>
+    <p class="text-sm"><%= truncate(@latest_published_announcement.description, length: 80) %> <%= link_to 'See more details', announcement_path(@latest_published_announcement), class: 'font-medium text-blue-600 hover:underline' %></p>
+  <% else %>
+    <p class="text-sm">No new announcement</p>
+  <% end %>
+</div>
+
+

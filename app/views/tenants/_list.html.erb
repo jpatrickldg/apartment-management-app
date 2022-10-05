@@ -1,47 +1,69 @@
-<% if tenants.any? %>
-  <div class="overflow-x-auto relative rounded-md">
-    <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-        <tr>
-          <th class="p-3 w-1/12"><%= sort_link(@q, :status, 'Status', default_order: :desc, class: 'underline' ) %></th>
-          <th class="p-3 w-1/12 text-center">Avatar</th>
-          <th class="p-3">Email</th>
-          <th class="p-3">First Name</th>
-          <th class="p-3">Last Name</th>
-          <th class="p-3">Gender</th>
-          <th class="p-3">Contact</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% tenants.order(status: :asc).each do |tenant| %>
-          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-            <td class="p-3">
-              <% if tenant.active? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= tenant.status.upcase %></span>
-              <% elsif tenant.inactive? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= tenant.status.upcase %></span>
-              <% end %>
-            </td>
-            <td class="p-3">
-              <% if current_user.avatar.attached? %>
-                <%= image_tag current_user.avatar, class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
-                <%= button_to 'Remove', purge_avatar_profile_path, class: 'font-medium text-blue-600 hover:underline' %>
-              <% else %>
-                <%= image_tag ("user.png"), class: 'max-w-[40px] h-auto rounded-lg m-auto' %>
-              <% end %>
-            </td>
-            <td class="p-3"><%= link_to tenant.email, tenant_path(tenant), class: 'font-medium text-blue-600 hover:underline' %></td>
-            <td class="p-3"><%= tenant.first_name.capitalize %></td>
-            <td class="p-3"><%= tenant.last_name.capitalize %></td>
-            <td class="p-3"><%= tenant.gender.capitalize %></td>
-            <td class="p-3"><%= tenant.contact_no %></td>
+<div>
+  <% url = request.path_info %>
+  <% if url.include? "active" %>
+    <h1 class="text-xl lg:text-2xl font-bold mb-2">Active Tenants</h1>
+  <% elsif url.include? "new_tenants" %>
+    <h1 class="text-xl lg:text-2xl font-bold mb-2">New Tenants</h1>
+  <% else %>
+    <h1 class="text-xl lg:text-2xl font-bold mb-2">Tenants</h1>
+  <% end %>
+  <div class="mb-4">
+    <%= search_form_for @q do |f| %>
+      <div class="relative">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
+        </div>
+        <%= f.search_field :email_or_first_name_or_last_name_cont, placeholder: 'Search Tenant', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+        <%= f.submit 'Search', class: 'text-white absolute right-20 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 hover:cursor-pointer hidden md:block'  %>
+        <%= link_to 'Clear', tenants_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="overflow-y-auto flex-auto">
+  <% if tenants.any? %>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3 w-1/12 text-center">Avatar</th>
+            <th class="p-3 text-center">Email</th>
+            <th class="p-3 text-center">First Name</th>
+            <th class="p-3 text-center">Last Name</th>
+            <th class="p-3 text-center">Gender</th>
+            <th class="p-3 text-center">Contact</th>
+            <th class="p-3 w-[80px] text-center">Status</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% else %>
-  <div>
-    <p class="italic text-sm">Empty</p>
-  </div>
-<% end %>
+        </thead>
+        <tbody>
+          <% tenants.order(status: :asc).each do |tenant| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3">
+                <% if tenant.avatar.attached? %>
+                  <%= image_tag tenant.avatar, class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
+                <% else %>
+                  <%= image_tag ("user.png"), class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
+                <% end %>
+              </td>
+              <td class="p-3 text-center"><%= link_to tenant.email, tenant_path(tenant), class: 'font-medium text-blue-600 hover:underline' %></td>
+              <td class="p-3 text-center"><%= tenant.first_name.capitalize %></td>
+              <td class="p-3 text-center"><%= tenant.last_name.capitalize %></td>
+              <td class="p-3 text-center"><%= tenant.gender.capitalize %></td>
+              <td class="p-3 text-center"><%= tenant.contact_no %></td>
+              <td class="p-3 text-center"><%= tenant.status.capitalize %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div>
+      <p class="italic text-sm">Empty</p>
+    </div>
+  <% end %>
+</div>
+<div>
+  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
+

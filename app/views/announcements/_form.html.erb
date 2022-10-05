@@ -1,26 +1,36 @@
-<%= form_with model: @announcement, data:{turbo:false}, local: true do |f| %>
-  <% if @announcement.errors.any? %>
-    <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
-      <% @announcement.errors.full_messages.each do |error| %>
-        <div><%= error %></div>
-      <% end %>
+<div>
+  <% url = request.path_info %>
+  <% if url.include? "new" %>
+    <h2 class="text-lg lg:text-xl font-bold mb-2">New Announcement</h2>
+  <% elsif url.include? "edit" %>
+    <h2 class="text-lg lg:text-xl font-bold mb-2">Edit Announcement</h2>
+  <% end %>
+</div>
+<div class="flex-auto overflow-y-auto">
+  <%= form_with model: @announcement, data:{turbo:false}, local: true do |f| %>
+    <% if @announcement.errors.any? %>
+      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
+        <% @announcement.errors.full_messages.each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+    <div>
+      <div class="mb-2">
+        <%= f.label :title, class: 'block font-medium mb-1' %>
+        <%= f.text_field :title, class: 'w-full block border border-gray-200 rounded-lg' %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label 'Content', class: 'block font-medium mb-1' %>
+        <%= f.text_area :description, :rows => 4, class: 'w-full blcok border border-gray-200 rounded-lg' %>
+      </div>
+
+      <div class="flex gap-2 items-center">
+        <%= f.submit 'Publish', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+        <%= f.submit 'Save as Draft', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+        <%= link_to 'Cancel', announcements_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer w-fit' %>
+      </div>
     </div>
   <% end %>
-  <div>
-    <div class="mb-2">
-      <%= f.label :title, class: 'block font-medium mb-1' %>
-      <%= f.text_field :title, class: 'w-full block border border-gray-200 rounded-lg' %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label 'Content', class: 'block font-medium mb-1' %>
-      <%= f.text_area :description, :rows => 4, class: 'w-full blcok border border-gray-200 rounded-lg' %>
-    </div>
-
-    <div class="flex gap-2 items-center">
-      <%= f.submit 'Publish', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-      <%= f.submit 'Save as Draft', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-      <%= link_to 'Cancel', announcements_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-    </div>
-  </div>
-<% end %>
+</div>

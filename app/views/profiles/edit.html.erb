@@ -1,56 +1,60 @@
-<h1 class="text-lg lg:text-xl font-bold mb-4">Edit Profile</h1>
+<div>
+  <h1 class="text-xl lg:text-2xl font-bold mb-4">Edit Profile</h1>
+</div>
 
-<div class="max-w-sm">
-  <%= form_with model: @user, data: {turbo: false}, url: profile_path, method: :patch do |f| %>
-    <div class="flex flex-col gap-2 mb-4 justify-center">
-      <% if @user.errors.any? %>
-        <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
-          <% @user.errors.full_messages.each do |error| %>
-            <div><%= error %></div>
-          <% end %>
+<div class="flex-auto overflow-y-auto">
+  <div class="max-w-sm p-1">
+    <%= form_with model: @user, data: {turbo: false}, url: profile_path, method: :patch do |f| %>
+      <div class="flex flex-col gap-2 mb-4 justify-center">
+        <% if @user.errors.any? %>
+          <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+            <% @user.errors.full_messages.each do |error| %>
+              <div><%= error %></div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div>
+          <%= f.label :first_name, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :first_name, class: 'w-full block border border-gray-200 rounded-lg' %>
         </div>
-      <% end %>
 
-      <div>
-        <%= f.label :first_name, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :first_name, class: 'w-full block border border-gray-200 rounded-lg' %>
+        <div>
+          <%= f.label :last_name, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :last_name, class: 'w-full block border border-gray-200 rounded-lg' %>
+        </div>
+
+        <div>
+          <%= f.label :contact_no, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :contact_no, class: 'w-full block border border-gray-200 rounded-lg' %>
+        </div>
+
+        <div>
+          <%= f.label :address, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :address, class: 'w-full block border border-gray-200 rounded-lg' %>
+        </div>
+
+        <div>
+          <%= f.label :emergency_contact_person, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :emergency_contact_person, class: 'w-full block border border-gray-200 rounded-lg' %>
+        </div>
+
+        <div>
+          <%= f.label :emergency_contact_no, class: 'block font-medium mb-1' %> 
+          <%= f.text_field :emergency_contact_no, class: 'w-full block border border-gray-200 rounded-lg' %>
+        </div>
+
+        <div>
+          <%= f.label 'Profile Picture', class: 'block font-medium mb-1' %> 
+          <%= f.file_field :avatar, class: 'block w-full text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none file:bg-gray-200 file:rounded-lg file:hover:cursor-pointer file:hover:bg-gray-300 file:border-none file:p-2 file:rounded-r-none file:px-4' %>
+        </div>
+
+        <div>
       </div>
-
-      <div>
-        <%= f.label :last_name, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :last_name, class: 'w-full block border border-gray-200 rounded-lg' %>
+      <div class="flex gap-2 items-center">
+        <%= f.submit 'Update Profile', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= link_to 'Cancel', profile_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       </div>
-
-      <div>
-        <%= f.label :contact_no, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :contact_no, class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div>
-        <%= f.label :address, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :address, class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div>
-        <%= f.label :emergency_contact_person, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :emergency_contact_person, class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div>
-        <%= f.label :emergency_contact_no, class: 'block font-medium mb-1' %> 
-        <%= f.text_field :emergency_contact_no, class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div>
-        <%= f.label 'Profile Picture', class: 'block font-medium mb-1' %> 
-        <%= f.file_field :avatar, class: 'block w-full text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none file:bg-gray-200 file:rounded-lg file:hover:cursor-pointer file:hover:bg-gray-300 file:border-none file:p-2 file:rounded-r-none file:px-4' %>
-      </div>
-
-      <div>
-    </div>
-    <div class="flex gap-2 items-center">
-      <%= f.submit 'Update Profile', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-      <%= link_to 'Cancel', profile_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

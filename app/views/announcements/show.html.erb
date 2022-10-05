@@ -1,43 +1,48 @@
-<h2 class="text-lg lg:text-xl font-bold mb-4">Announcement</h2>
 
-<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-  <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Status: </strong></p>
-    <% if @announcement.published? %>
-      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @announcement.status.upcase %></h1>
-    <% elsif @announcement.draft? %>
-      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @announcement.status.upcase %></h1>
-    <% elsif @announcement.archived? %>
-      <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= @announcement.status.upcase %></h1>
-    <% end %>
-  </div>
-  <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Published by: </strong></p>
-    <p><%= @announcement.published_by %></p>
-  </div>
-  <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Title: </strong></p>
+<div class="flex place-items-center gap-2 mb-2">
+  <h1 class="font-bold text-xl">Announcement</h1>
+  <i class="fa-solid fa-bullhorn w-5 h-5 flex-shrink-0 text-gray-800"></i>
+</div>
+<div class="flex-auto overflow-y-auto">
+  <% if !current_user.tenant? %>
+    <div class="flex gap-2 place-items-center mb-2">
+      <p><strong>Status: </strong></p>
+      <% if @announcement.published? %>
+        <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @announcement.status.upcase %></h1>
+      <% elsif @announcement.draft? %>
+        <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @announcement.status.upcase %></h1>
+      <% elsif @announcement.archived? %>
+        <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= @announcement.status.upcase %></h1>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="flex gap-2 place-items-center">
+    <p class="w-32"><strong>Title: </strong></p>
     <p><%= @announcement.title %></p>
   </div>
-  <div class="mb-2">
+  <div class="flex gap-2 place-items-center mb-4">
+    <p class="w-32"><strong>Published by: </strong></p>
+    <p><%= @announcement.published_by %></p>
+  </div>
+  <div class="mb-10">
     <p><strong>Content:</strong></p>
     <p><%= @announcement.description %></p>
   </div>
+  <% if current_user.receptionist? || current_user.admin? || current_user.owner? %>
+    <% if @announcement.published? %>
+      <div class="flex gap-2">
+        <%= link_to 'Edit', edit_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+        <%= button_to 'Archived', archive_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+      </div>
+    <% end %>
+
+    <% if @announcement.archived? %>
+      <%= button_to 'Re-Publish', republish_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+    <% end %>
+  <% end %>
 </div>
-
-
-
-<% if current_user.receptionist? || current_user.admin? || current_user.owner? %>
-  <% if @announcement.published? %>
-    <div class="flex gap-2">
-      <%= link_to 'Edit', edit_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-      <%= button_to 'Archived', archive_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-    </div>
-  <% end %>
-
-  <% if @announcement.archived? %>
-    <%= button_to 'Re-Publish', republish_announcement_path(@announcement), class: 'block py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-  <% end %>
-<% end %>
+<div>
+  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
 
 

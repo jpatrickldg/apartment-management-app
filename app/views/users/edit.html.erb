@@ -1,10 +1,11 @@
-<h1 class="text-lg lg:text-xl font-bold mb-4">Edit Role</h1>
+<div>
+  <h1 class="text-lg lg:text-xl font-bold mb-4">Edit Role</h1>
+</div>
 
-<h2 class="lg:text-lg font-medium mb-4"><%= @user.email %> | <%= @user.role.capitalize %></h2>
 
-<div class="max-w-sm">
+<div class="flex-auto overflow-y-auto">
+  <h2 class="lg:text-lg font-medium mb-4"><%= @user.email %> | <%= @user.role.capitalize %></h2>
   <%= form_with model: @user, data: {turbo: false} do |f| %>
-
     <% if @user.errors.any? %>
       <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
         <% @user.errors.full_messages.each do |error| %>
@@ -12,8 +13,7 @@
         <% end %>
       </div>
     <% end %>
-
-    <div class="mb-4">
+    <div class="mb-10">
       <div class="flex flex-col gap-2 justify-center">
         <p class="font-medium">Role:</p>
         <div class="flex gap-2 place-items-center">
@@ -40,14 +40,12 @@
         <% end %>
       </div>
     </div>
-
-    <div class="flex gap-2 items-center">
-      <%= f.submit 'Update Role', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
-      
-      <%= link_to 'Cancel', user_path(@user), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <div class="flex gap-2 place-items-center">
+      <%= f.submit 'Update Role', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <%= link_to 'Cancel', user_path(@user), class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     </div>
-
   <% end %>
 </div>
+
 
 

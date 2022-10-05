@@ -4,7 +4,8 @@ class ExpensesController < ApplicationController
   before_action :check_restriction
 
   def index
-    @expenses = Expense.all 
+    @q = Expense.all.ransack(params[:q])
+    @expenses = @q.result(distinct: true)
   end
 
   def show

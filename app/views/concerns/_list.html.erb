@@ -1,46 +1,35 @@
-<div>
-  <div class="flex place-items-center gap-2 mb-4">
-    <h2 class="text-xl lg:text-2xl font-bold">Concern Tickets</h2>
-    <% if current_user.tenant? %>
-      <%= link_to 'Create Ticket', new_concern_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer'  %>
-    <% end %>
-  </div>
-  <% if concerns.any? %>
-    <div class="overflow-x-auto relative rounded-md">
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-          <tr>
-            <th class="py-3 px-3 w-1/8">Date Posted</th>
-            <th class="py-3 px-3 w-1/8">Concern</th>
-            <th class="py-3 px-3 w-1/2">Description</th>
-            <th class="py-3 px-3 w-1/8">Status</th>
-            <th class="py-3 px-3 w-1/8 text-center">
-              <span class="sr-only">View</span>
-            </th>
+<% if concerns.any? %>
+  <div class="overflow-x-auto relative rounded-md">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+        <tr>
+          <th class="py-3 px-3 w-1/8">Concern</th>
+          <th class="py-3 px-3 w-1/2">Description</th>
+          <th class="py-3 px-3 w-1/8 text-center">Date Posted</th>
+          <th class="py-3 px-3 w-1/8 text-center">Status</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <% concerns.each do |concern| %>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            
+            <td class="py-3 px-3"><%= link_to concern.title, concern_path(concern), class: 'font-medium text-blue-600 hover:underline' %></td>
+            <td class="py-3 px-3"><%= truncate(concern.description, length: 30) %></td>
+            <td class="py-3 px-3 text-center"><%= concern.created_at.strftime("%Y-%m-%d") %></td>
+            <td class="py-3 px-3 text-center">
+              <% if concern.open? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= concern.status.upcase %></span>
+              <% else %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= concern.status.upcase %></span>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% concerns.each do |concern| %>
-            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-              <td class="py-3 px-3"><%= concern.created_at.strftime("%Y-%m-%d") %></td>
-              <td class="py-3 px-3"><%= concern.title %></td>
-              <td class="py-3 px-3"><%= truncate(concern.description, length: 80) %></td>
-              <td class="py-3 px-3">
-                <% if concern.open? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= concern.status.upcase %></span>
-                <% else %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= concern.status.upcase %></span>
-                <% end %>
-              </td>
-              <td class="py-3 px-3 text-center"><%= link_to 'View', concern_path(concern), class: 'font-medium text-blue-600 hover:underline' %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <div>
-      <p class="italic text-sm">Empty</p>
-    </div>
-  <% end %>
-</div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div>
+    <p class="italic text-sm">Empty</p>
+  </div>
+<% end %>

@@ -5,17 +5,15 @@
         <tr>
           <th class="py-3 px-3 w-1/4">Title</th>
           <th class="py-3 px-3 w-1/2">Description</th>
-          <th class="py-3 px-3 w-1/4 text-center">
-            <span class="sr-only">View</span>
-          </th>
         </tr>
       </thead>
       <tbody>
         <% announcements.each do |announcement| %>
         <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-          <td class="py-3 px-3 font-medium text-gray-900"><%= announcement.title %></td>
-          <td class="py-3 px-3"><%= truncate(announcement.description) %></td>
-          <td class="py-3 px-3 text-center"><%= link_to 'View', announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %></td>
+          <td class="p-3">
+            <%= link_to announcement.title, announcement_path(announcement), class: 'font-medium text-blue-600 hover:underline' %>
+          </td>
+          <td class="py-3 px-3"><%= truncate(announcement.description, length: 90) %></td>
         </tr>
         <% end %>
       </tbody>

@@ -1,5 +1,7 @@
 <div>
   <h2 class="text-lg lg:text-xl font-bold mb-2">New Expense</h2>
+</div>
+<div class="flex-auto overflow-y-auto">
   <%= form_with model: @expense, data: {turbo: false} do |f| %>
     <% if @expense.errors.any? %>
       <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
@@ -29,7 +31,7 @@
         <%= f.file_field :proof, class: 'block w-full text-gray-900 rounded-lg border border-gray-300 cursor-pointer focus:outline-none file:bg-gray-200 file:rounded-lg file:hover:cursor-pointer file:hover:bg-gray-300 file:border-none file:p-2 file:rounded-r-none file:px-4' %>
       </div>
 
-      <div class="flex gap-2 items-center">
+      <div class="flex gap-2 place-items-center">
         <%= f.submit 'Add Expense', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         <%= link_to 'Cancel', expenses_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       </div>

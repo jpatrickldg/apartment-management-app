@@ -3,7 +3,7 @@
     <% bookings.each do |booking| %>
       <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
         <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Status:</strong></p>
+          <p class="md:w-40"><strong>Status:</strong></p>
           <% if booking.active? %>
             <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= booking.status.upcase %></h1>
           <% elsif booking.inactive? %>
@@ -11,33 +11,33 @@
           <% end %>
         </div>
         <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Booking ID:</strong></p>
+          <p class="md:w-40"><strong>Booking ID:</strong></p>
           <p><%= booking.id %></p>
         </div>
         <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Move-In Date:</strong></p>
+          <p class="md:w-40"><strong>Move-In Date:</strong></p>
           <p><%= booking.move_in_date %></p>
         </div>
         <% if booking.move_out_date? %>
           <div class="flex gap-2 place-items-center mb-2">
-            <p><strong>Move-Out Date:</strong></p>
+            <p class="md:w-40"><strong>Move-Out Date:</strong></p>
             <p><%= booking.move_out_date %></p>
           </div>
         <% end %>
         <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Payment Due Date:</strong></p>
+          <p class="md:w-40"><strong>Payment Due Date:</strong></p>
           <p><%= booking.due_date %></p>
         </div>
         <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Room Code:</strong></p>
+          <p class="md:w-40"><strong>Room Code:</strong></p>
           <p><%= booking.room.room_code %></p>
         </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Monthly Rate:</strong></p>
-          <p>₱<%= booking.room.monthly_rate %></p>
+        <div class="flex gap-2 place-items-center mb-10">
+          <p class="md:w-40"><strong>Monthly Rate:</strong></p>
+          <p><%= number_to_currency(booking.room.monthly_rate, precision: 2, unit: '₱') %></p>
         </div>
-        <div>
-          <%= link_to 'View Details', booking_path(booking), class: 'block w-fit py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <div class="md:w-40">
+          <%= link_to 'View Details', booking_path(booking), class: 'block py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         </div>
       </div>
     <% end %>
@@ -47,43 +47,36 @@
         <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
           <tr>
             <th class="p-3">ID</th>
-            <th class="p-3">Status</th>
-            <th class="p-3">Tenant</th>
-            <th class="p-3">Room</th>
-            <th class="p-3">Move-In Date</th>
-            <th class="p-3">Move-Out Date</th>
-            <th class="p-3">Due Date</th>
-            <th class="p-3">Processed by</th>
+            <th class="p-3 text-center">Status</th>
+            <th class="p-3 text-center">Tenant</th>
+            <th class="p-3 text-center">Room</th>
+            <th class="p-3 text-center">Move-In Date</th>
+            <th class="p-3 text-center">Move-Out Date</th>
+            <th class="p-3 text-center">Due Date</th>
+            <th class="p-3 text-center">Processed by</th>
           </tr>
         </thead>
         <tbody>
           <% bookings.each do |booking| %>
             <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
               <td class="p-3 font-medium"><%= link_to booking.id, booking_path(booking), class: 'text-blue-600 hover:underline' %></td>
-              <td class="p-3">
-                <% if booking.active? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= booking.status.upcase %></span>
-                <% elsif booking.inactive? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= booking.status.upcase %></span>
-                <% end %>
-              </td>
-              <td class="p-3"><%= booking.user.email %></td>
+              <td class="p-3 text-center"><%= booking.status.capitalize %></td>
+              <td class="p-3 text-center"><%= booking.user.email %></td>
 
-              <td class="p-3"><%= booking.room.room_code %></td>
+              <td class="p-3 text-center"><%= booking.room.room_code %></td>
               
-              <td class="p-3"><%= booking.move_in_date %></td>
-              <td class="p-3"><%= booking.move_out_date %></td>
-              <td class="p-3"><%= booking.due_date %></td>
-              <td class="p-3"><%= booking.processed_by %></td>
+              <td class="p-3 text-center"><%= booking.move_in_date %></td>
+              <td class="p-3 text-center"><%= booking.move_out_date ? booking.move_out_date : '-' %></td>
+              <td class="p-3 text-center"><%= booking.due_date %></td>
+              <td class="p-3 text-center"><%= booking.processed_by %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   <% end %>
-  
 <% else %>
   <div>
-    <p class="italic text-sm">Empty</p>
+    <p class="text-sm">Empty</p>
   </div>
 <% end %>

@@ -35,7 +35,6 @@ class PaymentsController < ApplicationController
       )
     end
     render :json => {:status => 200}
-    # redirect_to authenticated_root_path, status: :ok
   end
 
   def show

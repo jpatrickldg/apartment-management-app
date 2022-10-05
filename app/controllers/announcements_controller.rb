@@ -1,7 +1,7 @@
 class AnnouncementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_announcement, only: [ :show, :edit, :update, :archive, :republish ]
-  before_action :check_if_tenant, except: [:index]
+  before_action :check_if_tenant, except: [:index, :show]
 
   def index
     @announcements = Announcement.all 

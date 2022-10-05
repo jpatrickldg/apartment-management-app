@@ -1,10 +1,10 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction, except: [:show, :links, :payment]
+  before_action :check_restriction, except: [:index, :show, :links, :payment]
   before_action :check_ownership, only: [:show, :payment]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
-  before_action :set_invoice, only: [:edit, :update, :payment] 
+  before_action :set_invoice, only: [:edit, :update] 
 
   def index
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
@@ -20,8 +20,8 @@ class InvoicesController < ApplicationController
     redirect_to url, allow_other_host: true
   end
 
-  def active
-    @invoices = Invoice.includes(booking: [:user]).where(status: 'active')
+  def unpaid
+    @invoices = Invoice.includes(booking: [:user]).where(status: 'unpaid')
   end
 
   def show
@@ -30,6 +30,7 @@ class InvoicesController < ApplicationController
   end
 
   def payment
+    @invoice = Invoice.includes(booking: [:user]).find(params[:id])
   end
 
   def new

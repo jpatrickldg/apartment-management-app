@@ -8,6 +8,12 @@ RSpec.describe Expense, type: :model do
       expect(expense).to be_valid
     end
 
+    it 'will set processed_by if set_processed_by method is called' do
+      expense = build(:expense)
+      expense.set_processed_by("test@email.com")
+      expect(expense.processed_by).to eq "test@email.com"  
+    end
+
     it 'will fail with empty title' do
       expense = build(:expense, title: nil)
       expect(expense).to_not be_valid
@@ -40,11 +46,6 @@ RSpec.describe Expense, type: :model do
 
     it 'will fail with empty amount' do
       expense = build(:expense, amount: nil)
-      expect(expense).to_not be_valid
-    end
-
-    it 'will fail with empty processed_by' do
-      expense = build(:expense, processed_by: nil)
       expect(expense).to_not be_valid
     end
 

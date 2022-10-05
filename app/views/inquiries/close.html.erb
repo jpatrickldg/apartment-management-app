@@ -1,6 +1,8 @@
-<h1 class="text-lg lg:text-xl font-bold mb-2">Inquiry ID: <%= @inquiry.id %></h1>
+<div>
+  <h1 class="text-xl lg:text-2xl font-bold mb-2">Inquiry ID: <%= @inquiry.id %></h1>
+</div>
 
-<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+<div class="flex-auto overflow-y-auto">
   <h2 class="lg:text-lg font-medium mb-2">Did the enquirer signed a contract?</h2>
 
   <%= form_with model: @inquiry, data:{turbo:false}, url: inquiry_path(@inquiry), method: :patch do |f| %>
@@ -16,7 +18,7 @@
       <%= f.hidden_field :status, value: 'closed' %>
     </div>
 
-    <div class="mb-4 text-left flex place-items-center gap-4">
+    <div class="mb-8 text-left flex place-items-center gap-4">
       <div>
         <%= f.radio_button :contract_signed, true, class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
         <%= f.label 'Yes', class: 'ml-1 font-medium text-gray-900' %>
@@ -31,6 +33,5 @@
       <%= f.submit 'Close Ticket', class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <%= link_to 'Cancel', inquiry_path(@inquiry), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     </div>
-
   <% end %>
 </div>

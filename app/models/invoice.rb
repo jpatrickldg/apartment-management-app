@@ -5,7 +5,7 @@ class Invoice < ApplicationRecord
   before_create :set_total_amount
   after_save :set_booking_due_date, if: Proc.new { paid? }
 
-  enum status: [ :active, :paid ]
+  enum status: [ :unpaid, :paid ]
 
   validates :water_bill, presence: true
   validates :electricity_bill, presence: true

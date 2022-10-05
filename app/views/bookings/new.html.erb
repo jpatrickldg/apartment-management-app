@@ -1,30 +1,40 @@
-<h1 class="text-lg lg:text-xl font-bold mb-4">Create Booking for <%= @tenant.first_name.upcase %></h1>
+<div>
+  <h1 class="text-lg lg:text-xl font-bold mb-4">Create Booking for <%= @tenant.first_name.upcase %></h1>
+</div>
 
-<div class="max-w-sm">
-  <%= form_with model: [@user, @booking], url: tenant_bookings_path, data: {turbo: false} do |f| %>
-    
-    <% if @booking.errors.any? %>
-      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
-        <% @booking.errors.full_messages.each do |error| %>
-          <div><%= error %></div>
-        <% end %>
+<div class="flex-auto overflow-y-auto">
+  <div class="max-w-sm">
+    <%= form_with model: [@user, @booking], url: tenant_bookings_path, data: {turbo: false} do |f| %>
+      
+      <% if @booking.errors.any? %>
+        <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
+          <% @booking.errors.full_messages.each do |error| %>
+            <div><%= error %></div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="mb-2">
+        <%= f.label :move_in_date, class: 'block font-medium mb-1' %> 
+        <%= f.date_field :move_in_date, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      </div>
+
+      <div class="mb-6">
+        <%= f.label 'Room', class: 'block font-medium mb-1' %>
+        <%= f.select(:room_id, @available_rooms.map { |r| [r.room_code, r.id] }, {}, { class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' }) %>
+      </div>
+
+      <div>
+        <%= f.submit 'Create Booking', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
       </div>
     <% end %>
-
-    <div class="mb-2">
-      <%= f.label :move_in_date, class: 'block font-medium mb-1' %> 
-      <%= f.date_field :move_in_date, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
-    </div>
-
-    <div class="mb-6">
-      <%= f.label 'Room', class: 'block font-medium mb-1' %>
-      <%= f.select(:room_id, @available_rooms.map { |r| [r.room_code, r.id] }, {}, { class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' }) %>
-    </div>
-
-    <div class="flex gap-2 items-center">
-      <%= f.submit 'Create Booking', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
-      
-      <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-    </div>
-  <% end %>
+  </div>
 </div>
+
+<div>
+  <%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
+
+
+
+

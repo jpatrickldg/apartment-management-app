@@ -1,7 +1,9 @@
-<h1 class="text-lg lg:text-xl font-bold mb-4">Inquiry ID: <%= @inquiry.id %></h1>
-<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+<div>
+  <h1 class="text-xl lg:text-2xl font-bold mb-4">Inquiry ID: <%= @inquiry.id %></h1>
+</div>
+<div class="flex-auto overflow-y-auto">
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Status:</strong></p>
+    <p class="md:w-48"><strong>Status:</strong></p>
     <% if @inquiry.open? %>
       <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= @inquiry.status.upcase %></h1>
     <% elsif @inquiry.on_going? %>
@@ -11,57 +13,56 @@
     <% end %>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Full Name:</strong></p>
+    <p class="md:w-48"><strong>Full Name:</strong></p>
     <p><%= @inquiry.first_name.capitalize %> <%= @inquiry.last_name.capitalize %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Gender:</strong></p>
+    <p class="md:w-48"><strong>Gender:</strong></p>
     <p><%= @inquiry.gender.capitalize %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Email:</strong></p>
+    <p class="md:w-48"><strong>Email:</strong></p>
     <p><%= @inquiry.email %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Contact No:</strong></p>
+    <p class="md:w-48"><strong>Contact No:</strong></p>
     <p><%= @inquiry.contact_no %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Preferred Location:</strong></p>
+    <p class="md:w-48"><strong>Preferred Location:</strong></p>
     <p><%= @inquiry.location_preference.capitalize %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Preferred Room Type:</strong></p>
+    <p class="md:w-48"><strong>Preferred Room Type:</strong></p>
     <p><%= @inquiry.room_type.capitalize %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
-    <p><strong>Target Move-In Date:</strong></p>
+    <p class="md:w-48"><strong>Target Move-In Date:</strong></p>
     <p><%= @inquiry.move_in_date %></p>
   </div>
   
   <% if (current_user.admin? || current_user.owner?) && !@inquiry.open? %>
     <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Receptionist:</strong></p>
+      <p class="md:w-48"><strong>Receptionist:</strong></p>
       <p><%= @inquiry.processed_by %></p>
     </div>
   <% end %>
 
   <% if @inquiry.closed? %>
     <div class="flex gap-2 place-items-center mb-2">
-      <p><strong>Contract Signed?</strong></p>
+      <p class="md:w-48"><strong>Contract Signed?</strong></p>
       <p><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
+    </div>
+  <% end %>
+  <% if @inquiry.processed_by == current_user.email %>
+    <div>
+      <%= link_to 'Close Ticket', close_inquiry_path(@inquiry), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer mt-8' %>
     </div>
   <% end %>
 </div>
 
 
-<div class="flex gap-2 items-center">
-  <% if @inquiry.on_going? %>
-    <% if @inquiry.processed_by == current_user.email %>
-      <%= link_to 'Close Ticket', close_inquiry_path(@inquiry), class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-    <% end %>
-  <% end %>
-
+<div>
   <%= link_to 'Back', inquiries_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
 

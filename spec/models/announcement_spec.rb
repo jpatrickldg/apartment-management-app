@@ -43,11 +43,6 @@ RSpec.describe Announcement, type: :model do
       announcement = build(:announcement, description: 'short')
       expect(announcement).to_not be_valid
     end
-
-    it 'will fail with description longer than 100 chars' do
-      announcement = build(:announcement, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, mollitia! Deleniti fugiat expedita quaerat. Modi repellat, omnis laudantium at repellendus quo pariatur molestias')
-      expect(announcement).to_not be_valid
-    end
   end
   
 end

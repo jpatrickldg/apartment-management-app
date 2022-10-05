@@ -4,14 +4,14 @@
       <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
         <tr>
           <th class="p-3">Status</th>
-          <th class="p-3">First Name</th>
-          <th class="p-3">Last Name</th>
-          <th class="p-3">Gender</th>
-          <th class="p-3">Email</th>
-          <th class="p-3">Contact</th>
+          <th class="p-3 text-center">First Name</th>
+          <th class="p-3 text-center">Last Name</th>
+          <th class="p-3 text-center">Gender</th>
+          <th class="p-3 text-center">Email</th>
+          <th class="p-3 text-center">Contact</th>
           
           <% if current_user.admin? || current_user.owner? %>
-            <th class="p-3">Receptionist</th>
+            <th class="p-3 text-center">Receptionist</th>
           <% end %>
           
           <th class="p-3 text-center">
@@ -24,28 +24,28 @@
           <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
             <td class="p-3">
               <% if inquiry.open? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= inquiry.status.upcase %></span>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= inquiry.status.upcase %></span>
               <% elsif inquiry.closed? %>
                 <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= inquiry.status.upcase %></span>
               <% elsif inquiry.on_going? %>
-                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= inquiry.status.upcase %></span>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= inquiry.status.upcase %></span>
               <% end %>
             </td>
-            <td class="p-3"><%= inquiry.first_name.capitalize %></td>
-            <td class="p-3"><%= inquiry.last_name.capitalize %></td>
-            <td class="p-3"><%= inquiry.gender.capitalize %></td>
-            <td class="p-3"><%= inquiry.email %></td>
-            <td class="p-3"><%= inquiry.contact_no %></td>
+            <td class="p-3 text-center"><%= inquiry.first_name.capitalize %></td>
+            <td class="p-3 text-center"><%= inquiry.last_name.capitalize %></td>
+            <td class="p-3 text-center"><%= inquiry.gender.capitalize %></td>
+            <td class="p-3 text-center"><%= inquiry.email %></td>
+            <td class="p-3 text-center"><%= inquiry.contact_no %></td>
 
             <% if current_user.admin? || current_user.owner? %>
-              <td class="p-3"><%= inquiry.processed_by %></td>
+              <td class="p-3 text-center"><%= inquiry.processed_by ? inquiry.processed_by : '-' %></td>
             <% end %>
 
             
             <% if current_user.receptionist? && inquiry.open? %>
-              <td><%= button_to 'Assist', assists_inquiry_path(inquiry) %></td>
+              <td class="p-3 text-center"><%= button_to 'Assist', assists_inquiry_path(inquiry), class: 'font-medium text-blue-600 hover:underline' %></td>
             <% else %>
-              <td class="p-3"><%= link_to 'View', inquiry_path(inquiry), class: 'font-medium text-blue-600 hover:underline' %></td>
+              <td class="p-3 text-center"><%= link_to 'View', inquiry_path(inquiry), class: 'font-medium text-blue-600 hover:underline' %></td>
             <% end %>
             
           </tr>
@@ -54,7 +54,7 @@
     </table>
   </div>
 <% else %>
-  <div>
-    <p class="italic text-sm">Empty</p>
+  <div class="p-2">
+    <p class="text-sm">Empty</p>
   </div>
 <% end %>

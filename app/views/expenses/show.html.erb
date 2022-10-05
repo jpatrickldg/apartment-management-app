@@ -1,17 +1,19 @@
-<h2 class="text-lg lg:text-xl font-bold mb-4">Expense ID: <%= @expense.id %></h2>
+<div>
+  <h2 class="text-lg lg:text-xl font-bold mb-4">Expense ID: <%= @expense.id %></h2>
+</div>
 
-<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+<div class="overflow-y-auto flex-auto">
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Title:</strong>
     <p><%= @expense.title %></p>
   </div>
-  <div class="flex gap-2 place-items-center mb-2">
+  <div class="flex flex-col gap-1 justify-center mb-2">
     <p><strong>Description:</strong>
     <p><%= @expense.description %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Amount:</strong>
-    <p>₱<%= @expense.amount %></p>
+    <p><%= number_to_currency(@expense.amount, precision: 2, unit: '₱') %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Processed by:</strong>
@@ -26,4 +28,7 @@
     <% end %>
   </div>
 </div>
-<%= link_to 'Back', expenses_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+
+<div>
+  <%= link_to 'Back', expenses_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>

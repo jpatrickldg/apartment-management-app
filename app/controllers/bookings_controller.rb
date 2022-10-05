@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :check_ownership, only: [:show]
   before_action :get_tenant, only: [:new, :create]
   before_action :set_booking, only: [:edit, :update, :deactivate, :update_deactivate]
-  before_action :check_active_invoice, only: [:deactivate, :update_deactivate]
+  before_action :check_unpaid_invoice, only: [:deactivate, :update_deactivate]
 
   def index
     @q = Booking.includes(:user).ransack(params[:q])
@@ -71,11 +71,11 @@ class BookingsController < ApplicationController
     end
   end
 
-  def check_active_invoice
+  def check_unpaid_invoice
     @booking = Booking.find(params[:id])
-    @active_invoice = @booking.invoices.where(status: 'active')
-    if @active_invoice.present?
-      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an active Invoice'
+    @unpaid_invoice = @booking.invoices.where(status: 'unpaid')
+    if @unpaid_invoice.present?
+      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an unpaid Invoice'
     end
   end
 

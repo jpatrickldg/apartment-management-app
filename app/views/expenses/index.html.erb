@@ -5,44 +5,54 @@
       <%= link_to 'New Expense', new_expense_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     <% end %>
   </div>
-  <% if @expenses.any? %>
-  <div class="overflow-x-auto relative rounded-md">
-    <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs text-gray-800 uppercase bg-gray-200">
-        <tr>
-          <th class="py-3 px-3">Title</th>
-          <th class="py-3 px-3">Description</th>
-          <th class="py-3 px-3">Amount</th>
-          <th class="py-3 px-3">Processed By</th>
-          <th class="py-3 px-3 text-center">Proof</th>
-          <th class="py-3 px-3">
-            <span class="sr-only">View</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @expenses.each do |expense| %>
-        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-          <td class="py-3 px-3"><%= expense.title %></td>
-          <td class="py-3 px-3"><%= truncate(expense.description) %></td>
-          <td class="py-3 px-3">₱<%= expense.amount %></td>
-          <td class="py-3 px-3"><%= expense.processed_by %></td>
-          
-          <% if expense.proof.attached? %>
-            <td class="py-3 px-3 text-center"><%= image_tag expense.proof, width: "50px", class: 'm-auto'  %></td>
-          <% else %>
-            <td class="py-3 px-3 text-center">NA</td>
-          <% end %>
-          
-          <td class="py-3 px-3"><%= link_to 'View', expense_path(expense), class: 'font-medium text-blue-600 hover:underline' %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="mb-4">
+    <%= search_form_for @q do |f| %>
+      <div class="relative">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
+        </div>
+        <%= f.search_field :processed_by_or_title_or_description_cont, placeholder: 'Search Expense', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+        <%= f.submit 'Search', class: 'text-white absolute right-20 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 hover:cursor-pointer hidden md:block'  %>
+        <%= link_to 'Clear', expenses_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+      </div>
+    <% end %>
   </div>
+</div>
+
+<div class="overflow-y-auto flex-auto">
+  <% if @expenses.any? %>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200">
+          <tr>
+            <th class="py-3 px-3">Title</th>
+            <th class="py-3 px-3">Description</th>
+            <th class="py-3 px-3">Amount</th>
+            <th class="py-3 px-3">Processed By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @expenses.each do |expense| %>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            <td class="py-3 px-3"><%= link_to expense.title, expense_path(expense), class: 'font-medium text-blue-600 hover:underline'  %></td>
+            <td class="py-3 px-3"><%= truncate(expense.description) %></td>
+            <td class="py-3 px-3"><%= number_to_currency(expense.amount, precision: 2, unit: '₱') %></td>
+            <td class="py-3 px-3"><%= expense.processed_by %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% else %>
-    <h3>No expenses found</h3>
+    <div>
+      <p class="text-sm">Empty</p>
+    </div>
   <% end %>
 </div>
+
+<div>
+  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
+
 
 

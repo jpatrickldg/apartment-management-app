@@ -11,7 +11,7 @@ class Booking < ApplicationRecord
   before_update :set_room_occupants_once_inactive
 
   # validate :only_one_active_booking
-  validate :stop_deactivation_if_invoice_is_active
+  validate :stop_deactivation_if_invoice_is_unpaid
   validates :move_in_date, presence: true
 
   def set_processed_by(user_email)
@@ -42,12 +42,12 @@ class Booking < ApplicationRecord
   
   private
 
-  def stop_deactivation_if_invoice_is_active
+  def stop_deactivation_if_invoice_is_unpaid
     return unless self.inactive?
 
-    active_invoices = Invoice.where(booking_id: self.id).where(status: 'active')
-    if active_invoices.any?
-      errors.add("Booking has an active invoice")
+    unpaid_invoices = Invoice.where(booking_id: self.id).where(status: 'unpaid')
+    if unpaid_invoices.any?
+      errors.add("Booking has an unpaid invoice")
     end
   end
 

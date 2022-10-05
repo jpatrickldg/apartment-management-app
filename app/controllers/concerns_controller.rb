@@ -5,7 +5,8 @@ class ConcernsController < ApplicationController
   before_action :restrict_user, only: [:new, :create]
 
   def index
-    @concerns = Concern.all.includes(:user).order(status: :asc)
+    @q = Concern.all.includes(:user).order(status: :asc).ransack(params[:q])
+    @concerns = @q.result(distinct: true)
     @current_user_concerns = @tenant.concerns.order(status: :asc)
   end
 

@@ -1,6 +1,8 @@
-<h2 class="text-lg lg:text-xl font-bold mb-4">Concern Ticket <%= @concern.id %></h2>
+<div>
+  <h2 class="text-lg lg:text-xl font-bold mb-4">Concern Ticket <%= @concern.id %></h2>
+</div>
 
-<div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+<div class="flex-auto overflow-y-auto">
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Status:</strong></p>
     <% if @concern.open? %>
@@ -16,24 +18,26 @@
     </div>
   <% end %>
 
-  <div class="flex gap-2 place-items-center mb-2">
+  <div class="flex gap-2 place-items-center mb-1">
     <p><strong>Concern: </strong></p>
-    <p class="underline"><%= @concern.title %></p>
+    <p><%= @concern.title %></p>
   </div>
 
-  <div class="flex flex-col gap-2 mb-2">
+  <div class="flex flex-col gap-1 mb-4">
     <p><strong>Description:</strong></p>
     <p><%= @concern.description %></p>
   </div>
+
+  <div class="flex gap-2 items-center">
+    <% if @concern.open? %>
+      <%= link_to 'Close Ticket', close_concern_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+    <% elsif @concern.closed? && current_user.tenant? %>
+      <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+    <% end %>
+  </div>
 </div>
 
-<div class="flex gap-2 items-center">
-  <% if @concern.open? %>
-    <%= link_to 'Close Ticket', close_concern_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
-  <% elsif @concern.closed? && current_user.tenant? %>
-    <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-  <% end %>
+<div>
   <%= link_to 'Back', concerns_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
-
 

@@ -16,10 +16,12 @@
       <%= render 'shared/sidebar' %>
       <div class="grid grid-rows-[min-content_1fr] h-screen">
         <%= render 'shared/navbar' %>
-        <div class="overflow-y-auto py-4 px-3 lg:px-6">
-          <%= notice if notice %>
-          <%= alert if alert %>
-          <%= yield %>
+        <div class="overflow-y-hidden py-4 px-3 md:px-6 lg:px-10 bg-gray-100">
+          <div class="p-5 bg-white border border-gray-200 rounded-lg shadow-md mb-4 h-full flex flex-col gap-2">
+            <%= notice if notice %>
+            <%= alert if alert %>
+            <%= yield %>
+          </div>
         </div>
       </div>
     </div>

@@ -49,7 +49,7 @@ RSpec.describe "Bookings", type: :request do
       expect(flash[:notice]).to match('Booking Deactivated')
     end
 
-    it "will fail if booking has an active invoice" do
+    it "will fail if booking has an unpaid invoice" do
       sign_in admin
       booking = create(:booking)
       invoice = create(:invoice, booking_id: booking.id)
@@ -58,7 +58,7 @@ RSpec.describe "Bookings", type: :request do
       }
       patch update_deactivate_booking_path(booking), params: { booking: booking_params }
       booking.reload
-      expect(flash[:notice]).to match('Failed. Tenant has an active Invoice')
+      expect(flash[:notice]).to match('Failed. Tenant has an unpaid Invoice')
     end
   end
 end

@@ -1,6 +1,8 @@
-<h1 class="text-lg lg:text-xl font-bold mb-4">Send Payment</h1>
+<div>
+  <h1 class="text-lg lg:text-xl font-bold mb-4">Send Payment</h1>
+</div>
 
-<div class="max-w-sm">
+<div class="flex-auto overflow-y-auto max-w-sm">
   <%= form_with model: [@invoice, @payment], url: invoice_payment_path, data: {turbo: false} do |f| %>
     
     <% if @payment.errors.any? %>
@@ -30,8 +32,7 @@
       <%= f.hidden_field :payment_mode, value: 'cash' %>
     <% end %>
     
-
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-2 items-center mt-8">
       <%= f.submit 'Pay', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
       
       <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>

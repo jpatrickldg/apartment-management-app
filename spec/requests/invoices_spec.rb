@@ -7,30 +7,23 @@ RSpec.describe "Invoices", type: :request do
   let (:tenant) { create(:user, role: 'tenant') }
 
   describe "GET /index" do
-    it "returns index page if user is not tenant" do
+    it "returns index page" do
       sign_in cashier
       get invoices_path
       expect(response).to have_http_status(200)
-    end
-
-    it 'redirects if user is tenant' do
-      sign_in tenant
-      get invoices_path
-      expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
     end
   end
 
-  describe "GET /active" do
+  describe "GET /unpaid" do
     it "returns index page if user is not tenant" do
       sign_in cashier
-      get active_invoices_path
+      get unpaid_invoices_path
       expect(response).to have_http_status(200)
     end
 
     it 'redirects if user is tenant' do
       sign_in tenant
-      get active_invoices_path
+      get unpaid_invoices_path
       expect(response).to redirect_to(authenticated_root_path)
       expect(flash[:notice]).to match('Access Denied')
     end

@@ -1,32 +1,41 @@
-<h2 class="text-xl lg:text-2xl font-bold mb-2">Branches</h2>
+<div>
+  <h2 class="text-xl lg:text-2xl font-bold mb-2">Branches</h2>
+</div>
 
-<% @branches.each do |branch| %>
-  <div class="overflow-x-auto relative rounded-md border-gray-200 mb-4">
+<div class="overflow-y-auto flex-auto">
+  <% @branches.each do |branch| %>
     <h2 class="text-lg lg:text-xl font-bold mb-2"><%= branch.branch_type %> | <%= branch.address %></h2>
-    <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-        <tr>
-          <th class="p-3">Room Code</th>
-          <th class="p-3">Monthly Rate</th>
-          <th class="p-3 text-center">Occupants</th>
-          <th class="p-3 text-center">Capacity</th>
-          <th class="p-3 text-center">Available</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% ordered_rooms = branch.rooms.order(room_code: :asc) %>
-        <% ordered_rooms.each do |room| %>
-          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-            <td class="p-3"><%= link_to room.room_code.upcase, [branch, room], class: 'font-medium text-blue-600 hover:underline' %></td>
-            <td class="p-3 font-medium">₱<%= room.monthly_rate %></td>
-            <td class="p-3 text-center"><%= room.occupants_count %></td>
-            <td class="p-3 text-center"><%= room.capacity_count %></td>
-            <td class="p-3 text-center"><%= room.available_count %></td>
+    <div class="overflow-x-auto relative rounded-md border-gray-200 mb-4">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3">Room Code</th>
+            <th class="p-3 text-center">Monthly Rate</th>
+            <th class="p-3 text-center">Occupants</th>
+            <th class="p-3 text-center">Capacity</th>
+            <th class="p-3 text-center">Available</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
+        </thead>
+        <tbody>
+          <% ordered_rooms = branch.rooms.order(room_code: :asc) %>
+          <% ordered_rooms.each do |room| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3"><%= link_to room.room_code.upcase, [branch, room], class: 'font-medium text-blue-600 hover:underline' %></td>
+              <td class="p-3 font-medium text-center"><%= number_to_currency(room.monthly_rate, precision: 2, unit: '₱') %></td>
+              <td class="p-3 text-center"><%= room.occupants_count %></td>
+              <td class="p-3 text-center"><%= room.capacity_count %></td>
+              <td class="p-3 text-center"><%= room.available_count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+</div>
+
 
 

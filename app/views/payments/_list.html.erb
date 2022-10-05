@@ -1,86 +1,49 @@
 <% if payments.any? %>
-  <% if current_user.tenant? %>
-    <% payments.each do |payment| %>
-      <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Status:</strong></p>
-            <% if payment.approved? %>
-              <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= payment.status.upcase %></h1>
-            <% elsif payment.pending? %>
-              <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-400"><%= payment.status.upcase %></h1>
-            <% elsif payment.cancelled? %>
-              <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= payment.status.upcase %></h1>
-            <% end %>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Payment ID:</strong></p>
-          <p><%= payment.id %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Payment Date:</strong></p>
-          <p><%= payment.updated_at.strftime("%Y-%m-%d") %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Mode of Payment:</strong></p>
-          <p><%= payment.payment_mode.capitalize %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Amount:</strong></p>
-          <p>₱<%= payment.amount %></p>
-        </div>
-        <div class="flex gap-2 place-items-center mb-2">
-          <p><strong>Remarks:</strong></p>
-          <p><%= payment.remarks %></p>
-        </div>
-        <div>
-          <%= link_to 'View Details', payment_path(payment), class: 'block w-fit py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="overflow-x-auto relative rounded-md">
-      <table class="w-full text-sm text-left text-gray-500">
-        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-          <tr>
-            <th class="p-3">ID</th>
-            <th class="p-3">Status</th>
-            <th class="p-3">Payment Date</th>
-            <th class="p-3">Payment Mode</th>
-            <th class="p-3">Total Amount</th>
-            <th class="p-3">Initiated by</th>
-            <th class="p-3">Processed by</th>
-            <th class="p-3">Remarks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% payments.each do |payment| %>
-            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-              <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
-              <td class="p-3">
-                <% if payment.approved? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= payment.status.upcase %></span>
-                <% elsif payment.pending? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= payment.status.upcase %></span>
-                <% elsif payment.cancelled? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= payment.status.upcase %></span>
-                <% end %>
-              </td>
-
-              <td class="p-3"><%= payment.created_at.strftime("%Y-%m-%d") %></td>
-              
-              
-              <td class="p-3"><%= payment.payment_mode.capitalize %></td>
-              <td class="p-3">₱<%= payment.amount %></td>
-              <td class="p-3"><%= payment.initiated_by %></td>
-              <td class="p-3"><%= payment.processed_by %></td>
-              <td class="p-3"><%= payment.remarks %></td>
-            </tr>
+  <div class="overflow-x-auto relative rounded-md">
+    <table class="w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+        <tr>
+          <th class="p-3">ID</th>
+          <th class="p-3 text-center">Status</th>
+          <th class="p-3 text-center">Payment Date</th>
+          <th class="p-3 text-center">Payment Mode</th>
+          <th class="p-3 text-center">Total Amount</th>
+          <% if !current_user.tenant? %>
+            <th class="p-3 text-center">Initiated by</th>
+            <th class="p-3 text-center">Processed by</th>
           <% end %>
-        </tbody>
-      </table>
-    </div>
+          <th class="p-3 text-center">Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% payments.each do |payment| %>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
+            <td class="p-3 text-center">
+              <% if payment.approved? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= payment.status.upcase %></span>
+              <% elsif payment.pending? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= payment.status.upcase %></span>
+              <% elsif payment.cancelled? %>
+                <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-red-600"><%= payment.status.upcase %></span>
+              <% end %>
+            </td>
 
-  <% end %>
+            <td class="p-3 text-center"><%= payment.created_at.strftime("%Y-%m-%d") %></td>
+            
+            
+            <td class="p-3 text-center"><%= payment.payment_mode.capitalize %></td>
+            <td class="p-3 text-center"><%= number_to_currency(payment.amount, precision: 2, unit: '₱') %></td>
+            <% if !current_user.tenant? %>
+              <td class="p-3 text-center"><%= payment.initiated_by.capitalize %></td>
+              <td class="p-3 text-center"><%= payment.processed_by ? payment.processed_by : '-' %></td> 
+            <% end %>
+            <td class="p-3 text-center"><%= payment.remarks.capitalize %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <div>
     <p class="italic text-sm">Empty</p>
