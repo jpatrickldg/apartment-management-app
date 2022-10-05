@@ -3,49 +3,51 @@
   <h1 class="text-lg md:text-xl lg:text-2xl font-bold mb-4">User Details</h1>
 </div>
 <div class="overflow-y-auto flex-auto">
-  <div class="mb-4">
-    <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar, class: 'max-w-[120px] h-auto rounded-lg' %>
-    <% else %>
-      <%= image_tag ("user.png"), class: 'max-w-[120px] h-auto rounded-lg' %>
-    <% end %>
-  </div>
-  <div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Status:</strong></p>
-      <p><%= @user.status.capitalize %></p>
+  <div class="max-w-min">
+    <div class="mb-4">
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, class: 'max-w-[120px] h-auto rounded-lg m-auto' %>
+      <% else %>
+        <%= image_tag ("user.png"), class: 'max-w-[120px] h-auto rounded-lg m-auto' %>
+      <% end %>
     </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>User Role:</strong></p>
-      <p><%= @user.role %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Email:</strong></p>
-      <p><%= @user.email %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>First Name:</strong></p>
-      <p><%= @user.first_name.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Last Name:</strong></p>
-      <p><%= @user.last_name.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Gender:</strong></p>
-      <p><%= @user.gender.capitalize %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Birthdate:</strong></p>
-      <p><%= @user.birthdate %></p>
-    </div>
-    <div class="flex gap-2 place-items-center mb-2">
-      <p class="w-28 md:w-40"><strong>Contact No:</strong></p>
-      <p><%= @user.contact_no %></p>
-    </div>
-    <div class="flex flex-col gap-2 justify-center mb-6">
-      <p class="w-28 md:w-40"><strong>Address:</strong></p>
-      <p><%= @user.address.capitalize %></p>
+    <div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Status:</strong></p>
+        <p><%= @user.status.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>User Role:</strong></p>
+        <p><%= @user.role %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Email:</strong></p>
+        <p><%= @user.email %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>First Name:</strong></p>
+        <p><%= @user.first_name.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Last Name:</strong></p>
+        <p><%= @user.last_name.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Gender:</strong></p>
+        <p><%= @user.gender.capitalize %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Birthdate:</strong></p>
+        <p><%= @user.birthdate %></p>
+      </div>
+      <div class="flex gap-2 place-items-center mb-2">
+        <p class="w-28 md:w-40"><strong>Contact No:</strong></p>
+        <p><%= @user.contact_no %></p>
+      </div>
+      <div class="flex flex-col gap-2 justify-center mb-6">
+        <p class="w-28 md:w-40"><strong>Address:</strong></p>
+        <p><%= @user.address.capitalize %></p>
+      </div>
     </div>
   </div>
 
