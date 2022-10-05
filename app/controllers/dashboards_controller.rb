@@ -10,7 +10,7 @@ class DashboardsController < ApplicationController
     @available_rooms_count = Room.where('available_count > 0').count
     @available_space_count = Room.all.sum(:available_count)
     @pending_payments_count = Payment.all.where(status: 'pending').count
-    @unpaid_invoices = current_user.invoices.includes(:booking).where(status: 'active')
+    @unpaid_invoices = current_user.invoices.includes(:booking).where(status: 'unpaid')
     @users_count = User.where(status: 'active').count
     @open_concerns_count = Concern.where(status: 'open').count
     @open_inquiries_count = Inquiry.where(status: 'open').count
