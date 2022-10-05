@@ -1,7 +1,13 @@
-<h1>Landing Page</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
-
-<%= link_to "Inquire", new_inquiry_path %> <br>
-<%= link_to "Go to Portal", new_user_session_path %>
+<div class="flex justify-center place-items-center h-screen">
+  <div class="flex flex-col gap-10 justify-center place-items-center p-4">
+    <div>
+      <h1 class="text-3xl font-bold">"Landing Page"</h1>
+      <h1 class="text-3xl font-bold">In Progress....?</h1>
+    </div>
+    <div class="flex flex-col gap-2">
+      <%#= link_to "Inquire", new_inquiry_path, class: 'block w-48 py-1.5 px-4 text-lg font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer uppercase' %>
+      <%= link_to "Go to Portal", new_user_session_path, class: 'block w-48 py-2.5 px-4 text-xl font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer uppercase' %>
+    </div>
+  </div>
+</div>
 
