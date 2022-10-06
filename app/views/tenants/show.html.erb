@@ -7,7 +7,7 @@
 </div>
 
 <div class="flex-auto flex flex-col gap-2">
-  <div class="overflow-x-auto relative rounded-md mb-4">
+  <div>
     <div class="flex gap-2 place-items-center mb-2">
       <h1 class="lg:text-lg font-bold">Account Details</h1>
       <% if @tenant.inactive? %>
@@ -19,60 +19,64 @@
         <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     </div>
-    <table class="w-full text-sm text-left text-gray-500 account-table">
-      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-        <tr>
-          <th class="p-3 w-1/12">Status</th>
-          <th class="p-3 w-1/12 text-center">Avatar</th>
-          <th class="p-3 text-center">Email</th>
-          <th class="p-3 text-center">First Name</th>
-          <th class="p-3 text-center">Last Name</th>
-          <th class="p-3 text-center">Gender</th>
-          <th class="p-3 text-center">Birthdate</th>
-          <th class="p-3 text-center">Occupation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-          <td class="p-3"><%= @tenant.status.capitalize %></td>
-          <td class="p-3">
-            <% if @tenant.avatar.attached? %>
-              <%= image_tag @tenant.avatar, class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
-            <% else %>
-              <%= image_tag ("user.png"), class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
-            <% end %>
-          </td>
-          <td class="p-3 text-center"><%= @tenant.email %></td>
-          <td class="p-3 text-center"><%= @tenant.first_name %></td>
-          <td class="p-3 text-center"><%= @tenant.last_name %></td>
-          <td class="p-3 text-center"><%= @tenant.gender.capitalize %></td>
-          <td class="p-3 text-center"><%= @tenant.birthdate %></td>
-          <td class="p-3 text-center"><%= @tenant.occupation.capitalize %></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto relative">
+      <table class="w-full text-sm text-left text-gray-500 account-table">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3 w-1/12">Status</th>
+            <th class="p-3 w-1/12 text-center">Avatar</th>
+            <th class="p-3 text-center">Email</th>
+            <th class="p-3 text-center">First Name</th>
+            <th class="p-3 text-center">Last Name</th>
+            <th class="p-3 text-center">Gender</th>
+            <th class="p-3 text-center">Birthdate</th>
+            <th class="p-3 text-center">Occupation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            <td class="p-3"><%= @tenant.status.capitalize %></td>
+            <td class="p-3">
+              <% if @tenant.avatar.attached? %>
+                <%= image_tag @tenant.avatar, class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
+              <% else %>
+                <%= image_tag ("user.png"), class: 'max-w-[35px] h-auto rounded-lg m-auto' %>
+              <% end %>
+            </td>
+            <td class="p-3 text-center"><%= @tenant.email %></td>
+            <td class="p-3 text-center"><%= @tenant.first_name %></td>
+            <td class="p-3 text-center"><%= @tenant.last_name %></td>
+            <td class="p-3 text-center"><%= @tenant.gender.capitalize %></td>
+            <td class="p-3 text-center whitespace-nowrap"><%= @tenant.birthdate %></td>
+            <td class="p-3 text-center"><%= @tenant.occupation.capitalize %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="overflow-x-auto relative rounded-md mb-4">
+  <div class="mb-2">
     <h1 class="lg:text-lg font-bold mb-2">Contact Details</h1>
-    <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
-      <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
-        <tr>
-          <th class="p-3">Address</th>
-          <th class="p-3 text-center">Contact No</th>
-          <th class="p-3 text-center">Emergency Contact Person</th>
-          <th class="p-3 text-center">Emergency Contact No</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
-          <td class="p-3 w-3/5"><%= @tenant.address %></td>
-          <td class="p-3 font-medium text-center"><%= @tenant.contact_no %></td>
-          <td class="p-3 text-center"><%= @tenant.emergency_contact_person.capitalize %></td>
-          <td class="p-3 text-center"><%= @tenant.emergency_contact_no %></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto relative">
+      <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3">Address</th>
+            <th class="p-3 text-center">Contact No</th>
+            <th class="p-3 text-center">Emergency</th>
+            <th class="p-3 text-center">Emergency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+            <td class="p-3 w-3/5"><%= @tenant.address %></td>
+            <td class="p-3 font-medium text-center"><%= @tenant.contact_no %></td>
+            <td class="p-3 text-center"><%= @tenant.emergency_contact_person.capitalize %></td>
+            <td class="p-3 text-center"><%= @tenant.emergency_contact_no %></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
   </div>
 
   <div class="flex-auto flex flex-col bg-gray-200 rounded-lg">
@@ -82,7 +86,7 @@
       <h1 class="p-2 rounded-t-lg px-4 font-bold hover:cursor-pointer hover:bg-gray-200 payment-details bg-white">Payments</h1>
     </div>
     <div class="flex-auto overflow-y-auto p-2 relative">
-      <div class="booking-table h-full bg-white">
+      <div class="booking-table h-full bg-white relative">
         <% if @tenant.bookings.includes(:room).any? %>
           <div class="overflow-x-auto relative mb-4">
             <table class="w-full text-sm text-left text-gray-500 lg:table-fixed">
@@ -103,9 +107,9 @@
                     <td class="p-3 font-medium"><%= link_to booking.id, booking_path(booking), class: 'text-blue-600 hover:underline' %></td>
                     <td class="p-3 text-center font-medium"><%= booking.status.capitalize %></td>
                     <td class="p-3 text-center"><%= booking.room.room_code %></td>
-                    <td class="p-3 text-center"><%= booking.move_in_date %></td>
-                    <td class="p-3 text-center"><%= booking.move_out_date ? booking.move_out_date : '-' %></td>
-                    <td class="p-3 text-center"><%= booking.due_date %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= booking.move_in_date %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= booking.move_out_date ? booking.move_out_date : '-' %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= booking.due_date %></td>
                     <td class="p-3 text-center"><%= booking.processed_by %></td>
                   </tr>
                 <% end %>
@@ -113,8 +117,8 @@
             </table>
           </div>
         <% else %>
-          <div class="p-2">
-            <p>Empty</p>
+          <div class="h-full flex place-items-center justify-center">
+            <p class="italic text-gray-500">Empty.....</p>
           </div>
         <% end %>
       </div>
@@ -139,8 +143,8 @@
                     <td class="p-3 font-medium"><%= link_to invoice.id, invoice_path(invoice), class: 'text-blue-600 hover:underline' %></td>
                     <td class="p-3 font-medium text-center"><%= invoice.status.capitalize %></td>
                     <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
-                    <td class="p-3 text-center"><%= invoice.date_from %></td>
-                    <td class="p-3 text-center"><%= invoice.date_to %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= invoice.date_from %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= invoice.date_to %></td>
                     <td class="p-3 text-center"><%= invoice.processed_by %></td>
                     <td class="p-3 text-center"><%= invoice.remarks %></td>
                   </tr>
@@ -149,8 +153,8 @@
             </table>
           </div>
         <% else %>
-          <div class="p-2">
-            <p>Empty</p>
+          <div class="h-full flex place-items-center justify-center">
+            <p class="italic text-gray-500">Empty.....</p>
           </div>
         <% end %>
       </div>
@@ -164,6 +168,7 @@
                   <th class="p-3 text-center">Status</th>
                   <th class="p-3 text-center">Amount</th>
                   <th class="p-3 text-center">MOP</th>
+                  <th class="p-3 text-center">Payment Date</th>
                   <th class="p-3 text-center">Initiated by</th>
                   <th class="p-3 text-center">Processed by</th>
                   <th class="p-3 text-center">Remarks</th>
@@ -175,6 +180,7 @@
                     <td class="p-3 font-medium"><%= link_to payment.id, payment_path(payment), class: 'text-blue-600 hover:underline' %></td>
                     <td class="p-3 font-medium text-center"><%= payment.status.capitalize %></td>
                     <td class="p-3 text-center"><%= number_to_currency(payment.amount, unit: '₱') %></td>
+                    <td class="p-3 text-center whitespace-nowrap"><%= payment.created_at.strftime("%Y-%m-%d") %></td>
                     <td class="p-3 text-center"><%= payment.payment_mode.capitalize %></td>
                     <td class="p-3 text-center"><%= payment.initiated_by.capitalize %></td>
                     <td class="p-3 text-center"><%= payment.processed_by ? payment.processed_by : '-' %></td>
@@ -185,8 +191,8 @@
             </table>
           </div>
         <% else %>
-          <div class="p-2">
-            <p>Empty</p>
+          <div class="h-full flex place-items-center justify-center">
+            <p class="italic text-gray-500">Empty.....</p>
           </div>
         <% end %>
       </div>
