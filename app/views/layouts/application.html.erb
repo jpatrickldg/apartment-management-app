@@ -11,18 +11,22 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-screen overflow-x-hidden">
-    <div class="w-full grid grid-cols-[max-content_1fr] lg:grid-cols-[250px_1fr]">
-      <%= render 'shared/sidebar' %>
-      <div class="grid grid-rows-[min-content_1fr] h-screen">
-        <%= render 'shared/navbar' %>
-        <div class="overflow-y-hidden py-4 px-3 md:px-6 lg:px-10 bg-gray-100">
+  <body class="h-full overflow-x-hidden">
+    <div class="w-full grid lg:grid-cols-[256px_1fr] relative main">
+      <aside class="h-screen z-30 w-64 absolute -left-64 lg:relative lg:left-0" aria-label="Sidebar">
+        <%= render 'shared/sidebar' %>
+      </aside>
+      <div class="grid grid-rows-[min-content_1fr] h-screen nav-content">
+        <nav class="w-full relative" aria-label="Navbar">
+          <%= render 'shared/navbar' %>
+        </nav>
+        <main class="overflow-y-hidden py-4 px-3 md:px-6 lg:px-10 bg-gray-100">
           <div class="p-5 bg-white border border-gray-200 rounded-lg shadow-md mb-4 h-full flex flex-col gap-2">
             <%= notice if notice %>
             <%= alert if alert %>
             <%= yield %>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   </body>
