@@ -1,8 +1,19 @@
 <div class="py-2 px-2 md:px-4 lg:px-6 bg-white w-full flex justify-between place-items-center">
   <div class="flex-auto">
-    <h1 class="text-2xl font-extrabold tracking-tight leading-none text-gray-800 md:text-4xl">MWPMI Portal</h1>
+    <%= link_to 'MWPMI Portal', authenticated_root_path, class: 'text-2xl font-extrabold tracking-tight leading-none text-gray-800 md:text-4xl hover:text-gray-700 transition-all duration-300' %>
   </div>
-  <div class="menu text-gray-800 lg:hidden">
-    <i class="fa-solid fa-bars h-7 w-7"></i>
+  <div class="lg:hidden flex gap-3 place-items-center">
+    <div>
+      <%= link_to profile_path do %>
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar, class: 'max-w-[30px] h-auto rounded-lg m-auto' %>
+        <% else %>
+          <%= image_tag ("user.png"), class: 'max-w-[30px] h-auto rounded-lg m-auto' %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="menu text-gray-800 hover:text-gray-700 transition-all duration-300 hover:cursor-pointer flex place-items-center justify-center">
+      <i class="fa-solid fa-bars h-8 w-8"></i>
+    </div>
   </div>
 </div>

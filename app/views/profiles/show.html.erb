@@ -9,7 +9,7 @@
         <%= image_tag current_user.avatar, class: 'max-w-[180px] h-auto rounded-lg m-auto' %>
         <%= button_to 'Remove', purge_avatar_profile_path, class: 'block m-auto font-medium text-blue-600 hover:underline text-sm' %>
       <% else %>
-        <%= image_tag ("user.png"), class: 'max-w-[150px] h-auto rounded-lg m-auto' %>
+        <%= image_tag ("user.png"), class: 'max-w-[180px] h-auto rounded-lg m-auto' %>
       <% end %>
     </div>
     <div>

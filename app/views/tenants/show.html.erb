@@ -85,7 +85,7 @@
       <h1 class="p-2 rounded-t-lg px-4 font-bold hover:cursor-pointer hover:bg-gray-200 invoice-details bg-white">Invoices</h1>
       <h1 class="p-2 rounded-t-lg px-4 font-bold hover:cursor-pointer hover:bg-gray-200 payment-details bg-white">Payments</h1>
     </div>
-    <div class="flex-auto overflow-y-auto p-2 relative">
+    <div class="flex-auto p-2 relative">
       <div class="booking-table h-full bg-white relative">
         <% if @tenant.bookings.includes(:room).any? %>
           <div class="overflow-x-auto relative mb-4">
