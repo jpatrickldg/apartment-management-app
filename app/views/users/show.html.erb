@@ -1,6 +1,5 @@
-
 <div>
-  <h1 class="text-lg md:text-xl lg:text-2xl font-bold mb-4">User Details</h1>
+  <h1 class="text-lg md:text-xl lg:text-2xl font-bold">User Details</h1>
 </div>
 <div class="overflow-y-auto flex-auto">
   <div class="max-w-min m-auto lg:m-0">
@@ -11,36 +10,36 @@
         <%= image_tag ("user.png"), class: 'max-w-[120px] h-auto rounded-lg m-auto' %>
       <% end %>
     </div>
-    <div>
-      <div class="flex gap-2 place-items-center mb-2">
+    <div class="flex flex-col gap-1">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Status:</strong></p>
         <p><%= @user.status.capitalize %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>User Role:</strong></p>
         <p><%= @user.role %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Email:</strong></p>
         <p><%= @user.email %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>First Name:</strong></p>
         <p><%= @user.first_name.capitalize %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Last Name:</strong></p>
         <p><%= @user.last_name.capitalize %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Gender:</strong></p>
         <p><%= @user.gender.capitalize %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Birthdate:</strong></p>
         <p><%= @user.birthdate %></p>
       </div>
-      <div class="flex gap-2 place-items-center mb-2">
+      <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Contact No:</strong></p>
         <p><%= @user.contact_no %></p>
       </div>
@@ -49,12 +48,12 @@
         <p><%= @user.address.capitalize %></p>
       </div>
     </div>
-    <div class="flex gap-2 place-items-center">
+    <div class="flex gap-2 flex-col">
       <%= link_to 'Update Role', edit_user_path(@user), class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% if @user.active? %>
-        <%= button_to 'Lock Account', lock_user_path(@user), class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= button_to 'Lock Account', lock_user_path(@user), class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% else %>
-        <%= button_to 'Unlock Account', unlock_user_path(@user), class: 'block w-[200px] py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= button_to 'Unlock Account', unlock_user_path(@user), class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     </div>
   </div>

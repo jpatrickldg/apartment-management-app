@@ -40,9 +40,9 @@
     <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-white hover:bg-gray-700 bg-gray-700">
       <div class="flex-none">
         <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar, class: 'rounded-sm w-10 block' %>
+          <%= image_tag current_user.avatar, class: 'rounded-lg w-10 block' %>
         <% else %>
-          <%= image_tag ("/assets/user.png"), class: 'rounded-sm block w-10' %>
+          <%= image_tag ("/assets/user.png"), class: 'rounded-lg block w-10' %>
         <% end %>
       </div>
       <div class="flex flex-auto flex-col text-sm px-3">

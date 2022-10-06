@@ -15,4 +15,3 @@ menu.addEventListener('click', () => {
   sidebar.classList.toggle('transition-all')
   sidebar.classList.toggle('duration-100')
 })
-

@@ -1,6 +1,6 @@
 <%# NOT IMPLEMENTED %>
 
-<h1 class="text-lg lg:text-xl font-bold mb-4">Approve Payment</h1>
+<h1 class="text-lg lg:text-xl font-bold">Approve Payment</h1>
 
 <div class="max-w-sm">
   <%= form_with model: @payment, data: {turbo: false}, url: approve_payment_payment_path(@payment), method: :patch do |f| %>

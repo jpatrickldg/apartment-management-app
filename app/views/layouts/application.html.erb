@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= yield :head %>
   </head>
 
   <body class="h-full overflow-x-hidden">
@@ -21,7 +22,7 @@
           <%= render 'shared/navbar' %>
         </nav>
         <main class="overflow-y-hidden py-4 px-3 md:px-6 lg:px-10 bg-gray-100">
-          <div class="p-5 bg-white border border-gray-200 rounded-lg shadow-md mb-4 h-full flex flex-col gap-2">
+          <div class="p-5 bg-white border border-gray-200 rounded-lg shadow-md mb-4 h-full flex flex-col gap-4">
             <%= notice if notice %>
             <%= alert if alert %>
             <%= yield %>

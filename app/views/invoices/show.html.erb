@@ -1,5 +1,5 @@
 <div>
-  <h1 class="text-xl lg:text-2xl font-bold mb-2">INVOICE NO: <%= @invoice.id %></h1>
+  <h1 class="text-xl lg:text-2xl font-bold">INVOICE NO: <%= @invoice.id %></h1>
 </div>
 
 <div class="flex-auto overflow-y-auto">
@@ -12,6 +12,10 @@
         <% elsif @invoice.paid? %>
           <p class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-600"><%= @invoice.status.upcase %></p>
         <% end %>
+      </div>
+      <div class="flex gap-2 place-items-center">
+        <p class="w-40"><strong>Booking ID:</strong></p>
+        <p><%= link_to @invoice.booking.id, booking_path(@invoice.booking), class: 'font-medium text-blue-600 hover:underline' %></p>
       </div>
       <div class="flex flex-col md:gap-2 justify-center md:place-items-center md:justify-start md:flex-row">
         <p class="w-40"><strong>Invoice Date:</strong></p>
