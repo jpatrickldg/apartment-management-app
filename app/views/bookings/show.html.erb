@@ -1,4 +1,4 @@
-<div class="mb-4">
+<div>
   <h1 class="text-xl lg:text-2xl font-bold">Booking Details</h1>
 </div>
 <div class="flex-auto overflow-y-auto flex flex-col gap-4">
@@ -11,7 +11,7 @@
         <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @booking.status.upcase %></h1>
       <% end %>
       <% if @booking.active? && !current_user.tenant? %>
-        <%= link_to 'DEACTIVATE', deactivate_booking_path, class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-red-600 hover:cursor-pointer' %>
+        <%= link_to 'DEACTIVATE', deactivate_booking_path, class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
       <% end %>
     </div>
     <% if !current_user.tenant? %>
@@ -26,7 +26,7 @@
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Room:</strong></p>
-      <p><%= @booking.room.room_code %></p>
+      <p><%= link_to @booking.room.room_code, branch_room_path(@booking.room.branch, @booking.room), class: 'font-medium text-blue-600 hover:underline' %></p>
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Monthly Rate:</strong></p>
@@ -75,7 +75,7 @@
               <td class="p-3"><%= link_to invoice.id, invoice_path(invoice), class: 'font-medium text-blue-600 hover:underline'  %></td>
               <td class="p-3 text-center">
                 <% if invoice.unpaid? %>
-                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-700"><%= invoice.status.upcase %></span>
+                  <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-orange-600"><%= invoice.status.upcase %></span>
                 <% elsif invoice.paid? %>
                   <span class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-blue-700"><%= invoice.status.upcase %></span>
                 <% end %>

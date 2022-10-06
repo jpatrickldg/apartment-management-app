@@ -1,5 +1,5 @@
+<% url = request.path_info %>
 <div>
-  <% url = request.path_info %>
   <% if url.include? "active" %>
     <h1 class="text-xl lg:text-2xl font-bold mb-2">Active Tenants</h1>
   <% elsif url.include? "new_tenants" %>
@@ -7,7 +7,7 @@
   <% else %>
     <h1 class="text-xl lg:text-2xl font-bold mb-2">Tenants</h1>
   <% end %>
-  <div class="mb-4">
+  <div>
     <%= search_form_for @q do |f| %>
       <div class="relative">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -33,7 +33,9 @@
             <th class="p-3 text-center">Last Name</th>
             <th class="p-3 text-center">Gender</th>
             <th class="p-3 text-center">Contact</th>
-            <th class="p-3 w-[80px] text-center">Status</th>
+            <% if !url.include? "active" %>
+              <th class="p-3 w-[80px] text-center">Status</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -51,7 +53,9 @@
               <td class="p-3 text-center"><%= tenant.last_name.capitalize %></td>
               <td class="p-3 text-center"><%= tenant.gender.capitalize %></td>
               <td class="p-3 text-center"><%= tenant.contact_no %></td>
-              <td class="p-3 text-center"><%= tenant.status.capitalize %></td>
+              <% if !url.include? "active" %>
+                <td class="p-3 text-center"><%= tenant.status.capitalize %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
