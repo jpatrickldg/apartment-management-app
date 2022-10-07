@@ -11,12 +11,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="relative flex flex-col gap-2 min-h-screen justify-between p-2">
-    <nav class="flex-none flex justify-center place-items-center py-2">
-      <span class="self-center text-3xl font-semibold whitespace-nowrap">MWPMI Portal</span>
-    </nav>
-    <div class="flex-auto p-3 py-1">
-      <%= yield %>
+  <body class="relative flex md:place-items-center justify-center h-screen w-auto shadow-md bg-gray-100 px-2">
+    <div class="flex-auto">
+      <div class="max-w-md p-5 rounded-md shadow-lg m-auto mt-5 bg-white">
+        <h1 class="font-bold text-xl text-center mb-2">MWPMI Portal</h1>
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

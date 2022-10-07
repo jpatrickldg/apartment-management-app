@@ -77,7 +77,7 @@ class UsersController < ApplicationController
 
   def check_restriction
     if current_user.tenant? || current_user.receptionist? || current_user.cashier?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 

@@ -60,14 +60,14 @@ class BookingsController < ApplicationController
 
   def check_restriction
     if current_user.tenant?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
   def check_ownership
     @booking = Booking.includes(:user).find(params[:id])
     if current_user.tenant? && @booking.user.id != current_user.id
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
@@ -75,7 +75,7 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @unpaid_invoice = @booking.invoices.where(status: 'unpaid')
     if @unpaid_invoice.present?
-      redirect_to booking_path(@booking), notice: 'Failed. Tenant has an unpaid Invoice'
+      redirect_to booking_path(@booking), alert: 'Failed. Tenant has an unpaid Invoice'
     end
   end
 

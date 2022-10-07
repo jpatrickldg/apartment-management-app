@@ -43,7 +43,7 @@ class ConcernsController < ApplicationController
       @concern.open!
       redirect_to concern_path(@concern), notice: 'Ticket Re-Opened'
     else
-      redirect_to concerns_path, notice: 'Access Denied'
+      redirect_to concerns_path, alert: 'Access Denied'
     end
   end
 
@@ -52,7 +52,7 @@ class ConcernsController < ApplicationController
   
   def restrict_user
     if !current_user.tenant?
-      redirect_to concerns_path, notice: 'Access Denied'
+      redirect_to concerns_path, alert: 'Access Denied'
     end
   end
 

@@ -32,7 +32,7 @@ class InvoicesController < ApplicationController
   def payment
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
     if @invoice.paid?
-      redirect_to authenticated_root_path, notice: 'Invalid Request'
+      redirect_to authenticated_root_path, alert: 'Invalid Request'
     end
   end
 
@@ -52,13 +52,13 @@ class InvoicesController < ApplicationController
 
   def edit
     if @invoice.processed_by != current_user.email 
-      redirect_to invoice_path(@invoice), notice: 'Access Denied'
+      redirect_to invoice_path(@invoice), alert: 'Access Denied'
     end
   end
 
   def update
     if @invoice.processed_by != current_user.email 
-      redirect_to invoice_path(@invoice), notice: 'Access Denied'
+      redirect_to invoice_path(@invoice), alert: 'Access Denied'
     else
       if @invoice.update(invoice_params)
         redirect_to invoice_path(@invoice), notice: 'Invoice Updated'
@@ -72,20 +72,20 @@ class InvoicesController < ApplicationController
 
   def check_restriction
     if current_user.tenant?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
   def check_ownership
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
     if current_user.tenant? && @invoice.booking.user.id != current_user.id
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
   def check_if_receptionist
     if current_user.receptionist?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 

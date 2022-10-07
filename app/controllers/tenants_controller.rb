@@ -38,7 +38,7 @@ class TenantsController < ApplicationController
   
   def check_restriction
     if current_user.tenant?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 

@@ -64,7 +64,7 @@ class PaymentsController < ApplicationController
     if @payment.update(payment_params)
       redirect_to payment_path(@payment), notice: 'Proof Updated'
     else
-      render :change_proof, notice: 'Error'
+      render :change_proof, alert: 'Error'
     end
   end
 
@@ -74,7 +74,7 @@ class PaymentsController < ApplicationController
       @payment.set_processed_by(current_user.email)
       redirect_to payment_path(@payment), notice: 'Payment Approved'
     else
-      render :approve, notice: 'Error'
+      render :approve, alert: 'Error'
     end
   end
 
@@ -83,13 +83,13 @@ class PaymentsController < ApplicationController
   def check_ownership
     @payment = Payment.includes(invoice: [booking: [:user]]).find(params[:id])
     if current_user.tenant? && @payment.invoice.booking.user.id != current_user.id
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
   def check_if_receptionist
     if current_user.receptionist?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 

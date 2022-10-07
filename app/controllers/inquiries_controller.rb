@@ -15,7 +15,7 @@ class InquiriesController < ApplicationController
 
   def show
     if current_user.email != @inquiry.processed_by && !current_user.admin? && !current_user.owner?
-      redirect_to inquiries_path, notice: 'Access Denied'
+      redirect_to inquiries_path, alert: 'Access Denied'
     end
   end
 
@@ -35,7 +35,7 @@ class InquiriesController < ApplicationController
 
   def close
     if current_user.email != @inquiry.processed_by && !current_user.admin? && !current_user.owner?
-      redirect_to inquiries_path, notice: 'Access Denied'
+      redirect_to inquiries_path, alert: 'Access Denied'
     end
   end
 
@@ -61,13 +61,13 @@ class InquiriesController < ApplicationController
 
   def check_restriction
     if current_user.tenant?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
   def check_if_signed_in
     if user_signed_in?
-      redirect_to authenticated_root_path, notice: 'Access Denied'
+      redirect_to authenticated_root_path, alert: 'Access Denied'
     end
   end
 
