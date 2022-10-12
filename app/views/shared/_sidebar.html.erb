@@ -1,59 +1,58 @@
-<div class="overflow-y-auto bg-gray-800 h-screen flex flex-col justify-between">
-  <div>
-    <ul class="flex flex-col">
-      <%= render 'shared/sidebar_links', path: authenticated_root_path %>
-      <%= render 'shared/sidebar_links', path: profile_path %>
-      
-      <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
-        <%= render 'shared/sidebar_links', path: tenants_path %>
+<div>
+  <ul class="flex flex-col">
+    <%= render 'shared/sidebar_links', path: authenticated_root_path %>
+    <%= render 'shared/sidebar_links', path: profile_path %>
+    
+    <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
+      <%= render 'shared/sidebar_links', path: tenants_path %>
+    <% end %>
+    
+    <% if current_user.admin? || current_user.owner? %>
+      <%= render 'shared/sidebar_links', path: users_path %>
+    <% end %>
+
+    <%= render 'shared/sidebar_links', path: announcements_path %>
+    
+    <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
+      <%= render 'shared/sidebar_links', path: inquiries_path %>
+      <%= render 'shared/sidebar_links', path: branches_path %>
+    <% end %>
+    
+    <%# if current_user.admin? || current_user.owner? || current_user.cashier? %>
+      <%#= render 'shared/sidebar_links', path: invoices_path %>
+    <%# end %>
+
+    <%= render 'shared/sidebar_links', path: bookings_path %>
+
+    <%= render 'shared/sidebar_links', path: invoices_path %>
+
+    <%= render 'shared/sidebar_links', path: payments_path %>
+    
+    <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
+      <%= render 'shared/sidebar_links', path: expenses_path %>
+    <% end %>
+
+    <%= render 'shared/sidebar_links', path: concerns_path %>
+  </ul>
+</div>
+<div>
+  <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-white hover:bg-gray-700 bg-gray-700">
+    <div class="flex-none">
+      <% if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, class: 'rounded-lg w-10 block' %>
+      <% else %>
+        <%= image_tag ("/assets/user.png"), class: 'rounded-lg block w-10' %>
       <% end %>
-      
-      <% if current_user.admin? || current_user.owner? %>
-        <%= render 'shared/sidebar_links', path: users_path %>
+    </div>
+    <div class="flex flex-auto flex-col text-sm px-3">
+      <h1><%= current_user.first_name.capitalize %></h1>
+      <h1 class="text-xs"><%= current_user.role.capitalize %></h1>
+    </div>
+    <div>
+      <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 w-full' do %>
+        <i class="fa-solid fa-power-off w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
       <% end %>
-
-      <%= render 'shared/sidebar_links', path: announcements_path %>
-      
-      <% if current_user.admin? || current_user.owner? || current_user.receptionist? %>
-        <%= render 'shared/sidebar_links', path: inquiries_path %>
-        <%= render 'shared/sidebar_links', path: branches_path %>
-      <% end %>
-      
-      <%# if current_user.admin? || current_user.owner? || current_user.cashier? %>
-        <%#= render 'shared/sidebar_links', path: invoices_path %>
-      <%# end %>
-
-      <%= render 'shared/sidebar_links', path: bookings_path %>
-
-      <%= render 'shared/sidebar_links', path: invoices_path %>
-
-      <%= render 'shared/sidebar_links', path: payments_path %>
-      
-      <% if current_user.admin? || current_user.owner? || current_user.cashier? || current_user.receptionist? %>
-        <%= render 'shared/sidebar_links', path: expenses_path %>
-      <% end %>
-
-      <%= render 'shared/sidebar_links', path: concerns_path %>
-    </ul>
-  </div>
-  <div>
-    <div class="w-full flex gap-2 items-center justify-center p-2 px-3 text-base font-normal text-white hover:bg-gray-700 bg-gray-700">
-      <div class="flex-none">
-        <% if current_user.avatar.attached? %>
-          <%= image_tag current_user.avatar, class: 'rounded-lg w-10 block' %>
-        <% else %>
-          <%= image_tag ("/assets/user.png"), class: 'rounded-lg block w-10' %>
-        <% end %>
-      </div>
-      <div class="flex flex-auto flex-col text-sm px-3">
-        <h1><%= current_user.first_name.capitalize %></h1>
-        <h1 class="text-xs"><%= current_user.role.capitalize %></h1>
-      </div>
-      <div>
-        <%= button_to destroy_user_session_path, method: :delete, class: 'flex flex-auto items-center p-2 text-base font-normal text-white rounded-lg hover:bg-gray-700 w-full' do %>
-          <i class="fa-solid fa-power-off w-5 h-5 flex-shrink-0 text-gray-500 sm:hover:text-white"></i>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>
+

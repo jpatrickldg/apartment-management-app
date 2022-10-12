@@ -1,28 +1,23 @@
 <div>
-  <h1 class="text-xl lg:text-2xl font-bold mb-2">Payments</h1>
-  <div>
+  <h1 class="text-xl lg:text-2xl font-bold">Bookings Due This Week</h1>
+  <div class="mt-2">
     <%= search_form_for @q do |f| %>
       <div class="relative">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <i class="fa-solid fa-magnifying-glass w-5 h-5"></i>
         </div>
-        <%= f.search_field :initiated_by_or_processed_by_cont, placeholder: 'Search Payment', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+        <%= f.search_field :processed_by_or_user_email_cont, placeholder: 'Search Booking', class: 'block p-4 pl-10 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
         <%= f.submit 'Search', class: 'text-white absolute right-20 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 hover:cursor-pointer hidden md:block'  %>
-        <%= link_to 'Clear', payments_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
+        <%= link_to 'Clear', bookings_path, class: 'text-white absolute right-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2' %>
       </div>
     <% end %>
   </div>
 </div>
 
-<div class="flex-auto overflow-y-auto">
-  <% if current_user.tenant? %>
-    <%= render 'list', payments: @current_user_payments %>
-  <% else %>
-    <%= render 'list', payments: @payments %>
-  <% end %>
+<div class="overflow-y-auto flex-auto">
+  <%= render 'list', bookings: @bookings %>
 </div>
 
 <div>
   <%= link_to 'Back', authenticated_root_path, class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-  </div>
 </div>

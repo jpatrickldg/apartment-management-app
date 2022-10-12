@@ -11,10 +11,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="relative flex md:place-items-center justify-center h-screen w-auto shadow-md bg-gray-100 px-2">
-    <div class="flex-auto">
-      <div class="max-w-md p-5 rounded-md shadow-lg m-auto mt-5 bg-white">
-        <h1 class="font-bold text-xl text-center mb-2">MWPMI Portal</h1>
+  <body>
+    <div class="h-screen bg-gray-100 flex items-center justify-center p-2 overflow-y-auto">
+      <div class="w-[512px] p-5 rounded-md shadow-lg  bg-white">
+        <%= image_tag ("logo2_black.png"), class: 'max-w-[300px] m-auto mb-6' %>
         <%= yield %>
       </div>
     </div>

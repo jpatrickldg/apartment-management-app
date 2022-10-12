@@ -2,5 +2,17 @@
   <%= render 'shared/announcements' %>
 </div>
 <div class="flex-auto overflow-y-auto">
-  <%= render 'shared/cards' %>
+  <div>
+    <%= render 'shared/cards' %>
+  </div>
+  <div class="grid grid-cols-2 mt-5 gap-5">
+    <div>
+      <h1 class="text-xl font-bold">Daily Number of Inquiries</h1>
+      <%= line_chart Inquiry.group_by_day(:created_at).count %>
+    </div>
+    <div>
+      <h1 class="text-xl font-bold">Preferred Location</h1>
+      <%= line_chart Inquiry.group(:location_preference).group_by_week(:created_at).count, library: { legend: { textTransform: 'capitalize' } } %>
+    </div>
+  </div>
 </div>

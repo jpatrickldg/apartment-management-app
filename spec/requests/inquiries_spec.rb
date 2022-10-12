@@ -17,7 +17,7 @@ RSpec.describe "Inquiries", type: :request do
       sign_in tenant
       get inquiries_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe "Inquiries", type: :request do
       
       get close_inquiry_path(inquiry)
       expect(response).to redirect_to(inquiries_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 

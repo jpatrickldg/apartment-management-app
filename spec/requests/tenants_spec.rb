@@ -16,7 +16,7 @@ RSpec.describe "Tenants", type: :request do
       sign_in tenant
       get tenants_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe "Tenants", type: :request do
       sign_in tenant
       get new_tenants_tenants_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
 
   end
@@ -67,7 +67,7 @@ RSpec.describe "Tenants", type: :request do
       sign_in tenant
       get active_tenants_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 

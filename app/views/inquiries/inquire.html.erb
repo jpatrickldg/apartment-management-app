@@ -1,0 +1,168 @@
+<div class="w-[500px] bg-white shadow-lg p-5 rounded-md">
+  <h1 class="text-center text-2xl font-bold mb-6 uppercase text-blue-500">Inquire Now</h1>
+
+  <%= form_with model: @inquiry, data: {turbo: false}, url: inquiries_path, method: :post do |f| %>
+    
+    <div class="flex flex-col gap-2 justify-center">
+      <% invalid_email = @inquiry.errors.include?(:email) %>
+      <div>
+        <div class="flex items-center gap-2">
+          <%= f.label :email, class: 'block font-medium text-gray-900 text-left' %>
+          <% if invalid_email %>
+            <% @inquiry.errors.full_messages_for(:email).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.email_field :email, class: "bg-gray-50 border text-gray-900 p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 rounded-md #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" %>
+      </div>
+
+      <% invalid_first_name = @inquiry.errors.include?(:first_name) %>
+      <div>
+        <div class="flex items-center gap-2">
+          <%= f.label :first_name, class: 'block font-medium text-gray-900 text-left capitalize' %>
+          <% if invalid_first_name %>
+            <% @inquiry.errors.full_messages_for(:first_name).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.text_field :first_name, class: "bg-gray-50 border text-gray-900 p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 rounded-md #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" %>
+      </div>
+
+      <% invalid_last_name = @inquiry.errors.include?(:last_name) %>
+      <div>
+        <div class="flex items-center gap-2">
+          <%= f.label :last_name, class: 'block font-medium text-gray-900 text-left capitalize' %>
+          <% if invalid_last_name %>
+            <% @inquiry.errors.full_messages_for(:last_name).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.text_field :last_name, class: "bg-gray-50 border text-gray-900 p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 rounded-md #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" %>
+      </div>
+
+      <% invalid_contact_no = @inquiry.errors.include?(:contact_no) %>
+      <div>
+        <div class="flex flex-col justify-center">
+          <%= f.label :contact_no, class: 'block font-medium text-gray-900 text-left capitalize' %>
+          <% if invalid_contact_no %>
+            <% @inquiry.errors.full_messages_for(:contact_no).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                <%= msg %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.text_field :contact_no, placeholder:'(09123456789)', class: "bg-gray-50 border text-gray-900 p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 rounded-md #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" %>
+      </div>
+
+      <% invalid_gender = @inquiry.errors.include?(:gender) %>
+      <div class="text-left flex flex-col justify-center">
+        <div class="flex items-center gap-2">
+          <%= f.label 'Gender', class: 'font-medium text-gray-900 mr-2' %>
+          <% if invalid_gender %>
+            <% @inquiry.errors.full_messages_for(:gender).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="flex place-items-center">
+          <%= f.radio_button :gender, 'male', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Male', class: 'ml-2 mr-4 text-gray-900' %>
+          <%= f.radio_button :gender, 'female', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Female', class: 'ml-2 text-gray-900' %>
+        </div>
+      </div>
+
+      <% invalid_occupation = @inquiry.errors.include?(:occupation) %>
+      <div class="text-left flex flex-col justify-center">
+        <div class="flex items-center gap-2">
+          <%= f.label 'Occupation', class: 'font-medium text-gray-900 mr-2' %>
+          <% if invalid_occupation %>
+            <% @inquiry.errors.full_messages_for(:occupation).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="flex place-items-center">
+          <%= f.radio_button :occupation, 'student', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Student', class: 'ml-2 mr-4 text-gray-900' %>
+          <%= f.radio_button :occupation, 'reviewee', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Reviewee', class: 'ml-2 text-gray-900' %>
+        </div>
+      </div>
+
+      <% invalid_location_preference = @inquiry.errors.include?(:location_preference) %>
+      <fieldset class="border border-gray-200 p-4 rounded-md my-2">
+        <legend class="font-medium text-center -mb-3 text-blue-500">Preference</legend>
+        <div class="text-left flex flex-col justify-center mb-2">
+          <div class="flex items-center gap-2">
+            <%= f.label 'Location', class: 'font-medium text-gray-900 mr-2' %>
+            <% if invalid_location_preference %>
+              <% @inquiry.errors.full_messages_for(:location_preference).each do |msg| %>
+                <div class="text-red-500 text-sm">
+                  (<%= msg %>)
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="flex items-center gap-2">
+            <%= f.radio_button :location_preference, 'espana', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+            <%= f.label 'Along Espana Blvd', class: 'text-gray-900 capitalize' %>
+          </div>
+          <div class="flex items-center gap-2">
+            <%= f.radio_button :location_preference, 'recto', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+            <%= f.label 'Along Recto Avenue', class: 'text-gray-900 capitalize' %>
+          </div>
+        </div>
+
+        <% invalid_room_type = @inquiry.errors.include?(:room_type) %>
+        <div>
+          <div class="flex items-center gap-2">
+            <%= f.label 'Room', class: 'block font-medium' %>
+            <% if invalid_room_type %>
+              <% @inquiry.errors.full_messages_for(:room_type).each do |msg| %>
+                <div class="text-red-500 text-sm">
+                  (<%= msg %>)
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <%= f.select(:room_type,  ['bedspace', 'studio', 'boarding house', 'condo fully-furnished', 'condo empty' ], { include_blank: 'Please select one' }, { class: "border text-gray-900 p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 capitalize rounded-md mt-1 #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" }) %>
+        </div>
+      
+      </fieldset>
+
+      <% invalid_move_in_date = @inquiry.errors.include?(:move_in_date) %>
+      <div>
+        <div class="flex items-center gap-2">
+          <%= f.label :move_in_date, class: 'block font-medium text-gray-900 text-left capitalize' %>
+          <% if invalid_move_in_date %>
+            <% @inquiry.errors.full_messages_for(:move_in_date).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.date_field :move_in_date, class: "mt-1 bg-gray-50 border text-gray-900 text-sm p-1.5 focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 uppercase rounded-md #{ invalid_email ? 'border-red-400 border-2' : 'border-gray-300' }" %>
+      </div>
+
+      <div class="mt-2">
+        <%= f.submit 'Send Inquiry', class: 'block py-2.5 px-4 font-medium text-center text-white bg-blue-600 p-1.5 focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-full uppercase rounded-md transition-all' %>
+      </div>
+    </div>
+  <% end %>
+</div>

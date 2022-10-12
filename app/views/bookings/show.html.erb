@@ -11,7 +11,7 @@
         <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @booking.status.upcase %></h1>
       <% end %>
       <% if @booking.active? && !current_user.tenant? %>
-        <%= link_to 'DEACTIVATE', deactivate_booking_path, class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
+        <%= link_to 'DEACTIVATE', deactivate_booking_path(@booking), class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
       <% end %>
     </div>
     <% if !current_user.tenant? %>
@@ -26,7 +26,11 @@
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Room:</strong></p>
-      <p><%= link_to @booking.room.room_code, branch_room_path(@booking.room.branch, @booking.room), class: 'font-medium text-blue-600 hover:underline' %></p>
+      <% if current_user.tenant? %>
+        <p class="md:w-40"><%= @booking.room.room_code %></p>
+      <% else %>
+        <p><%= link_to @booking.room.room_code, branch_room_path(@booking.room.branch, @booking.room), class: 'font-medium text-blue-600 hover:underline' %></p>
+      <% end %>
     </div>
     <div class="flex gap-2 place-items-center">
       <p class="md:w-40"><strong>Monthly Rate:</strong></p>
@@ -101,6 +105,6 @@
   </div>
 </div>
 <div>
-  <%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  <%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
 

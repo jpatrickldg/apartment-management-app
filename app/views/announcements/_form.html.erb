@@ -1,35 +1,40 @@
-<div>
-  <% url = request.path_info %>
-  <% if url.include? "new" %>
-    <h2 class="text-lg lg:text-xl font-bold">New Announcement</h2>
-  <% elsif url.include? "edit" %>
-    <h2 class="text-lg lg:text-xl font-bold">Edit Announcement</h2>
-  <% end %>
-</div>
 <div class="flex-auto overflow-y-auto">
   <%= form_with model: @announcement, data:{turbo:false}, local: true do |f| %>
-    <% if @announcement.errors.any? %>
-      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
-        <% @announcement.errors.full_messages.each do |error| %>
-          <div><%= error %></div>
-        <% end %>
-      </div>
-    <% end %>
     <div>
+      <% invalid_title = @announcement.errors.include?(:title) %>
       <div class="mb-2">
-        <%= f.label :title, class: 'block font-medium mb-1' %>
-        <%= f.text_field :title, class: 'w-full block border border-gray-200 rounded-lg' %>
+        <div class="flex items-center gap-2 mb-1">
+          <%= f.label :title, class: 'block font-medium' %>
+          <% if invalid_title %>
+            <% @announcement.errors.full_messages_for(:title).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.text_field :title, autofocus: (true if invalid_title), class: "bg-gray-50 w-full block border rounded-lg #{invalid_title ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
+      <% invalid_description = @announcement.errors.include?(:description) %>
       <div class="mb-4">
-        <%= f.label 'Content', class: 'block font-medium mb-1' %>
-        <%= f.text_area :description, :rows => 4, class: 'w-full blcok border border-gray-200 rounded-lg' %>
+        <div class="flex items-center gap-2 mb-1">
+          <%= f.label 'Content', class: 'block font-medium' %>
+          <% if invalid_description %>
+            <% @announcement.errors.full_messages_for(:description).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.text_area :description, autofocus: (true if invalid_description), :rows => 4, class: "bg-gray-50 w-full block border rounded-lg #{invalid_description ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
       <div class="flex gap-2 items-center">
-        <%= f.submit 'Publish', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-        <%= f.submit 'Save as Draft', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-        <%= link_to 'Cancel', announcements_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer w-fit' %>
+        <%= f.submit 'Publish', class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+        <%= f.submit 'Save as Draft', class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+        <%= link_to 'Cancel', announcements_path, class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer w-fit' %>
       </div>
     </div>
   <% end %>

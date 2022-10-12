@@ -67,17 +67,6 @@
       </div>
     </div>
   <% end %>
-  <%= link_to payments_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
-    <div class="flex place-items-center justify-between">
-      <div>
-        <p class="text-4xl font-medium"><%= @pending_payments_count %></p>
-        <h1>Pending Payments</h1>
-      </div>
-      <div>
-        <i class="fa-regular fa-credit-card h-12 text-gray-800"></i>
-      </div>
-    </div>
-  <% end %>
   <%= link_to unpaid_invoices_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
     <div class="flex place-items-center justify-between">
       <div>
@@ -86,6 +75,17 @@
       </div>
       <div>
         <i class="fa-solid fa-file-invoice h-12 text-gray-800"></i>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to due_this_week_bookings_path, class: 'block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-200 w-full' do %>
+    <div class="flex place-items-center justify-between">
+      <div>
+        <p class="text-4xl font-medium"><%= @bookings_due_this_week_count %></p>
+        <h1>Bookings Due This Week</h1>
+      </div>
+      <div>
+        <i class="fa-solid fa-calendar-check h-12 text-gray-800"></i>
       </div>
     </div>
   <% end %>

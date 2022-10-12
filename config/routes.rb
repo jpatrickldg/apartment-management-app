@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal/login", :sign_up => "portal/register" }
+  devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal", :sign_up => "portal/register" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     patch :update_password, on: :collection
   end
 
+  resources :bookings, only: [:index] do
+    get :due_this_week, on: :collection
+  end
+
   resources :tenants, only: [:index, :show], shallow: true do
     post :activate, on: :member
     get :new_tenants, on: :collection
@@ -37,8 +41,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  resources :bookings, only: [:index]
 
   resources :concerns, except: [:edit, :destroy] do
     get :close, on: :member
@@ -82,6 +84,7 @@ Rails.application.routes.draw do
     post :purge_avatar, on: :collection
   end
 
+  get '/inquire' => 'inquiries#inquire'
   post '/listen' => 'payments#listen'
   post '/links' => 'invoices#links' 
 

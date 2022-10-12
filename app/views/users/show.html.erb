@@ -49,18 +49,18 @@
       </div>
     </div>
     <div class="flex gap-2 flex-col">
-      <%= link_to 'Update Role', edit_user_path(@user), class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <%= link_to 'Update Role', edit_user_path(@user), class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% if @user.active? %>
-        <%= button_to 'Lock Account', lock_user_path(@user), class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= button_to 'Lock Account', lock_user_path(@user), class: 'block w-full py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% else %>
-        <%= button_to 'Unlock Account', unlock_user_path(@user), class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= button_to 'Unlock Account', unlock_user_path(@user), class: 'block w-full py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     </div>
   </div>
 
 </div>
 <div>
-  <%= link_to 'Back', users_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+  <%= link_to 'Back', users_path, class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
 </div>
 
 

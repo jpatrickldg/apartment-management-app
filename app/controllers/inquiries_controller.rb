@@ -1,9 +1,9 @@
 class InquiriesController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :create]
-  before_action :check_restriction, except: [:new, :create]
-  before_action :check_if_signed_in, only: [:new, :create]
+  before_action :authenticate_user!, except: [:inquire, :create]
+  before_action :check_restriction, except: [:inquire, :create]
+  before_action :check_if_signed_in, only: [:inquire, :create]
   before_action :set_inquiry, only: [:show, :close, :update, :assists]
-  layout "landing_page", only: [:new]
+  layout "landing_page", only: [:inquire, :create]
 
   def index
     @q = Inquiry.ransack(params[:q])
@@ -19,7 +19,7 @@ class InquiriesController < ApplicationController
     end
   end
 
-  def new
+  def inquire
     @inquiry = Inquiry.new
   end
 
@@ -27,9 +27,9 @@ class InquiriesController < ApplicationController
     @inquiry = Inquiry.new(inquiry_params)
 
     if @inquiry.save
-      redirect_to authenticated_root_path, notice: "Inquiry Submitted"
+      redirect_to unauthenticated_root_path
     else
-      render :new
+      render :inquire
     end
   end
 

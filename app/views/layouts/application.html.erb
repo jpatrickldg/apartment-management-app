@@ -12,12 +12,12 @@
     <%= yield :head %>
   </head>
 
-  <body class="h-full overflow-x-hidden">
-    <div class="w-full grid lg:grid-cols-[256px_1fr] relative main">
-      <aside class="h-screen z-30 w-64 absolute -left-64 lg:relative lg:left-0" aria-label="Sidebar">
+  <body>
+    <div class="relative min-h-screen flex">
+      <aside class="h-screen w-64 bg-gray-800 flex flex-col justify-between absolute inset-y-0 left-0 z-10 transform -translate-x-full lg:relative lg:translate-x-0 transition duration-300 ease-in-out" aria-label="Sidebar">
         <%= render 'shared/sidebar' %>
       </aside>
-      <div class="grid grid-rows-[min-content_1fr] h-screen nav-content">
+      <div class="flex-1 grid grid-rows-[min-content_1fr] h-screen nav-content">
         <nav class="w-full relative" aria-label="Navbar">
           <%= render 'shared/navbar' %>
         </nav>

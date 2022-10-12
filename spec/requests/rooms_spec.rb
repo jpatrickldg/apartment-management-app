@@ -25,7 +25,7 @@ RSpec.describe "Rooms", type: :request do
       sign_in tenant
       get available_rooms_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 end

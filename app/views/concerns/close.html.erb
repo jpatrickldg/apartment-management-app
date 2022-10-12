@@ -2,7 +2,7 @@
   <h2 class="text-lg lg:text-xl font-bold">Close Ticket <%= @concern.id %>?</h2>
 </div>
 
-<div class="overflow-y-auto flex-auto max-w-sm">
+<div class="overflow-y-auto flex-auto">
   <%= form_with model: @concern, data:{turbo:false}, url: concern_path(@concern), method: :patch do |f| %>
 
     <% if @concern.errors.any? %>
@@ -15,11 +15,11 @@
     <%= f.hidden_field :status, value: 'closed' %>
     <div class="mb-4">
       <%= f.label :remarks, class: 'block font-medium mb-1' %>
-      <%= f.text_area :remarks, :rows => 4, class: 'w-full blcok border border-gray-200 rounded-lg' %>
+      <%= f.text_area :remarks, :rows => 4, required: true, class: 'bg-gray-50 w-full block border border-gray-200 rounded-lg' %>
     </div>
     <div class="flex gap-2 place-items-center">
-      <%= f.submit 'Close Ticket', class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
-      <%= link_to 'Cancel', concern_path(@concern), class: 'block w-full py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+      <%= f.submit 'Close Ticket', class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
+      <%= link_to 'Cancel', concern_path(@concern), class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 hover:cursor-pointer' %>
     </div>
   <% end %>
 </div>

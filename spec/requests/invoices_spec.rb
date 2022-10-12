@@ -25,7 +25,7 @@ RSpec.describe "Invoices", type: :request do
       sign_in tenant
       get unpaid_invoices_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 

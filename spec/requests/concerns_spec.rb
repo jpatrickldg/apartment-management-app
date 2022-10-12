@@ -36,7 +36,7 @@ RSpec.describe "Concerns", type: :request do
       sign_in admin
       get new_concern_path
       expect(response).to redirect_to(concerns_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe "Concerns", type: :request do
       post reopen_concern_path(concern)
       concern.reload
 
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
       expect(response).to redirect_to(concerns_path) 
     end
   end

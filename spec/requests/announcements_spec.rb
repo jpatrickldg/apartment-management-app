@@ -19,7 +19,7 @@ RSpec.describe "Announcements", type: :request do
       sign_in tenant
       get new_announcement_path
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
 
     it 'return new announcement page if user is not tenant' do
@@ -39,7 +39,7 @@ RSpec.describe "Announcements", type: :request do
       post announcements_path, params: { announcement: announcement_params }
 
       expect(response).to redirect_to(authenticated_root_path)
-      expect(flash[:notice]).to match('Access Denied')
+      expect(flash[:alert]).to match('Access Denied')
     end
 
     it 'creates new announcement if user is not tenant' do

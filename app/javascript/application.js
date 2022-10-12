@@ -7,11 +7,10 @@ import "@fortawesome/fontawesome-free"
 import "chartkick"
 import "Chart.bundle"
 
-let menu = document.querySelector('.menu');
+let btn = document.querySelector('.mobile-menu-button');
 let sidebar = document.querySelector('aside');
 
-menu.addEventListener('click', () => {
-  sidebar.classList.toggle('-left-64')
-  sidebar.classList.toggle('transition-all')
-  sidebar.classList.toggle('duration-100')
+btn.addEventListener('click', () => {
+  sidebar.classList.toggle('-translate-x-full')
+  btn.classList.toggle('bg-gray-300')
 })

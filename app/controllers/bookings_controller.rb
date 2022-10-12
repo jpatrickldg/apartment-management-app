@@ -12,6 +12,11 @@ class BookingsController < ApplicationController
     @current_user_bookings = current_user.bookings.order(status: :asc)
   end
 
+  def due_this_week
+    @q = Booking.includes(:user).where("due_date <= ?", Date.today.at_beginning_of_week + 7.days).ransack(params[:q])
+    @bookings = @q.result(distinct: true)
+  end
+
   def show
     @booking = Booking.includes(:user, room: [:branch]).find(params[:id])
     @invoices = @booking.invoices.order(status: :asc)
@@ -19,7 +24,6 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @tenant.bookings.build
-    @available_rooms = Room.where('available_count > 0').order(room_code: :asc)
   end
 
   def create

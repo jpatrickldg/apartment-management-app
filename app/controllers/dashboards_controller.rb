@@ -15,6 +15,7 @@ class DashboardsController < ApplicationController
     @open_concerns_count = Concern.where(status: 'open').count
     @open_inquiries_count = Inquiry.where(status: 'open').count
     @unpaid_invoices_count = Invoice.where(status: 'unpaid').count
+    @bookings_due_this_week_count = Booking.where("due_date <= ?", Date.today.at_beginning_of_week + 7.days).count
 
     if current_user.tenant?
       # redirect_to staff_dashboard_path

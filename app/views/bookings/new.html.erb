@@ -6,35 +6,40 @@
   <div class="max-w-sm">
     <%= form_with model: [@user, @booking], url: tenant_bookings_path, data: {turbo: false} do |f| %>
       
-      <% if @booking.errors.any? %>
-        <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
-          <% @booking.errors.full_messages.each do |error| %>
-            <div><%= error %></div>
+      <% invalid_move_in_date = @booking.errors.include?(:move_in_date) %>
+      <div class="mb-2">
+        <div class="flex items-center gap-2 mb-1">
+          <%= f.label :move_in_date, class: 'block font-medium capitalize' %> 
+          <% if invalid_move_in_date %>
+            <% @booking.errors.full_messages_for(:move_in_date).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
           <% end %>
         </div>
-      <% end %>
-
-      <div class="mb-2">
-        <%= f.label :move_in_date, class: 'block font-medium mb-1' %> 
-        <%= f.date_field :move_in_date, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <%= f.date_field :move_in_date, autofocus: (true if invalid_move_in_date), class: "bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 uppercase #{invalid_move_in_date ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
+      <% invalid_room = @booking.errors.include?(:room) %>
       <div class="mb-6">
-        <%= f.label 'Room', class: 'block font-medium mb-1' %>
-        <%= f.select(:room_id, @available_rooms.map { |r| [r.room_code, r.id] }, {}, { class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' }) %>
+        <div class="flex items-center gap-2 mb-1">
+          <%= f.label 'Room', class: 'block font-medium' %>
+          <% if invalid_room %>
+            <% @booking.errors.full_messages_for(:room).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.select(:room_id, options_from_collection_for_select(Room.where('available_count > 0').order(room_code: :asc), :id, :room_code), { include_blank: 'Select Room' }, { class: "bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 #{invalid_room ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_room) }) %>
       </div>
 
-      <div>
-        <%= f.submit 'Create Booking', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      <div class="flex gap-2 place-items-center">
+        <%= f.submit 'Create Booking', class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+        <%= link_to 'Cancel', tenant_path(@tenant), class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       </div>
     <% end %>
   </div>
 </div>
-
-<div>
-  <%= link_to 'Back', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-</div>
-
-
-
-

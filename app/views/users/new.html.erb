@@ -3,66 +3,130 @@
 </div>
 
 <div class="flex-auto overflow-y-auto">
-  <div class="max-w-sm p-1">
+  <div class="max-w-md p-1">
     <%= form_with model: @user, data: {turbo: false} do |f| %>
-      <% if @user.errors.any? %>
-        <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium text-sm">
-          <% @user.errors.full_messages.each do |error| %>
-            <div><%= error %></div>
+      <% invalid_email = @user.errors.include?(:email) %>
+      <div class="mb-2">
+        <%= f.email_field :email, placeholder: 'Email', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_email ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_email), autocomplete: "email" %>
+        <% if invalid_email %>
+          <% @user.errors.full_messages_for(:email).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% invalid_password = @user.errors.include?(:password) %>
+      <div class="mb-2">
+        <%= f.password_field :password, placeholder: 'Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password), autocomplete: "new-password" %>
+        <% if invalid_password %>
+          <% @user.errors.full_messages_for(:password).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% invalid_password_confirmation = @user.errors.include?(:password_confirmation) %>
+      <div class="mb-2">
+        <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password_confirmation ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password_confirmation), autocomplete: "new-password" %>
+        <% if invalid_password_confirmation %>
+          <% @user.errors.full_messages_for(:password_confirmation).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% invalid_first_name = @user.errors.include?(:first_name) %>
+      <div class="mb-2">
+        <%= f.text_field :first_name, autofocus: (true if invalid_first_name), placeholder: 'First name', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_first_name ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_first_name %>
+          <% @user.errors.full_messages_for(:first_name).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% invalid_last_name = @user.errors.include?(:last_name) %>
+      <div class="mb-2">
+        <%= f.text_field :last_name, autofocus: (true if invalid_last_name), placeholder: 'Last name', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_last_name ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_last_name %>
+          <% @user.errors.full_messages_for(:last_name).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% invalid_birthdate = @user.errors.include?(:birthdate) %>
+      <div class="mb-2">
+        <div class="flex items-center gap-2">
+          <%= f.label :birthdate, class: 'block text-sm font-medium text-gray-900 text-left' %>
+          <% if invalid_birthdate %>
+            <% @user.errors.full_messages_for(:birthdate).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
           <% end %>
         </div>
-      <% end %>
-
-      <div class="mb-2">
-        <%= f.email_field :email, placeholder: 'Email', class: 'w-full block border border-gray-200 rounded-lg' %>
+        <%= f.date_field :birthdate, autofocus: (true if invalid_birthdate), class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase #{invalid_birthdate ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
-      <div class="mb-2">
-        <%= f.password_field :password, placeholder: 'Password', class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div class="mb-2">
-        <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div class="mb-2">
-        <%= f.text_field :first_name, placeholder: 'First Name', class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div class="mb-2">
-        <%= f.text_field :last_name, placeholder: 'Last Name', class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div class="mb-2">
-        <%= f.label :birthdate, class: 'block font-medium mb-1' %>
-        <%= f.date_field :birthdate, class: 'w-full block border border-gray-200 rounded-lg' %>
-      </div>
-
-      <div class="mb-2">
-        <div class="flex flex-col gap-2 justify-center">
-          <p class="font-medium">Gender:</p>
-          <div class="flex gap-2 place-items-center">
-            <%= f.radio_button :role, 'male' %>
-            <%= f.label 'Male' %>
-          </div>
-          <div class="flex gap-2 place-items-center">
-            <%= f.radio_button :role, 'female' %>
-            <%= f.label 'Female' %>
-          </div>
+      <% invalid_gender = @user.errors.include?(:gender) %>
+      <div class="mb-2 text-left flex flex-col justify-center">
+        <div class="flex items-center">
+          <%= f.label 'Gender:', class: 'text-sm font-medium text-gray-900 mr-2' %>
+          <% if invalid_gender %>
+            <% @user.errors.full_messages_for(:gender).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="flex items-center">
+          <%= f.radio_button :gender, 'male', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Male', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+          <%= f.radio_button :gender, 'female', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Female', class: 'ml-2 text-sm font-medium text-gray-900' %>
         </div>
       </div>
 
+      <% invalid_contact_no = @user.errors.include?(:contact_no) %>
       <div class="mb-2">
-        <%= f.text_field :contact_no, placeholder: 'Contact No', class: 'w-full block border border-gray-200 rounded-lg' %>
+        <%= f.text_field :contact_no, autofocus: (true if invalid_contact_no), placeholder: 'Contact No.', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_contact_no ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_contact_no %>
+          <% @user.errors.full_messages_for(:contact_no).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_address = @user.errors.include?(:address) %>
       <div class="mb-2">
-        <%= f.text_field :address, placeholder: 'Address', class: 'w-full block border border-gray-200 rounded-lg' %>
+        <%= f.text_field :address, autofocus: (true if invalid_address), placeholder: 'Address', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_address ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_address %>
+          <% @user.errors.full_messages_for(:address).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
       <div class="mb-4">
-        <div class="flex flex-col gap-2 justify-center">
-          <p class="font-medium">Role:</p>
+        <p class="font-medium mb-1">Role:</p>
+        <div class="flex flex-col justify-center">
           <div class="flex gap-2 place-items-center">
             <%= f.radio_button :role, 'tenant' %>
             <%= f.label 'Tenant' %>
@@ -89,8 +153,8 @@
       </div>
 
       <div class="flex gap-2 place-items-center">
-        <%= f.submit 'Add User', class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
-        <%= link_to 'Cancel', users_path, class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= f.submit 'Add User', class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        <%= link_to 'Cancel', users_path, class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       </div>
     <% end %>
   </div>

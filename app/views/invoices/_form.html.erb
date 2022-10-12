@@ -1,55 +1,49 @@
-<div>
-  <% url = request.path_info %>
-  <% if url.include? "new" %>
-    <h1 class="text-lg lg:text-xl font-bold mb-4">Create Invoice for Booking No: <%= @booking.id %></h1>
-  <% elsif url.include? "edit" %>
-    <h1 class="text-lg lg:text-xl font-bold mb-4">Update Invoice No: <%= @invoice.id %></h1>
-  <% end %>
-</div>
 <div class="flex-auto overflow-y-auto max-w-sm">
   <%= form_with model: [@booking, @invoice], data:{turbo:false} do |f| %>
-    <% if @invoice.errors.any? %>
-      <div class="w-full p-2 rounded-lg mb-2 text-red-700 bg-red-300 font-medium">
-        <% @invoice.errors.full_messages.each do |error| %>
-          <div><%= error %></div>
-        <% end %>
-      </div>
-    <% end %>
-
     <div class="mb-2">
       <%= f.label :date_from, class: 'block font-medium mb-1' %> 
-      <%= f.date_field :date_from, :value => @invoice.booking.due_date - 1.month, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <%= f.date_field :date_from, :value => @invoice.booking.due_date - 1.month, readonly: true, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
     <div class="mb-2">
       <%= f.label :date_to, class: 'block font-medium mb-1' %>
-      <%= f.date_field :date_to, :value => @invoice.booking.due_date, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <%= f.date_field :date_to, :value => @invoice.booking.due_date, readonly: true, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
     <div class="mb-2">
       <%= f.label :room_rate, class: 'block font-medium mb-1' %>
-      <%= f.number_field :room_rate, :value => @invoice.booking.room.monthly_rate, readonly: true, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <%= f.number_field :room_rate, :value => @invoice.booking.room.monthly_rate, readonly: true, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
     <div class="mb-2">
       <%= f.label :water_bill, class: 'block font-medium mb-1' %>
-      <%= f.number_field :water_bill, step: 0.01, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <%= f.number_field :water_bill, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
     <div class="mb-2">
       <%= f.label :electricity_bill, class: 'block font-medium mb-1' %>
-      <%= f.number_field :electricity_bill, step: 0.01, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <%= f.number_field :electricity_bill, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
+    <% invalid_remarks = @invoice.errors.include?(:remarks) %>
     <div class="mb-4">
-      <%= f.label :remarks, class: 'block font-medium mb-1' %>
-      <%= f.text_field :remarks, class: 'border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      <div class="flex flex-col justify-center mb-1">
+        <%= f.label :remarks, class: 'block font-medium' %>
+        <% if invalid_remarks %>
+          <% @invoice.errors.full_messages_for(:remarks).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              (<%= msg %>)
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <%= f.text_field :remarks, autofocus: (true if invalid_remarks), class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_remarks ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
     </div>
 
     <div class="flex gap-2 items-center">
-      <%= f.submit class: 'block py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      <%= f.submit class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
       
-      <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+      <%= link_to 'Cancel', :back, class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     </div>
   <% end %>
 </div>

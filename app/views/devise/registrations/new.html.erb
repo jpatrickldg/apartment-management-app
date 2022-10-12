@@ -1,66 +1,146 @@
 <h2 class="font-medium text-lg text-center mb-2">Register</h2>
 <div>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false} }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%#= render "devise/shared/error_messages", resource: resource %>
     <fieldset class="border border-solid border-gray-300 p-3 rounded-md">
       <legend class="text-sm text-left font-medium">Login Details</legend>
+      <% invalid_email = resource.errors.include?(:email) %>
       <div class="mb-2">
-        <%= f.email_field :email, placeholder: 'Email', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, placeholder: 'Email', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_email ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_email), autocomplete: "email" %>
+        <% if invalid_email %>
+          <% resource.errors.full_messages_for(:email).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_password = resource.errors.include?(:password) %>
       <div class="mb-2">
-        <%= f.password_field :password, placeholder: 'Password', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
+        <%= f.password_field :password, placeholder: 'Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password), autocomplete: "new-password" %>
+        <% if invalid_password %>
+          <% resource.errors.full_messages_for(:password).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_password_confirmation = resource.errors.include?(:password_confirmation) %>
       <div class="mb-2">
-        <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5', autocomplete: "new-password" %>
+        <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password_confirmation ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password_confirmation), autocomplete: "new-password" %>
+        <% if invalid_password_confirmation %>
+          <% resource.errors.full_messages_for(:password_confirmation).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </fieldset>
     <fieldset class="border border-solid border-gray-300 p-3 rounded-md mt-3">
       <legend class="text-sm text-left font-medium">Personal Details</legend>
+
+      <% invalid_first_name = resource.errors.include?(:first_name) %>
       <div class="mb-2">
-        <%= f.text_field :first_name, placeholder: 'First name', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <%= f.text_field :first_name, autofocus: (true if invalid_first_name), placeholder: 'First name', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_first_name ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_first_name %>
+          <% resource.errors.full_messages_for(:first_name).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_last_name = resource.errors.include?(:last_name) %>
       <div class="mb-2">
-        <%= f.text_field :last_name, placeholder: 'Last name', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <%= f.text_field :last_name, autofocus: (true if invalid_last_name), placeholder: 'Last name', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_last_name ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_last_name %>
+          <% resource.errors.full_messages_for(:last_name).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_birthdate = resource.errors.include?(:birthdate) %>
       <div class="mb-2">
-        <%= f.label :birthdate, class: 'block mb-1 text-sm font-medium text-gray-900 text-left' %>
-        <%= f.date_field :birthdate, class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <div class="flex items-center gap-2">
+          <%= f.label :birthdate, class: 'block text-sm font-medium text-gray-900 text-left' %>
+          <% if invalid_birthdate %>
+            <% resource.errors.full_messages_for(:birthdate).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.date_field :birthdate, autofocus: (true if invalid_birthdate), class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase #{invalid_birthdate ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
-      <div class="mb-2 text-left flex place-items-center">
-        <%= f.label 'Gender:', class: 'text-sm font-medium text-gray-900 mr-2' %>
-        <%= f.radio_button :gender, 'male', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
-        <%= f.label 'Male', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
-        <%= f.radio_button :gender, 'female', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
-        <%= f.label 'Female', class: 'ml-2 text-sm font-medium text-gray-900' %>
+      <% invalid_gender = resource.errors.include?(:gender) %>
+      <div class="mb-2 text-left flex flex-col justify-center">
+        <div class="flex items-center">
+          <%= f.label 'Gender:', class: 'text-sm font-medium text-gray-900 mr-2' %>
+          <% if invalid_gender %>
+            <% resource.errors.full_messages_for(:gender).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="flex items-center">
+          <%= f.radio_button :gender, 'male', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Male', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+          <%= f.radio_button :gender, 'female', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Female', class: 'ml-2 text-sm font-medium text-gray-900' %>
+        </div>
       </div>
 
+      <% invalid_contact_no = resource.errors.include?(:contact_no) %>
       <div class="mb-2">
-        <%= f.text_field :contact_no, placeholder: 'Contact No.', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <%= f.text_field :contact_no, autofocus: (true if invalid_contact_no), placeholder: 'Contact No.', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_contact_no ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_contact_no %>
+          <% resource.errors.full_messages_for(:contact_no).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
+      <% invalid_address = resource.errors.include?(:address) %>
       <div class="mb-2">
-        <%= f.text_field :address, placeholder: 'Address', class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+        <%= f.text_field :address, autofocus: (true if invalid_address), placeholder: 'Address', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_address ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <% if invalid_address %>
+          <% resource.errors.full_messages_for(:address).each do |msg| %>
+            <div class="text-red-500 text-sm">
+              <%= msg %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
-      <div class="text-left flex place-items-center">
+      <% invalid_occupation = resource.errors.include?(:occupation) %>
+      <div class="text-left flex flex-col justify-center">
         <%= f.label 'Occupation:', class: 'text-sm font-medium text-gray-900 mr-2' %>
-        <%= f.radio_button :occupation, 'student', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
-        <%= f.label 'Student', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
-        <%= f.radio_button :occupation, 'reviewee', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
-        <%= f.label 'Reviewee', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+        <div class="flex items-center">
+          <%= f.radio_button :occupation, 'student', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Student', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+          <%= f.radio_button :occupation, 'reviewee', class: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2' %>
+          <%= f.label 'Reviewee', class: 'ml-2 mr-4 text-sm font-medium text-gray-900' %>
+        </div>
       </div>
 
     </fieldset>
 
-    
-
     <div class="mb-2 mt-3">
-      <%= f.submit "Register", class: 'w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center' %>
+      <%= f.submit "Register", class: 'w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full px-5 py-2.5 text-center' %>
     </div>
   <% end %>
   <div class="text-left">

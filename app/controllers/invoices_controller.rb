@@ -21,7 +21,8 @@ class InvoicesController < ApplicationController
   end
 
   def unpaid
-    @invoices = Invoice.includes(booking: [:user]).where(status: 'unpaid')
+    @q = Invoice.includes(booking: [:user]).where(status: 'unpaid').ransack(params[:q])
+    @invoices = @q.result(distinct: true)
   end
 
   def show
