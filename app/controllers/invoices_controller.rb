@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   before_action :check_ownership, only: [:show, :payment]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
-  before_action :set_invoice, only: [:edit, :update] 
+  before_action :set_invoice, only: [:edit, :update, :pdf] 
 
   def index
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
@@ -74,6 +74,53 @@ class InvoicesController < ApplicationController
     @user = @invoice.booking.user
     UserMailer.with(user: @user).due_reminder.deliver_now
     redirect_to invoice_path(@invoice), notice: 'Payment Reminder Sent'
+  end
+
+  def pdf
+    @booking = Booking.find(@invoice.booking_id)
+    @user = User.find(@booking.user_id)
+    pdf = Prawn::Document.new 
+
+    pdf.text "INVOICE #{@invoice.id}", size: 16, style: :bold
+    pdf.move_down 10
+    pdf.text "Status: #{@invoice.status.upcase}"
+    pdf.text "Invoice Date: #{@invoice.created_at.strftime("%y-%b-%d")}"
+    pdf.text "Due Date: #{@booking.due_date.strftime("%y-%b-%d")}"
+    pdf.move_down 10
+    pdf.text "Billed To", style: :bold
+    pdf.move_down 2
+    pdf.text "#{@user.first_name.capitalize} #{@user.first_name.capitalize}"
+    pdf.text @user.address.capitalize
+    pdf.text @user.email
+    pdf.move_down 10
+    pdf.text "Description", style: :bold
+    pdf.move_down 2
+    pdf.text "Period: #{@invoice.date_from.strftime("%y-%b-%d")} to #{@invoice.date_to.strftime("%y-%b-%d")}"
+    pdf.text "Remarks: #{@invoice.remarks.capitalize}"
+    pdf.move_down 10
+    pdf.text "Fees Breakdown", style: :bold
+    pdf.move_down 2
+    pdf.text "Room Rate: #{@invoice.room_rate}"
+    pdf.text "Meralco: #{@invoice.electricity_bill}"
+    pdf.text "Maynilad: #{@invoice.water_bill}"
+    pdf.move_down 10
+    pdf.text "Total Amount", style: :bold
+    pdf.move_down 2
+    pdf.text "#{@invoice.total_amount}", size: 16, style: :bold
+    pdf.move_down 20
+    if @invoice.paid?
+      pdf.text "Payment Details", size: 14, style: :bold
+      pdf.move_down 10
+      pdf.text "Payment Date: #{@invoice.payment.created_at.strftime("%y-%b-%d")}"
+      pdf.text "Mode of Payment: #{@invoice.payment.payment_mode.capitalize}"
+      pdf.text "Remarks: #{@invoice.payment.remarks.capitalize}"
+      pdf.text "Total Amount Paid: #{@invoice.payment.amount}"
+    end
+    
+    send_data(pdf.render,
+              filename: "Invoice_#{@invoice.id}.pdf",
+              type: 'application/pdf',
+              disposition: 'inline')
   end
 
   private

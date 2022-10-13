@@ -20,5 +20,6 @@ module ApartmentManagement
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = "Asia/Manila"
   end
 end

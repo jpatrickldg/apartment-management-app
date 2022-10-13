@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     get :payment, on: :member
     get :unpaid, on: :collection
     get :send_email_reminder, on: :member
+    get :pdf, on: :member
   end
 
   resources :announcements do
