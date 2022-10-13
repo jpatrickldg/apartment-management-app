@@ -15,15 +15,18 @@
     <div class="h-screen w-full flex flex-col relative">
       <div class="absolute top-0 left-0 h-full w-full bg-black opacity-60"></div>
       <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t31.18172-8/28701281_1670572439679227_6419169983324222810_o.jpg?_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=8JyBecpbgRgAX867vGW&_nc_ht=scontent.fmnl4-2.fna&oh=00_AT-LrPDTFi2cBAQUaVgeewE_119SP8qXtin0tqMtCAcjMw&oe=6366F670" alt="hero" class="absolute object-cover h-full w-full -z-10">
-      <nav class="flex place-items-center justify-between px-56 text-white z-30 bg-black/70">
+      <nav class="flex place-items-center justify-between px-56 py-3 text-white z-30">
           <%= link_to unauthenticated_root_path do %>
-            <%= image_tag ("logo2_white.png"), class: 'max-w-[300px] text-red-500 h-auto' %>
+            <%#= image_tag ("logo2_white.png"), class: 'max-w-[300px] text-red-500 h-auto opacity-90 hover:opacity-100' %>
+            <div class="hover:text-gray-200 text-white">
+              <%= render 'shared/logo' %>
+            </div>
           <% end %>
           <ul class="flex place-items-center justify-center gap-16 font-bold">
-            <li><%= link_to 'Login', new_user_session_path %></li>
+            <li><%= link_to 'Login', new_user_session_path, class: 'hover:text-gray-200 text-white' %></li>
           </ul>
       </nav>
-      <main class="flex-auto relative z-30 flex justify-center items-center">
+      <main class="flex-auto relative z-30">
         
         <%= yield %>
       </main>

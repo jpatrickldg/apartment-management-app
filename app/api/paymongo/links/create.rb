@@ -12,7 +12,7 @@ class Paymongo::Links::Create
     request = Net::HTTP::Post.new(url)
     request["accept"] = 'application/json'
     request["content-type"] = 'application/json'
-    request["authorization"] = 'Basic c2tfdGVzdF80TldlUFdIa1h5SjlnbUt3eXgzSHZ5Q3E6'
+    request["authorization"] = "Basic #{ENV['PAYMONGO_TOKEN']}"
     request.body = "{\"data\":{\"attributes\":{\"amount\":#{amount},\"description\":\"#{description}\"}}}"
 
     response = http.request(request)

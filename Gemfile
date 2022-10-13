@@ -86,3 +86,5 @@ gem "chartkick"
 gem 'factory_bot_rails'
 
 gem 'faker'
+
+gem 'dotenv-rails', require: 'dotenv/rails-now'

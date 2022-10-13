@@ -85,7 +85,7 @@ Rails.application.routes.draw do
     post :purge_avatar, on: :collection
   end
 
-  get '/inquire' => 'inquiries#inquire'
+  get '/inquiry_submitted' => 'home#inquiry_submitted'
   post '/listen' => 'payments#listen'
   post '/links' => 'invoices#links' 
 

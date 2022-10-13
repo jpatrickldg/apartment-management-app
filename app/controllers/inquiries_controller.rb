@@ -19,17 +19,13 @@ class InquiriesController < ApplicationController
     end
   end
 
-  def inquire
-    @inquiry = Inquiry.new
-  end
-
   def create
     @inquiry = Inquiry.new(inquiry_params)
 
     if @inquiry.save
-      redirect_to unauthenticated_root_path
+      redirect_to inquiry_submitted_path
     else
-      render :inquire
+      render 'home/index'
     end
   end
 
