@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :invoices, only: [:index, :show] do
     get :payment, on: :member
     get :unpaid, on: :collection
+    get :send_email_reminder, on: :member
   end
 
   resources :announcements do

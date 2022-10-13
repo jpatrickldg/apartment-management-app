@@ -69,6 +69,13 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def send_email_reminder
+    @invoice = Invoice.includes(booking: [:user]).find(params[:id])
+    @user = @invoice.booking.user
+    UserMailer.with(user: @user).due_reminder.deliver_now
+    redirect_to invoice_path(@invoice), notice: 'Payment Reminder Sent'
+  end
+
   private
 
   def check_restriction
