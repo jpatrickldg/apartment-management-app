@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Greetings, <%= @user.first_name %> <%= @user.last_name %></h1>
+    <p>
+      Your payment due date will be on <%= @booking.due_date %>. Kindly settle your account on or before that date to avoid any inconveniences. <br>
+    </p>
+    <p>
+      You can pay online via the portal or you can drop by at our main branch to pay in cash.
+    </p>
+    <p>Thank you and have a great day!</p>
+  </body>
+</html>
