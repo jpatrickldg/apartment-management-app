@@ -1,24 +1,23 @@
-# README
+# Apartment Management System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A full stack Ruby on Rails web application to be used in managing real property rental businesses. 
 
-Things you may want to cover:
+## About the Project
 
-* Ruby version
+### ERD
+![ERD](ERD.png)
 
-* System dependencies
+### Built With
+- [Ruby on Rails](https://rubyonrails.org/)
+- [TailwindCSS](https://tailwindcss.com/)
 
-* Configuration
+## Roadmap
 
-* Database creation
+- [x] Tenant Portal
+- [x] Staff Portal
+- [x] Paymongo API for Payments
+- [x] Printable and Downloadable PDFs for Invoices
+- [ ] Notifications
+- [ ] Landing Page with Google Map API
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For more details about this project's progress, you can visit this [project's feature](https://github.com/users/jpatrickldg/projects/2).
