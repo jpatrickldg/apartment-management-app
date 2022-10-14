@@ -20,4 +20,4 @@ A full stack Ruby on Rails web application to be used in managing real property 
 - [ ] Notifications
 - [ ] Landing Page with Google Map API
 
-For more details about this project's progress, you can visit this [Project's Feature](https://github.com/users/jpatrickldg/projects/2).
+For more details about this project's progress, you can visit this [project's feature](https://github.com/users/jpatrickldg/projects/2).
