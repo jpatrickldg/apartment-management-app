@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_restriction, except: [:index, :show, :links, :payment]
+  before_action :check_restriction, except: [:index, :show, :links, :payment, :pdf]
   before_action :check_ownership, only: [:show, :payment]
   before_action :check_if_receptionist, only: [:new, :create]
   before_action :get_booking, only: [:new, :create]
