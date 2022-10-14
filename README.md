@@ -1,4 +1,6 @@
-# README
+# Apartment Management System
+
+An app made for managing real property rental business
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -23,5 +25,5 @@ Things you may want to cover:
 
 * ...
 
-# ERD
+## ERD
 ![ERD](ERD.png)
