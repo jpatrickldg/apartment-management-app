@@ -15,8 +15,8 @@ A full stack Ruby on Rails web application to be used in managing real property 
 
 - [x] Tenant Portal
 - [x] Staff Portal
-- [x] Add Paymongo API for Payments
-- [x] Generate PDF for Invoices
+- [x] Paymongo API for Payments
+- [x] Printable and Downloadable PDFs for Invoices
 - [ ] Notifications
 - [ ] Landing Page with Google Map API
 
