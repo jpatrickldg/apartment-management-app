@@ -71,8 +71,8 @@
           <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
             <td class="p-3 w-3/5"><%= @tenant.address %></td>
             <td class="p-3 font-medium text-center"><%= @tenant.contact_no %></td>
-            <td class="p-3 text-center"><%= @tenant.emergency_contact_person.capitalize %></td>
-            <td class="p-3 text-center"><%= @tenant.emergency_contact_no %></td>
+            <td class="p-3 text-center"><%= @tenant.emergency_contact_person ? @tenant.emergency_contact_person.capitalize : '-' %></td>
+            <td class="p-3 text-center"><%= @tenant.emergency_contact_no ? @tenant.emergency_contact_no.capitalize : '-' %></td>
           </tr>
         </tbody>
       </table>
