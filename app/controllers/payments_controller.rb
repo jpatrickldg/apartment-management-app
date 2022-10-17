@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
 
   def index
     @q = Payment.ransack(params[:q])
-    @payments = @q.result(distinct: true)
+    @payments = @q.result(distinct: true).order(created_at: :desc)
     @current_user_payments = current_user.payments
   end
 

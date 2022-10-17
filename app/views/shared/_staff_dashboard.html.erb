@@ -12,7 +12,8 @@
     </div>
     <div>
       <h1 class="text-xl font-bold">Preferred Location</h1>
-      <%= line_chart Inquiry.group(:location_preference).group_by_week(:created_at).count, library: { legend: { textTransform: 'capitalize' } } %>
+      <%= pie_chart Inquiry.group(:location_preference).count %>
+      <%#= line_chart Inquiry.group(:location_preference).group_by_week(:created_at).count, library: { legend: { textTransform: 'capitalize' } } %>
     </div>
   </div>
 </div>

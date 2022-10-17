@@ -57,8 +57,7 @@ RSpec.describe "Inquiries", type: :request do
       }
 
       post inquiries_path, params: { inquiry: inquiry_params }
-      expect(flash[:notice]).to match('Inquiry Submitted')
-      expect(Inquiry.last.email).to eq 'inquiry@example.com'
+      expect(response).to redirect_to(inquiry_submitted_path)
     end
   end
 

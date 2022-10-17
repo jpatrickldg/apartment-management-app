@@ -13,6 +13,7 @@
           <th class="p-3 text-center">Water Bill</th>
           <th class="p-3 text-center">Electricity Bill</th> %>
           <th class="p-3 text-center">Total Amount</th>
+          <th class="p-3 text-center">Invoice Date</th>
           <th class="p-3 text-center">Due Date</th>
           <th class="p-3 text-center">Remarks</th>
           <th class="p-3 text-center">Processed By</th>
@@ -41,6 +42,7 @@
           
           <td class="p-3 font-medium"><%= invoice.booking.user.email %></td>
           <td class="p-3 text-center"><%= number_to_currency(invoice.total_amount, unit: '₱') %></td>
+          <td class="p-3 text-center"><%= invoice.created_at.strftime("%Y-%m-%d") %></td>
           <td class="p-3 text-center"><%= invoice.booking.due_date %></td>
           <td class="p-3 text-center"><%= invoice.remarks %></td>
           <td class="p-3 text-center"><%= invoice.processed_by %></td>

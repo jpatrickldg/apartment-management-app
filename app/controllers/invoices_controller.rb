@@ -8,7 +8,7 @@ class InvoicesController < ApplicationController
 
   def index
     @q = Invoice.includes(booking: [:user]).ransack(params[:q])
-    @invoices = @q.result(distinct: true)
+    @invoices = @q.result(distinct: true).order(created_at: :desc)
     @current_user_invoices = current_user.invoices
   end
 
