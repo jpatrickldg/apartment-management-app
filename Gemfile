@@ -90,3 +90,5 @@ gem 'faker'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 gem "prawn", "~> 2.4"
+
+gem 'aws-sdk-s3', require: false
