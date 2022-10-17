@@ -5,7 +5,7 @@
   <div>
     <%= render 'shared/cards' %>
   </div>
-  <div class="grid grid-cols-2 mt-5 gap-5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 mt-5 gap-5">
     <div>
       <h1 class="text-xl font-bold">Daily Number of Inquiries</h1>
       <%= line_chart Inquiry.group_by_day(:created_at).count %>
