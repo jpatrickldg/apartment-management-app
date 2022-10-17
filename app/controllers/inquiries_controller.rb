@@ -6,11 +6,11 @@ class InquiriesController < ApplicationController
   layout "landing_page", only: [:inquire, :create]
 
   def index
-    @q = Inquiry.ransack(params[:q])
+    @q = Inquiry.order(created_at: :desc).ransack(params[:q])
     @inquiries = @q.result(distinct: true)
-    @open = Inquiry.where(status: 'open')
-    @on_going = Inquiry.where(status: 'on_going').where(processed_by: current_user.email)
-    @close = Inquiry.where(status: 'closed').where(processed_by: current_user.email)
+    @open = Inquiry.where(status: 'open').order(created_at: :desc)
+    @on_going = Inquiry.where(status: 'on_going').where(processed_by: current_user.email).order(created_at: :desc)
+    @close = Inquiry.where(status: 'closed').where(processed_by: current_user.email).order(created_at: :desc)
   end
 
   def show
