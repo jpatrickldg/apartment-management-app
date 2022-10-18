@@ -2,7 +2,7 @@
 
 A full stack Ruby on Rails web application to be used in managing real property rental businesses. Click [here](https://mwpmi.herokuapp.com) to view the app on Heroku.
 
-#### Test Accounts
+#### Test Accounts (Password: `123456`)
 - Admin: `admin@test.com`
 - Cashier: `cashier1@test.com`
 - Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
