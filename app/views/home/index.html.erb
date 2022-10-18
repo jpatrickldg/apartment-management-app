@@ -1,9 +1,12 @@
-<div class="flex h-full px-56 gap-48">
-  <div class="flex-auto flex flex-col place-items-center justify-center basis-2/3">
-    <h1 class="mb-10 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">Looking for a <span class="text-blue-500">home</span> near your campus?</h1>
-    <p class="text-lg font-light text-white lg:text-xl text-justify">Modern World Property Management Inc. offers various type of accomodation such as bedspacing, dormitories, studio type apartments, and an option for an empty or a fully furnished condominium unit all around the University Belt!</p></p>
+<header class="bg-[url('https://images.pexels.com/photos/7512031/pexels-photo-7512031.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')] bg-cover bg-center bg-no-repeat w-full h-[500px] flex flex-col justify-center px-5 md:px-12 lg:px-56 relative">
+  <div class="absolute top-0 left-0 h-full w-full bg-black opacity-50">
   </div>
-  <div class="flex items-center justify-center">
-    <%= render 'shared/inquiry_form' %>
+  <div class="max-w-4xl z-10 text-center md:text-left">
+    <h1 class="mb-10 text-3xl font-extrabold tracking-tight leading-none md:text-4xl lg:text-5xl text-white">Looking for a <span class="text-blue-500">home</span> near your campus?</h1>
+    <p class="mb-5 font-light text-white lg:text-lg text-justify">Modern World Property Management Inc. offers various type of accomodation all around University Belt.</p>
+    <%= link_to 'Inquire Now', '#inquire', class: 'inline-block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
   </div>
+</header>
+<div class="p-5">
+  <%= render 'shared/inquiry_form' %>
 </div>
