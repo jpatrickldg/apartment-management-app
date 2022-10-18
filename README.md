@@ -3,10 +3,10 @@
 A full stack Ruby on Rails web application to be used in managing real property rental businesses. Click [here](https://mwpmi.herokuapp.com) to view the app on Heroku.
 
 #### Test Accounts
-- Admin: admin@test.com
-- Cashier: cashier1@test.com
-- Receptionist: receptionist1@test.com, receptionist2@test.com
-- Tenant: tenant1@test.com (up to tenant5@test.com)
+- Admin: `admin@test.com`
+- Cashier: `cashier1@test.com`
+- Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
+- Tenant: `tenant1@test.com` (up to `tenant5@test.com`)
 
 ## About the Project
 
