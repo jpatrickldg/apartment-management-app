@@ -8,17 +8,22 @@ A full stack Ruby on Rails web application to be used in managing real property 
 - Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
 - Tenant: `tenant1@test.com` (up to `tenant5@test.com`)
 
+Staff Pages
 ![Screenshot](./screenshots/screenshot1.png)
-![Screenshot](./screenshots/screenshot11.png)
 ![Screenshot](./screenshots/screenshot2.png)
 ![Screenshot](./screenshots/screenshot3.png)
 ![Screenshot](./screenshots/screenshot4.png)
 ![Screenshot](./screenshots/screenshot5.png)
 ![Screenshot](./screenshots/screenshot6.png)
+
+Tenant Dashboard
 ![Screenshot](./screenshots/screenshot10.png)
+
+Mobile Views
 ![Screenshot](./screenshots/screenshot7.png)
 ![Screenshot](./screenshots/screenshot8.png)
 ![Screenshot](./screenshots/screenshot9.png)
+![Screenshot](./screenshots/screenshot11.png)
 ![Screenshot](./screenshots/ERD.png)
 
 ## About the Project
