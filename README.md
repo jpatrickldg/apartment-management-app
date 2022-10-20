@@ -25,7 +25,7 @@ A full stack Ruby on Rails web application to be used in managing real property 
 ![Screenshot](./screenshots/screenshot9.png)
 ![Screenshot](./screenshots/screenshot11.png)
 
-###ERD
+### ERD
 ![Screenshot](./screenshots/ERD.png)
 
 ## About the Project
