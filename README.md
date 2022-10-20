@@ -1,6 +1,6 @@
 # Apartment Management System
 
-A full stack Ruby on Rails web application to be used in managing real property rental businesses. Click [here](https://mwpmi.herokuapp.com) to view the app on Heroku.
+A full stack Ruby on Rails web application to be used in managing real property rental businesses. Click [here](https://mwpmi.herokuapp.com) to view the app on Heroku. :smile:
 
 #### Test Accounts (Password: `123456`)
 - Admin: `admin@test.com`
@@ -8,10 +8,24 @@ A full stack Ruby on Rails web application to be used in managing real property 
 - Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
 - Tenant: `tenant1@test.com` (up to `tenant5@test.com`)
 
+![Screenshot](./screenshots/screenshot1.png)
+![Screenshot](./screenshots/screenshot11.png)
+![Screenshot](./screenshots/screenshot2.png)
+![Screenshot](./screenshots/screenshot3.png)
+![Screenshot](./screenshots/screenshot4.png)
+![Screenshot](./screenshots/screenshot5.png)
+![Screenshot](./screenshots/screenshot6.png)
+![Screenshot](./screenshots/screenshot10.png)
+![Screenshot](./screenshots/screenshot7.png)
+![Screenshot](./screenshots/screenshot8.png)
+![Screenshot](./screenshots/screenshot9.png)
+![Screenshot](./screenshots/ERD.png)
+
 ## About the Project
 
 ### Built With
 - [Ruby on Rails](https://rubyonrails.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 
 ### Features
@@ -26,9 +40,6 @@ A full stack Ruby on Rails web application to be used in managing real property 
 - Cashier can add records of payments of tenants who will be paying in cash
 - Cashier can add expense records with uploaded proof
 - Owner and Admin can create and lock accounts and post announcements that will be displayed in every user's dashboard
-
-### ERD
-![ERD](ERD.png)
 
 ### Version
 ```
