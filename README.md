@@ -1,12 +1,6 @@
 # Apartment Management System
 
-A full stack Ruby on Rails web application to be used in managing real property rental businesses. Click [here](https://mwpmi.herokuapp.com) to view the app on Heroku. :smile:
-
-#### Test Accounts (Password: `123456`)
-- Admin: `admin@test.com`
-- Cashier: `cashier1@test.com`
-- Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
-- Tenant: `tenant1@test.com` (up to `tenant5@test.com`)
+A full stack Ruby on Rails web application to be used in managing real property rental businesses.
 
 ### Homepage
 ![Screenshot](./screenshots/screenshot1.png)
@@ -69,6 +63,11 @@ A full stack Ruby on Rails web application to be used in managing real property 
 ```
  $ rspec
 ```
+#### Test Accounts (Password: `123456`)
+- Admin: `admin@test.com`
+- Cashier: `cashier1@test.com`
+- Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
+- Tenant: `tenant1@test.com` (up to `tenant5@test.com`)
 
 ## Roadmap
 
