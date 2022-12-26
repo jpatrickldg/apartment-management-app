@@ -63,7 +63,7 @@ A full stack Ruby on Rails web application to be used in managing real property 
 ```
  $ rspec
 ```
-#### Test Accounts (Password: `123456`)
+### Test Accounts (Password: `123456`)
 - Admin: `admin@test.com`
 - Cashier: `cashier1@test.com`
 - Receptionist: `receptionist1@test.com`, `receptionist2@test.com`
