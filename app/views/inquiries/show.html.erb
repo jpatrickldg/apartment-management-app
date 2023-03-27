@@ -54,7 +54,7 @@
       <p><%= @inquiry.contract_signed ? "YES" : "NO" %></p>
     </div>
   <% end %>
-  <% if @inquiry.processed_by == current_user.email %>
+  <% if @inquiry.on_going? && @inquiry.processed_by == current_user.email %>
     <div>
       <%= link_to 'Close Inquiry', close_inquiry_path(@inquiry), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer mt-8' %>
     </div>

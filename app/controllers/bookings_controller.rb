@@ -13,7 +13,8 @@ class BookingsController < ApplicationController
   end
 
   def due_this_week
-    @q = Booking.includes(:user).where("due_date <= ?", Date.today.at_beginning_of_week + 7.days).ransack(params[:q])
+    active_booking = Booking.where(status: "active")
+    @q = active_booking.includes(:user).where("due_date <= ?", Date.today.at_beginning_of_week + 7.days).ransack(params[:q])
     @bookings = @q.result(distinct: true)
   end
 

@@ -14,9 +14,14 @@ class InquiriesController < ApplicationController
   end
 
   def show
-    if current_user.email != @inquiry.processed_by && !current_user.admin? && !current_user.owner?
+    if current_user.email != @inquiry.processed_by && !current_user.owner?
       redirect_to inquiries_path, alert: 'Access Denied'
     end
+
+    # if current_user.email != @inquiry.processed_by
+    # # if current_user.email != @inquiry.processed_by && !current_user.admin? && !current_user.owner?
+    #   redirect_to inquiries_path, alert: 'Access Denied'
+    # end
   end
 
   def create
