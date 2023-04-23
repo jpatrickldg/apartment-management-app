@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_05_122914) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_22_075051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_122914) do
     t.string "assisted_by"
     t.string "remarks"
     t.index ["user_id"], name: "index_concerns_on_user_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.string "tenant_first_name"
+    t.text "tenant_address"
+    t.string "room_code"
+    t.date "valid_from"
+    t.date "valid_to"
+    t.decimal "monthly_rate"
+    t.date "date_signed"
+    t.integer "status", default: 0
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tenant_last_name"
+    t.string "branch_type"
+    t.text "branch_address"
+    t.index ["booking_id"], name: "index_contracts_on_booking_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -190,6 +208,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_122914) do
   add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
   add_foreign_key "concerns", "users"
+  add_foreign_key "contracts", "bookings"
   add_foreign_key "invoices", "bookings"
   add_foreign_key "payments", "invoices"
   add_foreign_key "rooms", "branches"

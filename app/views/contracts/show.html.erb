@@ -1,0 +1,149 @@
+<div class="flex-none">
+  <h1 class="underline font-bold text-xl uppercase text-center">Contract of Lease</h1>
+</div>
+<div class="flex-1 overflow-y-auto">
+  <p class="uppercase font-bold">Known to all men by these presents</p>
+
+  <p class="mt-5"><span>Modern World Property Management Inc.,</span> a business entity with office address 3rd floor UniverCity Belt Residences 1985 C.M. Recto Avenue corner S.H. Loyola St., Brgy. 395, Zone 41, District 4, Sampaloc, Manila and is represented by <span class="underline font-bold">MR. JAYROLD R. JOSE and/or JIXON R. JOSE</span> and;</p>
+
+  <p class="mt-5"><span class="underline font-bold"><%= @contract.tenant_first_name %> <%= @contract.tenant_last_name %></span>, Filipino with address at <span class="underline font-bold"><%= @contract.tenant_address %></span>, hereinafter referred to as <span class="font-bold">TENANT/LESSEE</span></p>
+
+  <p class="text-center font-bold uppercase mt-5">witnesseth that:</p>
+
+  <p class="text-center font-bold uppercase underline mt-5">object of lease</p>
+
+  <p class="mt-2">The lease unit known and designated as <span class="font-bold underline uppercase">ROOM: <%= @contract.room_code %>,</span> a <span class="font-bold underline uppercase"><%= @contract.branch_type %>,</span> located at <span class="font-bold underline uppercase"><%= @contract.branch_address %>,</span> is hereby leased under the following terms and conditions.</p>
+
+  <p class="text-center font-bold uppercase underline mt-5">terms and conditions</p>
+
+  <p class="mt-5"><span class="font-bold">DURATION</span> - That the term of this lease is from <span class="underline font-bold"><%= @contract.valid_from.strftime("%B %d, %Y") %></span> to <span class="underline font-bold"><%= @contract.valid_to ? @contract.valid_to.strftime("%B %d, %Y") : "NA" %></span> and may be renewed on or <span class="font-bold underline">60 days before expiration of this contract thru notice of renewal</span> and upon mutual agreement of both parties</p>
+
+  <p class="mt-5 text-jus"><span class="font-bold underline">60 DAYS NOTICE OF RENEWAL or EXTENSION - 60 days before the end of contract or earlier, </span> TENANT/LESSEE must notify the LESSOR his/her intent to renew the contract of lease otherwise his/her unit shall be made available for viewing to new prospect tenant. RENEWAL or EXTENSION is subject for approval by the LESSOR.</p>
+
+  <p class="mt-5 text-jus"><span class="font-bold underline">60 DAYS NOTICE TO VACATE and END OF CONTRACT</span> - TENANT/LESSEE shall notify the LESSOR his/her intent to vacate leased unit. A minimum of SIXTY (60) days from the date of check out shall be observed. <span class="font-bold underline">Late submission or failure to submit notice will result to forfeiture of one (1) month deposit. </span></p>
+
+  <p class="mt-5">***Notice to Vacate Form and Notice of RENEWAL is readily available at the reception area.</p>
+
+  <p class="mt-5"><span class="font-bold">RENTALS </span>- The monthly rental fee is <span class="font-bold underline"><%= number_to_currency(@contract.monthly_rate, unit: '₱') %></span>.</p>
+
+  <p class="mt-5">A full month rent must still be paid in case TENANT/LESSEE decides to vacate his/her room weeks or days earlier than the contract expiration mentioned above.</p>
+
+  <p class="mt-5"><span class="font-bold">DEPOSITS -</span> All deposits are STRICTLY FOR REFUND after completion of contract and/or on the date of check-out. NO PARTIAL REFUND or EARLY REFUND will be allowed.</p>
+
+  <p class="mt-5"><span class="font-bold">PRE-TERMINATION / BACK OUT -</span> In case of pre-termination prior to expiration of contract of lease for any reason whatsoever, TENANT/LESSEE must fully pay its rightful due based on his/her last day of stay (Rentals, Utilities and etc.,) plus LESSOR shall <span class="font-bold underline">FORFEIT ALL SECURITY DEPOSITS</span> or rental paid by the TENANT/LESSEE. In case tenant has any unpaid dues, LESSOR has the right to refuse to allow the LESSEE to take out any of his/her belongings. STORAGE POLICY shall be implemented.</p>
+
+  <p class="mt-5"><span class="font-bold">ELECTRICITY and WATER PAYMENT SHARING -</span> shall be collected by Modern World Management and will forward your payment to MERALCO business center and building administrator. MERALCO bill along with ELECTRICITY abd WATER SHARING shall be posted in your apartment every 20th day of the month along with your corresponding sharing amount.</p>
+
+  <p class="mt-5"><span class="font-bold">PAYMENT SCHEDULE - </span>Official Payment Schedule of RENTAL and UTILITIES per cut off is <span class="font-bold underline">every 1st, 2nd, and 3rd day of the month.</span> After said period <span class="font-bold underline">10% Late Penalty Fee</span> shall be charged on top of your balance. ON TIME PAYMENT is strictly observed.</p>
+
+  <p class="mt-8"><span class="font-bold">BLOCKING OF BIOMETRICS - </span>TENANT/LESSEE who fails to FULLY PAY his/her rental and/or utility fees shall be affected by the following:</p>
+
+  <div class="mt-2">
+    <table class="m-auto">
+      <tbody>
+        <tr>
+          <td class="border p-2">5th day of the month</td>
+          <td class="border p-2">Biometric Gate Access will be disabled</td>
+          <td class="border p-2">WARNING/REMINDER for Non-Payment</td>
+        </tr>
+        <tr>
+          <td class="border p-2">10th day of the month</td>
+          <td class="border p-2">Biometric Gate Access will be disabled</td>
+          <td class="border p-2">10 Minute Waiting Stub (Entry & Exit)</td>
+        </tr>
+        <tr>
+          <td class="border p-2">15th day of the month</td>
+          <td class="border p-2">Biometric Gate Access will be disabled</td>
+          <td class="border p-2">NO FULL PAYMENT - NO ENTRY</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-8 font-bold">INITIAL PAYMENT (DEPOSIT and ADVANCE RENTAL/S)</p>
+
+  <div>
+    <table class="m-auto">
+      <thead>
+        <tr>
+          <th class="border">1-4 Months</th>
+          <th class="border">5-9 Months</th>
+          <th class="border">10-12 Months</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border p-2">
+            <ul>
+              <li>-One (1) Month Security Deposit</li>
+              <li>-Utility Deposit (PHP 2,000.00)</li>
+              <li>-Key Deposit (PHP 200.00)</li>
+              <li>-Bed Sheet Deposit (PHP 300.00)</li>
+            </ul>
+          </td>
+          <td class="border p-2">
+            <ul>
+              <li>-Two (2) Month Security Deposit</li>
+              <li>-Utility Deposit (PHP 1,500.00)</li>
+              <li>-Key Deposit (PHP 200.00)</li>
+              <li>-Bed Sheet Deposit (PHP 300.00)</li>
+            </ul>
+          </td>
+          <td class="border p-2">
+            <ul>
+              <li>-Two (2) Month Security Deposit</li>
+              <li>-Utility Deposit (PHP 3,000.00)</li>
+              <li>-Key Deposit (PHP 200.00)</li>
+              <li>-Bed Sheet Deposit (PHP 300.00)</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class="border p-2">
+            <ul>
+              <li>-Pro-Rated Rental (if there is any)</li>
+              <li class="font-bold">AND</li>
+              <li>-One (1) Month Advance Rental</li>
+            </ul>
+          </td>
+          <td class="border p-2">
+            <ul>
+              <li>-Pro-Rated Rental (if there is any)</li>
+              <li class="font-bold">AND/OR</li>
+              <li>-One (1) Month Advance Rental</li>
+            </ul>
+          </td>
+          <td class="border p-2">
+            <ul>
+              <li>-Pro-Rated Rental (if there is any)</li>
+              <li class="font-bold">AND</li>
+              <li>-One (1) Month Advance Rental</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="font-bold underline text-center">***All Deposits are NOT to be used or consumed as payment for rental and utility bills</p>
+
+  <p class="mt-8"><span class="font-bold">UNAUTHORIZED TRANSFER or STAYING AT NON DESIGNATED ROOM/BED - </span>Unauthorized use or transfer of bed shall result to a PENALTY of PHP 2,000.00 (Sleeping in other room with or without the consent of other tenant shall be subject to penalty). Request for room transfer shall be charged of PHP 1,000.00 as processing fee and upon LESSOR's approval only. No fee shall be collected if LESSOR was the one who engaged of room transfer.</p>
+
+  <p class="mt-5"><span class="font-bold">LOSSES AND DAMAGES - </span>Deposits of TENANT/LESSEE can be charged against any intentional/non-intentional, physical or monetary damage the TENANT/LESSEE may inflict, but is not limited to, against the management or the leased space.</p>
+
+  <p class="mt-5"><span class="font-bold">OVER STAYING - </span>In the event that LESSEE failed to vacate the leased unit piror to expiration of contract, LESSEE shall be charged of prevailing 244 HOUR TRANSIENT RATE or ONE MONTH REGULAR RATE per cut off (1st day of the month). LESSOR shall have the right to transfer LESSEE to other room/bed if deemed necessary.</p>
+
+  <p class="mt-5"><span class="font-bold">LESSOR's RIGHT TO ADMINISTER TENANT ROOM TRANSFER - </span><span class="underline">LESSOR has the right to engage room transfer of LESSEE at any given time</span> and especially during maintenance season to avoid exposure to any physical hazard that may be encompassed during said season. Seven (7) days notice shall be given to the LESSEE upon assessment to engage room transfer. However, in case of emergency, notice will not be served in order to attend such concern immediately.</p>
+
+  <p class="mt-5"><span class="font-bold">VALUE ADDED TAX - </span>We are enjoying privilege of VAT Exempt Rentals, as per BIR Revenue Regulations 13-2018 Section 3(Q), all rentals below PHP 15,000.00 are considered vat-exempt transaction. In such event that said privilege of VAT exempt transaction has been revoked due to tax reform or any other event, ADDITIONAL 12% shall be imposed on the effective rental fee. (RENTAL FEE + 12%).</p>
+
+  <p class="mt-5"><span class="font-bold">ABANDONMENT - </span>Non-payment of rental with long absences in the leased unit for thirty (30) days without any form of contact available or failure to notify the LESSOR shall be deemed as abandonment of Bedspace and shall be automatically terminated. TENANT's/LESSEE's belongings shall be submitted for STORAGE for a maximum of thirty (30) days.</p>
+
+  <p class="mt-5"><span class="font-bold">STORAGE - </span>Any belongings of the TENANT/LESSEE (clothes, books, shoes, and etc.) submitted for storage shall be stored for a maximum of thirty (30) days. After the said period, any items shall be donated to charity or disposed of immediately without any notice whatsoever from the LESSEE. PHP 50.00 per day shall be charged to tge TENANT/LESSEE as storage fee and LESSOR shall be free from aby liability due to losses or damages of TENANT's/LESSEE's belongings.</p>
+
+  <p class="mt-5"><span class="font-bold">MWPMI HOUSE RULES and ADMINISTRATIVE POLICIES - </span>In order to maintain orderliness in our premises, TENANT/LESSEE shall observe and exercise all of LESSOR's House Rules and Regulations and any of its revisions.</p>
+
+  <p class="mt-5"><span class="font-bold">DATE SIGNED: </span><span class="font-bold underline"><%= @contract.date_signed.strftime("%B %d, %Y") %></span></p>
+  <p class="mt-5"><span class="font-bold"></span></p>
+  <p class="mt-5"></p>
+  <p class="mt-5"></p>
+</div>

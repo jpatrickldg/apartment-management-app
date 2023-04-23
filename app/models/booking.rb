@@ -3,6 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :room
   has_many :invoices, dependent: :destroy
   has_many :payments, through: :invoices, dependent: :destroy
+  has_one :contract, dependent: :destroy
 
   enum status: [ :active, :inactive ]
 
@@ -10,6 +11,8 @@ class Booking < ApplicationRecord
   before_update :deactivate_tenant_account
   before_update :set_room_occupants_once_inactive_or_destroyed, if: :inactive?
   before_destroy :set_room_occupants_once_inactive_or_destroyed
+  after_create :generate_contract
+  after_update :update_contract_status, if: :saved_change_to_status?
 
   # validate :only_one_active_booking
   validate :stop_deactivation_if_invoice_is_unpaid
@@ -67,4 +70,25 @@ class Booking < ApplicationRecord
   def set_due_date
     self.due_date = self.move_in_date + 1.month
   end
+
+  def generate_contract
+    contract = build_contract(
+      tenant_first_name: user.first_name,
+      tenant_last_name: user.last_name,
+      tenant_address: user.address,
+      room_code: room.room_code,
+      monthly_rate: room.monthly_rate,
+      valid_from: move_in_date,
+      valid_to: move_out_date,
+      branch_type: room.branch.branch_type,
+      branch_address: room.branch.address,
+      date_signed: Date.today
+    )
+    contract.save
+  end
+
+  def update_contract_status
+    contract.update(status: status)
+  end
+
 end
