@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :concerns, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :rooms, through: :bookings
+  has_many :contracts, through: :bookings
   has_many :invoices, through: :bookings
   has_many :payments, through: :invoices
   has_one_attached :avatar

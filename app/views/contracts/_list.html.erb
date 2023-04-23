@@ -1,0 +1,74 @@
+<% if contracts.any? %>
+  <% if current_user.tenant? %>
+    <% contracts.each do |contract| %>
+      <div class="border border-gray-200 px-3 py-4 rounded-lg mb-4">
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Status:</strong></p>
+          <% if contract.active? %>
+            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-green-600"><%= contract.status.upcase %></h1>
+          <% elsif contract.inactive? %>
+            <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= contract.status.upcase %></h1>
+          <% end %>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Contract ID:</strong></p>
+          <p><%= contract.id %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Valid From:</strong></p>
+          <p><%= contract.valid_from %></p>
+        </div>
+        <% if contract.valid_to? %>
+          <div class="flex gap-2 place-items-center mb-2">
+            <p class="md:w-40"><strong>Valid to:</strong></p>
+            <p><%= contract.valid_to %></p>
+          </div>
+        <% end %>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Room Code:</strong></p>
+          <p><%= contract.room_code %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-4">
+          <p class="md:w-40"><strong>Monthly Rate:</strong></p>
+          <p><%= number_to_currency(contract.monthly_rate, unit: '₱') %></p>
+        </div>
+        <div class="md:w-40">
+          <%= link_to 'View Details', contract_path(contract), class: 'block py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="p-3">ID</th>
+            <th class="p-3 text-center">Status</th>
+            <th class="p-3 text-center">Tenant</th>
+            <th class="p-3 text-center">Room</th>
+            <th class="p-3 text-center">Valid from</th>
+            <th class="p-3 text-center">Valid to</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contracts.each do |contract| %>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="p-3 font-medium"><%= link_to contract.id, contract_path(contract), class: 'text-blue-600 hover:underline' %></td>
+              <td class="p-3 text-center"><%= contract.status.capitalize %></td>
+              <td class="p-3 text-center"><%= contract.tenant_first_name %></td>
+
+              <td class="p-3 text-center"><%= contract.room_code %></td>
+              
+              <td class="p-3 text-center"><%= contract.valid_from %></td>
+              <td class="p-3 text-center"><%= contract.valid_to ? contract.valid_to : '-' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+<% else %>
+  <div>
+    <p class="text-sm">Empty</p>
+  </div>
+<% end %>

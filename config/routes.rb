@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contracts
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal", :sign_up => "portal/register" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
