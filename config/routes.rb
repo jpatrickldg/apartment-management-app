@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :concerns, except: [:edit, :destroy] do
     get :close, on: :member
     post :reopen, on: :member
+    resources :comments, only: [:create, :destroy]
   end
 
   resources :payments, only: [:index, :show] do

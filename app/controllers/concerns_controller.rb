@@ -12,6 +12,8 @@ class ConcernsController < ApplicationController
 
   def show
     @tenant = User.find(@concern.user_id)
+    @comment = Comment.new
+    @comments = @concern.comments
   end
 
   def new

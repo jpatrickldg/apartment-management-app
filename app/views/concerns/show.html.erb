@@ -1,8 +1,8 @@
-<div>
+<div class="flex-none">
   <h2 class="text-lg lg:text-xl font-bold">Concern Ticket <%= @concern.id %></h2>
 </div>
 
-<div class="flex-auto overflow-y-auto">
+<div class="flex-none overflow-y-auto">
   <div class="flex gap-2 place-items-center mb-2">
     <p><strong>Status:</strong></p>
     <% if @concern.open? %>
@@ -35,4 +35,33 @@
       <%= button_to 'Re-Open Ticket', reopen_concern_path, class: 'block w-fit py-1.5 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
     <% end %>
   </div>
+</div>
+
+<h2 class="flex-none text-lg lg:text-xl font-bold mb-2">Comments</h2>
+<!-- Display existing comments -->
+<div class="flex-1 overflow-y-auto">
+  <% @concern.comments.each do |comment| %>
+    <div href="#" class="block w-full p-4 bg-white border border-gray-200 rounded-lg shadow mb-2 ">
+      <div class="flex justify-between">
+        <h5 class="mb-1 font-bold tracking-tight text-gray-900"><%= comment.user.email %></h5>
+        <% if comment.user == current_user %>
+          <%= button_to "Delete", concern_comment_path(@concern, comment), method: :delete, class: "text-red-500 text-sm" %>
+        <% end %>
+      </div>
+      <p class="font-normal text-gray-700"><%= comment.content %></p>
+    </div>
+  <% end %>
+</div>
+
+<!-- Add comment form -->
+<div class="flex-none">
+  <%= form_with(model: [@concern, Comment.new]) do |form| %>  
+      <div>
+        <%= form.text_area :content, placeholder: 'Write a comment...', disabled: @concern.closed?, rows: 4, class: "border-none w-full px-0 text-sm text-gray-900 bg-white focus:outline-none focus:ring-0 outline-0", required: true  %>
+      </div>
+      <div class="mt-1">
+        <%= form.submit 'Post Comment', disabled: @concern.closed?, class: "inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800" %>
+      </div>
+    </div>
+   <% end %>
 </div>
