@@ -1,5 +1,6 @@
 class Concern < ApplicationRecord
   belongs_to :user
+  has_many :comments, dependent: :destroy
   
   enum status: [ :open, :closed ]
 
