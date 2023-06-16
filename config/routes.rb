@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reports/index'
+  get 'reports/generate_report'
   resources :contracts
 
   devise_for :users, :controllers => { registrations: 'users/registrations' }, :path => '', :path_names => { :sign_in => "portal", :sign_up => "portal/register" }
@@ -87,6 +89,8 @@ Rails.application.routes.draw do
   resource :profile, only: [:show, :edit, :update] do
     post :purge_avatar, on: :collection
   end
+
+  resources :reports, only: [:index]
 
   get '/inquiry_submitted' => 'home#inquiry_submitted'
   post '/listen' => 'payments#listen'

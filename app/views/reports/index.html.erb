@@ -1,0 +1,54 @@
+<div>
+  <h1 class="text-lg md:text-xl lg:text-2xl font-bold">Reports</h1>
+</div>
+
+<!-- Form to generate the report -->
+<%= form_with(url: reports_path, method: :get) do |form| %>
+  <div class="flex gap-8 justify-between">
+    <div class="flex-1 flex gap-4">
+      <div class="flex items-center gap-2">
+        <%= form.label :start_date, "From", class: 'block font-medium' %>
+        <%= form.date_field :start_date, class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= form.label :end_date, "To", class: 'block font-medium' %>
+        <%= form.date_field :end_date, class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div class="flex-1 flex items-center gap-2">
+        <%= form.label :model, "Record", class: 'block font-medium'%>
+        <%= form.select :model, options_for_select({ 'Bookings' => 'bookings', 'Payments' => 'payments', 'Inquiries' => 'inquiries', 'Earnings' => 'earnings' }), {}, class: 'bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
+      </div>
+    </div>
+    
+    <%= form.submit "Generate Report", class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+  </div>
+<% end %>
+
+<!-- app/views/reports/index.html.erb -->
+<% if @generated_report %>
+  <div class="flex">
+    <p>Start Date: <%= @generated_report[:start_date] %></p>
+    <p>End Date: <%= @generated_report[:end_date] %></p>
+  </div>
+  <h3 class="font-medium capitalize"><%= @generated_report[:model] %></h3>
+  <% unless @generated_report[:model] == 'earnings' %>
+    <p>Record Count: <%= @generated_report[:record_count] %></p>
+    <h3><%= @generated_report[:model].capitalize.pluralize %></h3>
+    <% @records.each do |record| %>
+      <p>Record ID: <%= record.id %></p>
+      <!-- Display other record attributes as needed -->
+      <hr>
+    <% end %>
+  <% end %>
+  <% if @generated_report[:model] == 'earnings' %>  
+    <p>Total Expenses: <%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></p>
+    <p>Total Payments Received: <%= number_to_currency(@generated_report[:total_payments], unit: '₱') %></p>
+    <p>Gross Earnings: <%= number_to_currency(@generated_report[:earnings], unit: '₱') %></p>
+  <% end %>
+
+<% end %>
+
+
+
