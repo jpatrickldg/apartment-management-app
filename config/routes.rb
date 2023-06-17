@@ -90,7 +90,11 @@ Rails.application.routes.draw do
     post :purge_avatar, on: :collection
   end
 
-  resources :reports, only: [:index]
+  resources :reports, only: [:index] do
+    get :yearly, on: :collection
+    get :monthly, on: :collection
+    get :custom, on: :collection
+  end
 
   get '/inquiry_submitted' => 'home#inquiry_submitted'
   post '/listen' => 'payments#listen'

@@ -1,54 +1,224 @@
-<div>
-  <h1 class="text-lg md:text-xl lg:text-2xl font-bold">Reports</h1>
+<div class="flex-none">
+  <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Overall Summary Report</h2>
+  <p><strong>As of: </strong><%= @generated_report[:current_date].strftime('%B %d, %Y') %></p>
+  <p>Choose a report:</p>
+  <ul>
+    <li><%= link_to "Yearly Report", yearly_reports_path %></li>
+    <li><%= link_to "Monthly Report", monthly_reports_path %></li>
+    <li><%= link_to "Custom Range Report", custom_reports_path %></li>
+  </ul>
 </div>
 
-<!-- Form to generate the report -->
-<%= form_with(url: reports_path, method: :get) do |form| %>
-  <div class="flex gap-8 justify-between">
-    <div class="flex-1 flex gap-4">
-      <div class="flex items-center gap-2">
-        <%= form.label :start_date, "From", class: 'block font-medium' %>
-        <%= form.date_field :start_date, class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+<div class="flex-1 overflow-y-auto flex flex-col gap-8">
+  <div>
+    <% if @generated_report[:branch_counts].any? %>
+      <div class="overflow-x-auto relative rounded-md">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+            <tr>
+              <th class="py-1 px-3 w-1/8 text-lg">Occupancy Report</th>
+              <th class="py-1 px-3 w-1/2"></th>
+              <th class="py-1 px-3 w-1/8 text-center"></th>
+              <th class="py-1 px-3 w-1/8 text-center"></th> 
+            </tr>
+            <tr>
+              <th class="py-1 px-3 w-1/8">Branch Type</th>
+              <th class="py-1 px-3 w-1/2">Address</th>
+              <th class="py-1 px-3 w-1/8 text-center">Occupied</th>
+              <th class="py-1 px-3 w-1/8 text-center">Available</th> 
+            </tr>
+          </thead>
+          <tbody>
+            <% @generated_report[:branch_counts].each do |(address, branch_type), occupancy_count| %>
+              <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+                <td class="py-1 px-3"><%= branch_type %></td>
+                <td class="py-1 px-3"><%= truncate(address, length: 50) %></td>
+                <td class="py-1 px-3 text-center"><%= occupancy_count %></td>
+                <td class="py-1 px-3 text-center"><%= @generated_report[:branch_capacity][address] - occupancy_count %></td>
+              </tr>
+            <% end %>
+            <tr class="text-gray-800 border-b">
+              <td class="py-1 px-3 font-bold">Summary</td>
+              <td class="py-1 px-3"></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:total_occupancy_count] %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:available] %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <div class="flex items-center gap-2">
-        <%= form.label :end_date, "To", class: 'block font-medium' %>
-        <%= form.date_field :end_date, class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+    <% else %>
+      <div>
+        <p class="italic text-sm">Empty</p>
       </div>
-
-      <div class="flex-1 flex items-center gap-2">
-        <%= form.label :model, "Record", class: 'block font-medium'%>
-        <%= form.select :model, options_for_select({ 'Bookings' => 'bookings', 'Payments' => 'payments', 'Inquiries' => 'inquiries', 'Earnings' => 'earnings' }), {}, class: 'bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-gray-300 focus:ring-blue-500 focus:border-blue-500' %>
-      </div>
-    </div>
-    
-    <%= form.submit "Generate Report", class: 'block py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
-  </div>
-<% end %>
-
-<!-- app/views/reports/index.html.erb -->
-<% if @generated_report %>
-  <div class="flex">
-    <p>Start Date: <%= @generated_report[:start_date] %></p>
-    <p>End Date: <%= @generated_report[:end_date] %></p>
-  </div>
-  <h3 class="font-medium capitalize"><%= @generated_report[:model] %></h3>
-  <% unless @generated_report[:model] == 'earnings' %>
-    <p>Record Count: <%= @generated_report[:record_count] %></p>
-    <h3><%= @generated_report[:model].capitalize.pluralize %></h3>
-    <% @records.each do |record| %>
-      <p>Record ID: <%= record.id %></p>
-      <!-- Display other record attributes as needed -->
-      <hr>
     <% end %>
-  <% end %>
-  <% if @generated_report[:model] == 'earnings' %>  
-    <p>Total Expenses: <%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></p>
-    <p>Total Payments Received: <%= number_to_currency(@generated_report[:total_payments], unit: '₱') %></p>
-    <p>Gross Earnings: <%= number_to_currency(@generated_report[:earnings], unit: '₱') %></p>
-  <% end %>
+  </div>
+  <div>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="py-1 px-3 w-9/12 text-lg">Inquiry Report</th>
+            <th class="py-1 px-3 w-1/12 text-center"></th>
+          </tr>
+          <tr>
+            <th class="py-1 px-3 w-9/12"></th>
+            <th class="py-1 px-3 w-1/12 text-center">Inquiries</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# status  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Status</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Open</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:open_inquiry_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">On Going</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:on_going_inquiry_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Closed</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:closed_inquiry_count] %></td>
+          </tr>
+          
+          <%# gender  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Gender</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Male</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_male_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Female</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_female_count] %></td>
+          </tr>
 
-<% end %>
+          <%# occupation  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Occupation</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Student</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_student_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Reviewee</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_reviewee_count] %></td>
+          </tr>
+
+          <%# location preference  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Preferred Location</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Recto</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_recto_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Espana</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_espana_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Tacio</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_tacio_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Vicente Cruz</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_vicente_cruz_count] %></td>
+          </tr>
+
+          <%# room type  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Preferred Room Type</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Bedspace</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_bedspace_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Studio</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_studio_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Boarding House</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_boarding_house_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Condo - Fully Furnished</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_condo_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Condo - Empty</td>
+            <td class="py-1 px-3 text-center"><%= @generated_report[:inquiry_condo_empty_count] %></td>
+          </tr>
+          
+          <%# summary  %>
+          <tr class="bg-white text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Summary</td>
+            <td></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Total</td>
+            <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:inquiries_count] %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Contract Signed</td>
+            <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:contract_signed_count] %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <div class="overflow-x-auto relative rounded-md">
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+          <tr>
+            <th class="py-1 px-3 w-7/8 text-lg">Financial Report</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th class="py-1 px-3 w-7/8"></th>
+            <th class="py-1 px-3 w-1/8 text-center">Amount</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Total Expenses</td>
+            <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Total Unpaid Invoices</td>
+            <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_unpaid_invoices], unit: '₱') %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3">Total Payments Received</td>
+            <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_payments_amount], unit: '₱') %></td>
+          </tr>
+          <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+            <td class="py-1 px-3 font-bold">Gross Earnings</td>
+            <td class="py-1 px-3 text-center font-bold"><%= number_to_currency(@generated_report[:gross_earnings], unit: '₱') %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 
 
