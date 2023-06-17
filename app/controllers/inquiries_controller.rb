@@ -1,8 +1,9 @@
 class InquiriesController < ApplicationController
   before_action :authenticate_user!, except: [:inquire, :create]
   before_action :check_restriction, except: [:inquire, :create]
-  before_action :check_if_signed_in, only: [:inquire, :create]
+  # before_action :check_if_signed_in, only: [:inquire, :create]
   before_action :set_inquiry, only: [:show, :close, :update, :assists]
+  skip_before_action :verify_authenticity_token, only: [:create]
   layout "landing_page", only: [:inquire, :create]
 
   def index
@@ -27,10 +28,17 @@ class InquiriesController < ApplicationController
   def create
     @inquiry = Inquiry.new(inquiry_params)
 
+    # if @inquiry.save
+    #   redirect_to inquiry_submitted_path
+    # else
+    #   render 'home/index'
+    # end
     if @inquiry.save
-      redirect_to inquiry_submitted_path
+      # Successful creation of the inquiry
+      render json: { message: 'Inquiry created successfully' }, status: :created
     else
-      render 'home/index'
+      # Failed to create the inquiry
+      render json: { errors: @inquiry.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

@@ -21,5 +21,11 @@ module ApartmentManagement
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = "Asia/Manila"
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # Update this with the appropriate domain(s) of your React app
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end
