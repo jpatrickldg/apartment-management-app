@@ -95,3 +95,5 @@ gem 'aws-sdk-s3', require: false
 gem "matrix", "~> 0.4.2"
 
 gem 'rack-cors'
+
+gem 'twilio-ruby'
