@@ -3,8 +3,8 @@
   <p><strong>As of: </strong><%= @generated_report[:current_date].strftime('%B %d, %Y') %></p>
   <p>Choose a report:</p>
   <ul>
-    <li><%= link_to "Yearly Report", yearly_reports_path %></li>
-    <li><%= link_to "Monthly Report", monthly_reports_path %></li>
+    <li><%= link_to "Year Report", yearly_reports_path %></li>
+    <li><%= link_to "Month Report", monthly_reports_path %></li>
     <li><%= link_to "Custom Range Report", custom_reports_path %></li>
   </ul>
 </div>
