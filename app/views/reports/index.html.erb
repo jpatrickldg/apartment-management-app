@@ -1,13 +1,12 @@
-<div class="flex-none">
-  <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Overall Summary Report</h2>
-  <p><strong>As of: </strong><%= @generated_report[:current_date].strftime('%B %d, %Y') %></p>
-  <p>Choose a report:</p>
-  <ul>
-    <li><%= link_to "Year Report", yearly_reports_path %></li>
-    <li><%= link_to "Month Report", monthly_reports_path %></li>
-    <li><%= link_to "Custom Range Report", custom_reports_path %></li>
+<div class="flex-none flex justify-between">
+  <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Summary Report</h2>
+  <ul class="flex gap-4">
+    <li class="py-1 px-4 text-sm text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-[200] flex items-center"><%= link_to "Month Report", monthly_reports_path %></li>
+    <li class="py-1 px-4 text-sm text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-[200] flex items-center"><%= link_to "Year Report", yearly_reports_path %></li>
+    <li class="py-1 px-4 text-sm text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-[200] flex items-center"><%= link_to "Custom Report", custom_reports_path %></li>
   </ul>
 </div>
+<p><strong>As of: </strong><%= @generated_report[:current_date].strftime('%B %d, %Y') %></p>
 
 <% if @generated_report %>
   <div class="flex-1 overflow-y-auto flex flex-col gap-8">
@@ -27,19 +26,19 @@
           <tbody>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Occupants</td>
-              <td class="py-1 px-3 text-center"><%= @generated_report[:total_occupancy_count] %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:total_occupancy_count] %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Inquiries</td>
-              <td class="py-1 px-3 text-center"><%= @generated_report[:inquiries_count] %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:inquiries_count] %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Expenses</td>
-              <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Payments Received</td>
-              <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_payments_amount], unit: '₱') %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= number_to_currency(@generated_report[:total_payments_amount], unit: '₱') %></td>
             </tr>
           </tbody>
         </table>

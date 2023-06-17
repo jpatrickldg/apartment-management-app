@@ -1,14 +1,13 @@
 <div class="flex-none">
-  <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Month Report</h2>
+  <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Year Report</h2>
 </div>
 
 <!-- Form to generate the report -->
-<%= form_with(url: monthly_reports_path, method: :get) do |form| %>
+<%= form_with(url: yearly_reports_path, method: :get) do |form| %>
   <div class="flex gap-8 justify-between">
     <div class="flex-1 flex gap-4">
       <div class="flex items-center gap-2">
-        <%= form.label :selected_date, "Month", class: 'block font-medium' %>
-        <%= form.date_field :selected_date, type: 'month', class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+        <%= form.select :selected_date, (2020..Time.current.year), prompt: 'Select Year', class: "mt-1 bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 uppercase border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
       </div>
     </div>
     
@@ -17,7 +16,7 @@
 <% end %>
 
 <% if @generated_report %>
-  <p><strong>Date Selected: </strong><%= @generated_report[:selected_date].strftime('%B %Y') %></p>
+  <p><strong>Year Selected: </strong><%= @generated_report[:year] %></p>
   <div class="flex-1 overflow-y-auto flex flex-col gap-8">
     <div>
       <div class="overflow-x-auto relative rounded-md">

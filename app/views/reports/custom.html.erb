@@ -43,19 +43,19 @@
           <tbody>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Occupants</td>
-              <td class="py-1 px-3 text-center"><%= @generated_report[:total_occupancy_count] %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:total_occupancy_count] %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Inquiries</td>
-              <td class="py-1 px-3 text-center"><%= @generated_report[:inquiries_count] %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:inquiries_count] %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Expenses</td>
-              <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= number_to_currency(@generated_report[:total_expenses], unit: '₱') %></td>
             </tr>
             <tr class="text-gray-800 border-b hover:bg-gray-100">
               <td class="py-1 px-3 font-bold">Payments Received</td>
-              <td class="py-1 px-3 text-center"><%= number_to_currency(@generated_report[:total_payments_amount], unit: '₱') %></td>
+              <td class="py-1 px-3 text-center font-bold"><%= number_to_currency(@generated_report[:total_payments_amount], unit: '₱') %></td>
             </tr>
           </tbody>
         </table>
