@@ -38,7 +38,7 @@ class InquiriesController < ApplicationController
       render json: { message: 'Inquiry created successfully' }, status: :created
     else
       # Failed to create the inquiry
-      render json: { errors: inquiry.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @inquiry.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
