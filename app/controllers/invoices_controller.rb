@@ -72,7 +72,13 @@ class InvoicesController < ApplicationController
   def send_email_reminder
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
     @user = @invoice.booking.user
+
     UserMailer.with(user: @user).due_reminder.deliver_now
+
+    # Create an instance of SmsController and call the send_message method
+    sms_controller = SmsController.new
+    sms_controller.send_message("Reminder: Your payment is due.")
+    
     redirect_to invoice_path(@invoice), notice: 'Payment Reminder Sent'
   end
 

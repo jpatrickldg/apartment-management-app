@@ -100,4 +100,6 @@ Rails.application.routes.draw do
   post '/listen' => 'payments#listen'
   post '/links' => 'invoices#links' 
 
+  post '/send_message', to: 'sms#send_message'
+
 end
