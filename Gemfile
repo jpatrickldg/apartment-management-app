@@ -97,3 +97,5 @@ gem "matrix", "~> 0.4.2"
 gem 'rack-cors'
 
 gem 'twilio-ruby'
+
+gem 'semaphore-sms'
