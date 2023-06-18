@@ -16,7 +16,7 @@ class User < ApplicationRecord
   enum status: [ :active, :inactive ]
   enum role: [ :tenant, :receptionist, :cashier, :maintenance, :owner, :admin ]
 
-  before_validation :format_contact_no
+  before_validation :format_contact_no, on: :create
 
   validates :first_name, presence: true
   validates :last_name, presence: true

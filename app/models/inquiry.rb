@@ -3,7 +3,7 @@ class Inquiry < ApplicationRecord
 
   enum status: [ :open, :on_going, :closed ]
 
-  before_validation :format_contact_no
+  before_validation :format_contact_no, on: :create
 
   validates :email, presence: true
   validates :first_name, presence: true

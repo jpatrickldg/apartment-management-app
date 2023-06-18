@@ -57,7 +57,7 @@ RSpec.describe "Inquiries", type: :request do
       }
 
       post inquiries_path, params: { inquiry: inquiry_params }
-      expect(response).to redirect_to(inquiry_submitted_path)
+      expect(response).to have_http_status(201)
     end
   end
 
