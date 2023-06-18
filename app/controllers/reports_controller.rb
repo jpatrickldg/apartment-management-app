@@ -113,7 +113,7 @@ class ReportsController < ApplicationController
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
         #financial
-        total_expenses = Expense.where(created_at: start_date..end_date, created_at: start_date..end_date).sum('expenses.amount')
+        total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
@@ -195,7 +195,7 @@ class ReportsController < ApplicationController
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
         #financial
-        total_expenses = Expense.where(created_at: start_date..end_date, created_at: start_date..end_date).sum('expenses.amount')
+        total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
@@ -275,7 +275,7 @@ class ReportsController < ApplicationController
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
         #financial
-        total_expenses = Expense.where(created_at: start_date..end_date, created_at: start_date..end_date).sum('expenses.amount')
+        total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
