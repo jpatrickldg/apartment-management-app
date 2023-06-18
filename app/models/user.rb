@@ -16,21 +16,21 @@ class User < ApplicationRecord
   enum status: [ :active, :inactive ]
   enum role: [ :tenant, :receptionist, :cashier, :maintenance, :owner, :admin ]
 
-  before_validation :format_contact_no, on: :create
+  # before_validation :format_contact_no, on: :create
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :birthdate, presence: true
   validates :gender, presence: true
-  validates :contact_no, presence: true, length: { is: 13 }
+  validates :contact_no, presence: true, length: { is: 11 }
   validates :address, presence: true
   validates :role, presence: true
 
-  def format_contact_no
-    return if contact_no.blank?
+  # def format_contact_no
+  #   return if contact_no.blank?
 
-    self.contact_no = "+63" + contact_no[1..-1]
-  end
+  #   self.contact_no = "+63" + contact_no[1..-1]
+  # end
   
 
   def active_for_authentication?
