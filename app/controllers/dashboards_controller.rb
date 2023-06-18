@@ -13,7 +13,7 @@ class DashboardsController < ApplicationController
     @unpaid_invoices = current_user.invoices.includes(:booking).where(status: 'unpaid')
     @users_count = User.where(status: 'active').count
     @open_concerns_count = Concern.where(status: 'open').count
-    @open_inquiries_count = Inquiry.where(status: 'open').count
+    @open_inquiries_count = Inquiry.where.not(status: 'closed').count
     @unpaid_invoices_count = Invoice.where(status: 'unpaid').count
     active_booking = Booking.where(status: 'active')
     @bookings_due_this_week_count = active_booking.where("due_date <= ?", Date.today.at_beginning_of_week + 7.days).count
@@ -27,7 +27,8 @@ class DashboardsController < ApplicationController
     elsif current_user.receptionist?
       render "dashboards/receptionist"
     elsif current_user.admin?
-      render "dashboards/admin"
+      # render "dashboards/admin"
+      redirect_to users_path
     elsif current_user.owner?
       render "dashboards/owner"
     end

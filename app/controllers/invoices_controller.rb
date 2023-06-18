@@ -45,6 +45,14 @@ class InvoicesController < ApplicationController
     @invoice = @booking.invoices.build(invoice_params)
     if @invoice.save
       @invoice.set_processed_by(current_user.email)
+
+      # Accessing the contact_no of the associated User
+      contact_no = @booking.user.contact_no
+      message = "Good day. A new invoice amounting to P#{@invoice.total_amount} has been charged to your account. Kindly settle on or before #{@booking.due_date}. Thank you."
+
+      # Send message after invoice is saved
+      send_message(message, contact_no)
+
       redirect_to booking_path(@booking), notice: 'Invoice Added'
     else 
       render :new
@@ -71,15 +79,25 @@ class InvoicesController < ApplicationController
 
   def send_email_reminder
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
+    @booking = Booking.find(@invoice.booking_id)
     @user = @invoice.booking.user
 
     UserMailer.with(user: @user).due_reminder.deliver_now
 
-    # Create an instance of SmsController and call the send_message method
-    sms_controller = SmsController.new
-    sms_controller.send_message("Reminder: Your payment is due.")
+    contact_no = @user.contact_no
+    message = "This is a gentle reminder about your balance amounting to P#{@invoice.total_amount}. Kindly settle on or before #{@booking.due_date}. Thank you."
+
+    # Send message after invoice is saved
+    send_message(message, contact_no)
     
     redirect_to invoice_path(@invoice), notice: 'Payment Reminder Sent'
+  end
+
+  def send_message(message, phone_number)
+    client = Semaphore::Sms.client
+  
+    # Sending an SMS message
+    client.send(message, phone_number)
   end
 
   def pdf

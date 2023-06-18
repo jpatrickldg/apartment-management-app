@@ -17,6 +17,10 @@
     <p><%= @inquiry.first_name.capitalize %> <%= @inquiry.last_name.capitalize %></p>
   </div>
   <div class="flex gap-2 place-items-center mb-2">
+    <p class="md:w-48"><strong>Date of Birth:</strong></p>
+    <p><%= @inquiry.birthdate.strftime('%B %d, %Y') %></p>
+  </div>
+  <div class="flex gap-2 place-items-center mb-2">
     <p class="md:w-48"><strong>Gender:</strong></p>
     <p><%= @inquiry.gender.capitalize %></p>
   </div>
@@ -38,7 +42,7 @@
   </div>
   <div class="flex gap-2 place-items-center mb-2">
     <p class="md:w-48"><strong>Target Move-In Date:</strong></p>
-    <p><%= @inquiry.move_in_date %></p>
+    <p><%= @inquiry.move_in_date.strftime('%B %d, %Y') %></p>
   </div>
   
   <% if (current_user.admin? || current_user.owner?) && !@inquiry.open? %>

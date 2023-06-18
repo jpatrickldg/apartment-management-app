@@ -101,5 +101,4 @@ Rails.application.routes.draw do
   post '/links' => 'invoices#links' 
 
   post '/send_message', to: 'sms#send_message'
-
 end
