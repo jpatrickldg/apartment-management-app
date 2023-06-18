@@ -27,7 +27,8 @@ class DashboardsController < ApplicationController
     elsif current_user.receptionist?
       render "dashboards/receptionist"
     elsif current_user.admin?
-      render "dashboards/admin"
+      # render "dashboards/admin"
+      redirect_to users_path
     elsif current_user.owner?
       render "dashboards/owner"
     end
