@@ -33,13 +33,4 @@
       <%= f.submit "Log in", class: 'w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-full px-5 py-2.5 text-center hover:cursor-pointer' %>
     </div>
   <% end %>
-  <div class="text-left">
-    <span class="text-sm font-medium text-gray-900 t">Don't have an account yet? </span><%= link_to "Register", new_registration_path(resource_name), class: 'font-medium text-blue-500 hover:underline text-sm' %>
-  </div>
-  <div class="text-left">
-    <span class="text-sm font-medium text-gray-900 t">Didn't receive confirmation instructions? </span><%= link_to "Click here", new_confirmation_path(resource_name), class: 'font-medium text-blue-500 hover:underline text-sm' %>
-  </div>
-  <div class="text-left">
-    <span class="text-sm font-medium text-gray-900 t">Didn't receive unlock instructions? </span><%= link_to "Click here", new_unlock_path(resource_name), class: 'font-medium text-blue-500 hover:underline text-sm' %>
-  </div>
 </div>

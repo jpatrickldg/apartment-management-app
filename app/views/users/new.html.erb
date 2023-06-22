@@ -17,30 +17,6 @@
         <% end %>
       </div>
 
-      <% invalid_password = @user.errors.include?(:password) %>
-      <div class="mb-2">
-        <%= f.password_field :password, placeholder: 'Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password), autocomplete: "new-password" %>
-        <% if invalid_password %>
-          <% @user.errors.full_messages_for(:password).each do |msg| %>
-            <div class="text-red-500 text-sm">
-              <%= msg %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-
-      <% invalid_password_confirmation = @user.errors.include?(:password_confirmation) %>
-      <div class="mb-2">
-        <%= f.password_field :password_confirmation, placeholder: 'Confirm Password', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_password_confirmation ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}", autofocus: (true if invalid_password_confirmation), autocomplete: "new-password" %>
-        <% if invalid_password_confirmation %>
-          <% @user.errors.full_messages_for(:password_confirmation).each do |msg| %>
-            <div class="text-red-500 text-sm">
-              <%= msg %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-
       <% invalid_first_name = @user.errors.include?(:first_name) %>
       <div class="mb-2">
         <%= f.text_field :first_name, autofocus: (true if invalid_first_name), placeholder: 'First name', class: "bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 #{invalid_first_name ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
@@ -146,6 +122,34 @@
             </div>
             <div class="flex gap-2 place-items-center">
               <%= f.radio_button :role, 'owner' %>
+              <%= f.label 'Owner' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <p class="font-medium mb-1">Occupation:</p>
+        <div class="flex flex-col justify-center">
+          <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :occupation, 'student' %>
+            <%= f.label 'Student' %>
+          </div>
+          <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :occupation, 'reviewee' %>
+            <%= f.label 'Reviewee' %>
+          </div>
+          <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :occupation, 'staff' %>
+            <%= f.label 'Staff' %>
+          </div>
+          <% if current_user.owner? %>
+            <div class="flex gap-2 place-items-center">
+              <%= f.radio_button :occupation, 'admin' %>
+              <%= f.label 'Admin' %>
+            </div>
+            <div class="flex gap-2 place-items-center">
+              <%= f.radio_button :occupation, 'owner' %>
               <%= f.label 'Owner' %>
             </div>
           <% end %>

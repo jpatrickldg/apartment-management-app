@@ -28,7 +28,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.password = SecureRandom.base64(8)
+    @user.password_confirmation = @user.password
+    @user.confirmed_at = Time.current # Mark the user as confirmed
+    
     if @user.save
+      # Send email to the user with their credentials
+      UserMailer.user_credentials_email(@user).deliver_now
+
       redirect_to users_path, notice: 'User Created'
     else
       render :new
@@ -86,7 +93,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :birthdate, :gender, :contact_no, :address, :email, :password, :password_confirmation, :role )
+    params.require(:user).permit(:first_name, :last_name, :birthdate, :gender, :contact_no, :address, :email, :password, :password_confirmation, :role, :occupation )
   end
   
 
