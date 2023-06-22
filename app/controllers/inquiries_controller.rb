@@ -50,7 +50,12 @@ class InquiriesController < ApplicationController
 
   def update 
     if @inquiry.update(inquiry_params)
-      redirect_to authenticated_root_path, notice: 'Inquiry Closed'
+      if @inquiry.contract_signed 
+        create_user_from_inquiry(@inquiry)
+        redirect_to authenticated_root_path, notice: 'Inquiry Closed and User Added'
+      else
+        redirect_to authenticated_root_path, notice: 'Inquiry Closed'
+      end
     else
       render :close
     end
@@ -63,6 +68,33 @@ class InquiriesController < ApplicationController
   end
 
   private
+
+  def create_user_from_inquiry(inquiry)
+    # Retrieve necessary information from the inquiry to create the user
+    random_password = SecureRandom.base64(8)
+
+    user_attributes = {
+      email: inquiry.email,
+      password: random_password,
+      password_confirmation: random_password,
+      confirmed_at: Time.current,
+      first_name: inquiry.first_name,
+      last_name: inquiry.last_name,
+      gender: inquiry.gender,
+      birthdate: inquiry.birthdate,
+      contact_no: inquiry.contact_no,
+      role: "tenant",
+      address: inquiry.address,
+      occupation: inquiry.occupation
+    }
+
+    # Create the user
+    user = User.create(user_attributes)
+    # You might want to handle errors or validations when creating the user
+
+    # Send an email with the user's credentials
+    UserMailer.user_credentials_email(user).deliver_now
+  end
 
   def set_inquiry
     @inquiry = Inquiry.find(params[:id])
@@ -81,6 +113,6 @@ class InquiriesController < ApplicationController
   end
 
   def inquiry_params
-    params.require(:inquiry).permit(:email, :first_name, :last_name, :birthdate, :gender, :contact_no, :occupation, :location_preference, :room_type, :move_in_date, :status, :contract_signed )
+    params.require(:inquiry).permit(:email, :first_name, :last_name, :birthdate, :gender, :contact_no, :occupation, :location_preference, :room_type, :move_in_date, :status, :contract_signed, :address )
   end
 end
