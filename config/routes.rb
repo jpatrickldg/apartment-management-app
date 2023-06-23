@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :bookings, except: [:index, :destroy], shallow: true do
       get :deactivate, on: :member
       patch :update_deactivate, on: :member
+      post :release_deposit, on: :member
       resources :invoices, only: [:new, :create, :edit, :update], shallow: true do
         resource :payment, only: [:new, :create]
       end

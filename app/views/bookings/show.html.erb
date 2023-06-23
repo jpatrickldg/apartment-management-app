@@ -10,7 +10,7 @@
       <% elsif @booking.inactive? %>
         <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @booking.status.upcase %></h1>
       <% end %>
-      <% if @booking.active? && !current_user.tenant? %>
+      <% if @booking.active? && !current_user.tenant? && @booking.deposit.released? %>
         <%= link_to 'DEACTIVATE', deactivate_booking_path(@booking), class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
       <% end %>
     </div>
@@ -48,11 +48,33 @@
       <p class="md:w-40"><strong>Due Date:</strong></p>
       <p><%= @booking.due_date %></p>
     </div>
+    <div class="flex gap-2 mt-2 items-center">
+      <span class="md:w-40"><strong>Deposits</strong></span>
+      <% if !current_user.receptionist? && !current_user.tenant? && !@booking.deposit.released? %>
+        <%= button_to 'RELEASE', release_deposit_booking_path(@booking), method: :post, class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
+      <% end %>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Security:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.security, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Utility:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.utility, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Key:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.key, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-4">
+      <p class="md:w-40"><strong>Bed Sheet:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.bed_sheet, unit: '₱') %></p>
+    </div>
   </div>
   <div>
     <div class="flex gap-2 place-items-center mb-2">
       <h1 class="text-lg lg:text-xl font-bold">Invoices</h1>
-      <% if @booking.active? && !current_user.tenant? %>
+      <% if @booking.active? && !current_user.tenant? && @booking.invoices.where(status: 'unpaid').empty? %>
         <%= link_to 'New Invoice', new_booking_invoice_path(@booking), class: 'block w-fit py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     </div>

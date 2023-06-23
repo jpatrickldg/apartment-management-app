@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_024004) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_091904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_024004) do
     t.index ["booking_id"], name: "index_contracts_on_booking_id"
   end
 
+  create_table "deposits", force: :cascade do |t|
+    t.decimal "security"
+    t.decimal "utility"
+    t.decimal "key"
+    t.decimal "bed_sheet"
+    t.boolean "released", default: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "booking_id", null: false
+    t.decimal "total_amount", precision: 8, scale: 2
+    t.index ["booking_id"], name: "index_deposits_on_booking_id"
+    t.index ["user_id"], name: "index_deposits_on_user_id"
+  end
+
   create_table "expenses", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -153,6 +168,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_024004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "room_rate", precision: 8, scale: 2, default: "0.0", null: false
+    t.decimal "security", precision: 8, scale: 2, default: "0.0"
+    t.decimal "utility", precision: 8, scale: 2, default: "0.0"
+    t.decimal "key", precision: 8, scale: 2, default: "0.0"
+    t.decimal "bed_sheet", precision: 8, scale: 2, default: "0.0"
+    t.decimal "penalty", precision: 8, scale: 2, default: "0.0"
     t.index ["booking_id"], name: "index_invoices_on_booking_id"
   end
 
@@ -228,6 +248,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_024004) do
   add_foreign_key "comments", "users"
   add_foreign_key "concerns", "users"
   add_foreign_key "contracts", "bookings"
+  add_foreign_key "deposits", "bookings"
+  add_foreign_key "deposits", "users"
   add_foreign_key "invoices", "bookings"
   add_foreign_key "payments", "invoices"
   add_foreign_key "rooms", "branches"

@@ -3,7 +3,7 @@ class BookingsController < ApplicationController
   before_action :check_restriction, except: [:index, :show]
   before_action :check_ownership, only: [:show]
   before_action :get_tenant, only: [:new, :create]
-  before_action :set_booking, only: [:edit, :update, :deactivate, :update_deactivate]
+  before_action :set_booking, only: [:edit, :update, :deactivate, :update_deactivate, :release_deposit]
   before_action :check_unpaid_invoice, only: [:deactivate, :update_deactivate]
 
   def index
@@ -59,6 +59,11 @@ class BookingsController < ApplicationController
     else
       render :deactivate
     end
+  end
+
+  def release_deposit
+    @booking.deposit.update(security: 0, utility: 0, key: 0, bed_sheet: 0, released: true)
+    redirect_to booking_path(@booking), notice: 'Deposits released to the tenant'
   end
 
   private
