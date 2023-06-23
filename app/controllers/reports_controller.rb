@@ -34,9 +34,10 @@ class ReportsController < ApplicationController
 
     #financial
     total_expenses = Expense.all.sum('expenses.amount')
+    tenants_deposits = Deposit.all.sum('deposits.total_amount')
     total_unpaid_invoices = Invoice.where(status: 'unpaid').sum('invoices.total_amount')
     total_payments_amount = Payment.where(status: 'approved').sum('payments.amount')
-    gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
+    gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
     @generated_report = {
       current_date: current_date,
@@ -68,6 +69,7 @@ class ReportsController < ApplicationController
       inquiry_boarding_house_count: inquiry_boarding_house_count,
 
       total_expenses: total_expenses,
+      tenants_deposits: tenants_deposits,
       total_unpaid_invoices: total_unpaid_invoices,
       total_payments_amount: total_payments_amount,
       gross_earnings: gross_earnings
@@ -114,9 +116,10 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
+        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
-        gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
+        gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
           year: year,
@@ -148,6 +151,7 @@ class ReportsController < ApplicationController
           inquiry_boarding_house_count: inquiry_boarding_house_count,
 
           total_expenses: total_expenses,
+          tenants_deposits: tenants_deposits,
           total_unpaid_invoices: total_unpaid_invoices,
           total_payments_amount: total_payments_amount,
           gross_earnings: gross_earnings
@@ -196,9 +200,10 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
+        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
-        gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
+        gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
           selected_date: date,
@@ -230,6 +235,7 @@ class ReportsController < ApplicationController
           inquiry_boarding_house_count: inquiry_boarding_house_count,
 
           total_expenses: total_expenses,
+          tenants_deposits: tenants_deposits,
           total_unpaid_invoices: total_unpaid_invoices,
           total_payments_amount: total_payments_amount,
           gross_earnings: gross_earnings
@@ -276,9 +282,10 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
+        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
-        gross_earnings = (total_payments_amount + total_unpaid_invoices) - total_expenses
+        gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
           start_date: start_date,
@@ -311,6 +318,7 @@ class ReportsController < ApplicationController
           inquiry_boarding_house_count: inquiry_boarding_house_count,
 
           total_expenses: total_expenses,
+          tenants_deposits: tenants_deposits,
           total_unpaid_invoices: total_unpaid_invoices,
           total_payments_amount: total_payments_amount,
           gross_earnings: gross_earnings
