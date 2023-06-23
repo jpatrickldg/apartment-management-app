@@ -25,6 +25,30 @@
       <%= f.number_field :electricity_bill, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
+    <div class="mb-2">
+      <%= f.label :penalty, class: 'block font-medium mb-1' %>
+      <%= f.number_field :penalty, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+    </div>
+
+    <% if @booking.invoices.empty? %>
+      <div class="mb-2">
+        <%= f.label :security, class: 'block font-medium mb-1' %>
+        <%= f.number_field :security, readonly: true, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      </div>
+      <div class="mb-2">
+        <%= f.label :utility, class: 'block font-medium mb-1' %>
+        <%= f.number_field :utility, readonly: true, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      </div>
+      <div class="mb-2">
+        <%= f.label :key, class: 'block font-medium mb-1' %>
+        <%= f.number_field :key, readonly: true, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      </div>
+      <div class="mb-2">
+        <%= f.label :bed_sheet, class: 'block font-medium mb-1' %>
+        <%= f.number_field :bed_sheet, readonly: true, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
+      </div>
+    <% end %>
+
     <% invalid_remarks = @invoice.errors.include?(:remarks) %>
     <div class="mb-4">
       <div class="flex flex-col justify-center mb-1">

@@ -94,11 +94,11 @@ class Booking < ApplicationRecord
 
   def create_deposit
     deposit = Deposit.new(booking: self, user: user)
-    deposit.assign_attributes(calculate_deposit_amount)
+    deposit.assign_attributes(calculate_deposit_amount(self.move_in_date, self.move_out_date))
     deposit.save
   end
 
-  def calculate_deposit_amount
+  def calculate_deposit_amount(move_in_date, move_out_date)
     deposit = {
       key: 200,
       bed_sheet: 300
@@ -108,13 +108,18 @@ class Booking < ApplicationRecord
       duration = (move_out_date - move_in_date).to_i
       room_rate = room.monthly_rate
 
-      if duration < 5.months
+      puts "Duration: #{duration} days"
+
+      if duration < 150
+        puts "Yes 150"
         deposit[:security] = room_rate
         deposit[:utility] = 2000
-      elsif duration >= 5.months && duration < 9.months
+      elsif duration >= 150 && duration < 270
+        puts "Yes 270"
         deposit[:security] = room_rate * 2
         deposit[:utility] = 2500
       else
+        puts "Yes more"
         deposit[:security] = room_rate * 2
         deposit[:utility] = 3000
       end

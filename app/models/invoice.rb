@@ -35,7 +35,7 @@ class Invoice < ApplicationRecord
   private
 
   def set_total_amount
-    self.total_amount = self.water_bill + self.electricity_bill + self.room_rate
+    self.total_amount = self.water_bill + self.electricity_bill + self.room_rate + self.security + self.penalty + self.utility + self.key + self.bed_sheet
   end  
 
   def set_booking_due_date

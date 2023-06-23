@@ -38,7 +38,16 @@ class InvoicesController < ApplicationController
   end
 
   def new
-    @invoice = @booking.invoices.build 
+    @invoice = @booking.invoices.build
+    @booking = Booking.find(params[:booking_id]) 
+
+    if @booking.invoices.empty?
+       @invoice.security = @booking.deposit.security
+       @invoice.utility = @booking.deposit.utility
+       @invoice.key = @booking.deposit.key
+       @invoice.bed_sheet = @booking.deposit.bed_sheet
+       @invoice.remarks = "Initial"
+    end
   end
 
   def create
@@ -177,6 +186,6 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:booking_id, :water_bill, :electricity_bill, :total_amount, :date_from, :date_to, :remarks, :processed_by, :status, :room_rate )
+    params.require(:invoice).permit(:booking_id, :water_bill, :electricity_bill, :total_amount, :date_from, :date_to, :remarks, :processed_by, :status, :room_rate, :security, :utility, :key, :bed_sheet, :penalty )
   end
 end
