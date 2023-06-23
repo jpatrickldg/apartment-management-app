@@ -36,6 +36,25 @@
           <p class="md:w-40"><strong>Monthly Rate:</strong></p>
           <p><%= number_to_currency(booking.room.monthly_rate, unit: '₱') %></p>
         </div>
+        <div class="mb-2">
+          <span><strong>Deposits</strong></span>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Security:</strong></p>
+          <p><%= number_to_currency(booking.deposit.security, unit: '₱') %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Utility:</strong></p>
+          <p><%= number_to_currency(booking.deposit.utility, unit: '₱') %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-2">
+          <p class="md:w-40"><strong>Key:</strong></p>
+          <p><%= number_to_currency(booking.deposit.key, unit: '₱') %></p>
+        </div>
+        <div class="flex gap-2 place-items-center mb-4">
+          <p class="md:w-40"><strong>Bed Sheet:</strong></p>
+          <p><%= number_to_currency(booking.deposit.bed_sheet, unit: '₱') %></p>
+        </div>
         <div class="md:w-40">
           <%= link_to 'View Details', booking_path(booking), class: 'block py-1 px-4 text-sm font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         </div>

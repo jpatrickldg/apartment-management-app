@@ -4,6 +4,7 @@ class Booking < ApplicationRecord
   has_many :invoices, dependent: :destroy
   has_many :payments, through: :invoices, dependent: :destroy
   has_one :contract, dependent: :destroy
+  has_one :deposit, dependent: :destroy
 
   enum status: [ :active, :inactive ]
 
@@ -11,7 +12,7 @@ class Booking < ApplicationRecord
   before_update :deactivate_tenant_account
   before_update :set_room_occupants_once_inactive_or_destroyed, if: :inactive?
   before_destroy :set_room_occupants_once_inactive_or_destroyed
-  after_create :generate_contract
+  after_create :generate_contract, :create_deposit
   after_update :update_contract_status, if: :saved_change_to_status?
 
   # validate :only_one_active_booking
@@ -89,6 +90,41 @@ class Booking < ApplicationRecord
 
   def update_contract_status
     contract.update(status: status)
+  end
+
+  def create_deposit
+    deposit = Deposit.new(booking: self, user: user)
+    deposit.assign_attributes(calculate_deposit_amount)
+    deposit.save
+  end
+
+  def calculate_deposit_amount
+    deposit = {
+      key: 200,
+      bed_sheet: 300
+    }
+
+    if move_out_date.present?
+      duration = (move_out_date - move_in_date).to_i
+      room_rate = room.monthly_rate
+
+      if duration < 5.months
+        deposit[:security] = room_rate
+        deposit[:utility] = 2000
+      elsif duration >= 5.months && duration < 9.months
+        deposit[:security] = room_rate * 2
+        deposit[:utility] = 2500
+      else
+        deposit[:security] = room_rate * 2
+        deposit[:utility] = 3000
+      end
+    else
+      room_rate = room.room_rate
+      deposit[:security] = room_rate * 2
+      deposit[:utility] = 3000
+    end
+
+    deposit
   end
 
 end

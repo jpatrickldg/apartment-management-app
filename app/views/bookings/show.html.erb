@@ -48,6 +48,25 @@
       <p class="md:w-40"><strong>Due Date:</strong></p>
       <p><%= @booking.due_date %></p>
     </div>
+    <div class="mt-2">
+      <span><strong>Deposits</strong></span>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Security:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.security, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Utility:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.utility, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center">
+      <p class="md:w-40"><strong>Key:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.key, unit: '₱') %></p>
+    </div>
+    <div class="flex gap-2 place-items-center mb-4">
+      <p class="md:w-40"><strong>Bed Sheet:</strong></p>
+      <p><%= number_to_currency(@booking.deposit.bed_sheet, unit: '₱') %></p>
+    </div>
   </div>
   <div>
     <div class="flex gap-2 place-items-center mb-2">

@@ -18,7 +18,22 @@
             <% end %>
           <% end %>
         </div>
-        <%= f.date_field :move_in_date, autofocus: (true if invalid_move_in_date), class: "bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 uppercase #{invalid_move_in_date ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+        <%= f.date_field :move_in_date, autofocus: (true if invalid_move_in_date), min: Date.current, class: "bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 uppercase #{invalid_move_in_date ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
+      </div>
+
+      <% invalid_move_out_date = @booking.errors.include?(:move_out_date) %>
+      <div class="mb-2">
+        <div class="flex items-center gap-2 mb-1">
+          <%= f.label :move_out_date, class: 'block font-medium capitalize' %> 
+          <% if invalid_move_out_date %>
+            <% @booking.errors.full_messages_for(:move_out_date).each do |msg| %>
+              <div class="text-red-500 text-sm">
+                (<%= msg %>)
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= f.date_field :move_out_date, autofocus: (true if invalid_move_out_date), min: Date.current + 1.month, class: "bg-gray-50 border text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 uppercase #{invalid_move_out_date ? 'border-red-400 border-2 focus:ring-red-400 focus:border-red-400' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'}" %>
       </div>
 
       <% invalid_room = @booking.errors.include?(:room) %>
