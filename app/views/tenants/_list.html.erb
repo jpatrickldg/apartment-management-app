@@ -49,8 +49,8 @@
                 <% end %>
               </td>
               <td class="p-3 text-center"><%= link_to tenant.email, tenant_path(tenant), class: 'font-medium text-blue-600 hover:underline' %></td>
-              <td class="p-3 text-center"><%= tenant.first_name.capitalize %></td>
-              <td class="p-3 text-center"><%= tenant.last_name.capitalize %></td>
+              <td class="p-3 text-center capitalize"><%= tenant.first_name.capitalize %></td>
+              <td class="p-3 text-center capitalize"><%= tenant.last_name.capitalize %></td>
               <td class="p-3 text-center"><%= tenant.gender.capitalize %></td>
               <td class="p-3 text-center"><%= tenant.contact_no %></td>
               <% if !url.include? "active" %>

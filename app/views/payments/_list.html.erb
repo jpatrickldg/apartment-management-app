@@ -35,7 +35,7 @@
             <td class="p-3 text-center"><%= payment.payment_mode.capitalize %></td>
             <td class="p-3 text-center"><%= number_to_currency(payment.amount, unit: '₱') %></td>
             <% if !current_user.tenant? %>
-              <td class="p-3 text-center"><%= payment.initiated_by.capitalize %></td>
+              <td class="p-3 text-center"><%= payment.initiated_by %></td>
               <td class="p-3 text-center"><%= payment.processed_by ? payment.processed_by : '-' %></td> 
             <% end %>
             <td class="p-3 text-center"><%= payment.remarks.capitalize %></td>

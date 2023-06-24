@@ -28,13 +28,13 @@
     </div>
     <div>
       <p><strong>Billed to:</strong></p>
-      <p><%= @invoice.booking.user.first_name.capitalize %> <%= @invoice.booking.user.last_name.capitalize %></p>
-      <p><%= @invoice.booking.user.address.capitalize %></p>
+      <p class="capitalize"><%= @invoice.booking.user.first_name.capitalize %> <%= @invoice.booking.user.last_name.capitalize %></p>
+      <p class="capitalize"><%= @invoice.booking.user.address.capitalize %></p>
       <p><%= @invoice.booking.user.email %></p>
     </div>
     <div>
       <div class="flex gap-2 place-items-center">
-        <p class="w-40"><strong>Description:</strong></p>
+        <p class="w-40"><strong>Remarks:</strong></p>
         <p><%= @invoice.remarks %></p>
       </div>
       <div class="flex flex-col justify-center md:flex-row md:place-items-center md:justify-start md:gap-2">
@@ -55,11 +55,9 @@
         <p class="w-40"><strong>Maynilad:</strong></p>
         <p><%= number_to_currency(@invoice.water_bill, unit: '₱') %></p>
       </div>
-    </div>
-    <div>
       <div class="flex gap-2 place-items-center">
-        <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@invoice.total_amount, unit: '₱') %></p>
+        <p class="w-40"><strong>Total Room Payments:</strong></p>
+        <p class="font-medium"><%= number_to_currency(@total_room_payments, unit: '₱') %></p>
       </div>
     </div>
     <div>
@@ -82,6 +80,10 @@
         <p class="w-40"><strong>Bed Sheet:</strong></p>
         <p><%= number_to_currency(@invoice.bed_sheet, unit: '₱') %></p>
       </div>
+      <div class="flex gap-2 place-items-center">
+        <p class="w-40"><strong>Total Deposits:</strong></p>
+        <p class="font-medium"><%= number_to_currency(@total_deposits, unit: '₱') %></p>
+      </div>
     </div>
     <div>
       <div class="flex gap-2 place-items-center">
@@ -96,7 +98,7 @@
       </div>
     </div>
     <div class="flex gap-2 place-items-center">
-      <%= link_to 'View PDF', pdf_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer', target: '_blank'  %>
+      <%#= link_to 'View PDF', pdf_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer', target: '_blank'  %>
       <% if current_user.tenant? && @invoice.unpaid? %>
         <%= link_to 'Send Payment', payment_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>

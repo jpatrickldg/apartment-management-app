@@ -28,6 +28,8 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.includes(booking: [:user]).find(params[:id])
     @booking = Booking.find(@invoice.booking_id)
+    @total_room_payments = @invoice.room_rate + @invoice.water_bill + @invoice.electricity_bill
+    @total_deposits = @invoice.security + @invoice.utility + @invoice.key + @invoice.bed_sheet
   end
 
   def payment

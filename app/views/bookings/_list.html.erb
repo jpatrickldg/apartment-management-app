@@ -84,9 +84,9 @@
 
               <td class="p-3 text-center"><%= booking.room.room_code %></td>
               
-              <td class="p-3 text-center"><%= booking.move_in_date %></td>
-              <td class="p-3 text-center"><%= booking.move_out_date ? booking.move_out_date : '-' %></td>
-              <td class="p-3 text-center"><%= booking.due_date %></td>
+              <td class="p-3 text-center"><%= booking.move_in_date.strftime("%Y-%b-%d") %></td>
+              <td class="p-3 text-center"><%= booking.move_out_date ? booking.move_out_date.strftime("%Y-%b-%d") : '-' %></td>
+              <td class="p-3 text-center"><%= booking.due_date.strftime("%Y-%b-%d") %></td>
               <td class="p-3 text-center"><%= booking.processed_by %></td>
             </tr>
           <% end %>

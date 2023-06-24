@@ -33,7 +33,7 @@
     <% if !current_user.tenant? %>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Processed by:</strong></p>
-        <p><%= @payment.initiated_by.capitalize %></p>
+        <p><%= @payment.initiated_by %></p>
       </div>
     <% end %>
     <% if @payment.paymongo? %>

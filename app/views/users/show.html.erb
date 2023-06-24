@@ -24,11 +24,11 @@
         <p><%= @user.email %></p>
       </div>
       <div class="flex gap-2 place-items-center">
-        <p class="w-28 md:w-40"><strong>First Name:</strong></p>
+        <p class="w-28 md:w-40 capitalize"><strong>First Name:</strong></p>
         <p><%= @user.first_name.capitalize %></p>
       </div>
       <div class="flex gap-2 place-items-center">
-        <p class="w-28 md:w-40"><strong>Last Name:</strong></p>
+        <p class="w-28 md:w-40 capitalize"><strong>Last Name:</strong></p>
         <p><%= @user.last_name.capitalize %></p>
       </div>
       <div class="flex gap-2 place-items-center">
@@ -37,14 +37,14 @@
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Birthdate:</strong></p>
-        <p><%= @user.birthdate %></p>
+        <p><%= @user.birthdate.strftime('%B %d, %Y') %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Contact No:</strong></p>
         <p><%= @user.contact_no %></p>
       </div>
       <div class="flex flex-col gap-2 justify-center mb-6">
-        <p class="w-28 md:w-40"><strong>Address:</strong></p>
+        <p class="w-28 md:w-40 capitalize"><strong>Address:</strong></p>
         <p><%= @user.address.capitalize %></p>
       </div>
     </div>

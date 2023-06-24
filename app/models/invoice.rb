@@ -13,7 +13,7 @@ class Invoice < ApplicationRecord
   validates :room_rate, presence: true
   validates :date_from, presence: true
   validates :date_to, presence: true
-  validates :remarks, presence: true, length: {minimum:5, maximum:30}
+  validates :remarks, presence: true, length: {minimum:3, maximum:30}
 
   def set_processed_by(user_email)
     self.processed_by = user_email
@@ -40,9 +40,17 @@ class Invoice < ApplicationRecord
 
   def set_booking_due_date
     return unless self.paid?
+
     booking = Booking.find(self.booking_id)
-    booking.due_date += 1.month
-    booking.save!
+    latest_paid_invoice = booking.invoices.paid.order(created_at: :desc).first
+
+    if latest_paid_invoice.present?
+      booking.due_date = latest_paid_invoice.date_to + 1.month
+      booking.save!
+    else
+      booking.due_date = booking.move_in_date + 1.
+      booking.save!
+    end
   end
 
 end
