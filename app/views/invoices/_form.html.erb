@@ -30,7 +30,7 @@
       <%= f.number_field :penalty, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
     </div>
 
-    <% if @booking.invoices.empty? %>
+    <% if action_name == 'new' && @booking.invoices.empty? %>
       <div class="mb-2">
         <%= f.label :security, class: 'block font-medium mb-1' %>
         <%= f.number_field :security, readonly: true, step: 0.01, class: 'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5' %>
