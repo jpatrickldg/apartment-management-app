@@ -124,7 +124,7 @@ class Booking < ApplicationRecord
         deposit[:utility] = 3000
       end
     else
-      room_rate = room.room_rate
+      room_rate = room.monthly_rate
       deposit[:security] = room_rate * 2
       deposit[:utility] = 3000
     end

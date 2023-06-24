@@ -50,10 +50,12 @@ RSpec.describe "Inquiries", type: :request do
         last_name: "Test",
         gender: "female",
         contact_no: "09123232231",
+        address: "Quezon City",
         occupation: "student",
         location_preference: "test location",
         room_type: "test room",
-        move_in_date: Date.today
+        move_in_date: Date.today,
+        birthdate: Date.today
       }
 
       post inquiries_path, params: { inquiry: inquiry_params }

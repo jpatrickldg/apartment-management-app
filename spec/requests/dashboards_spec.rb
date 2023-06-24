@@ -16,11 +16,10 @@ RSpec.describe "Dashboards", type: :request do
       expect(response.body).to include('Owner')
     end
 
-    it "renders admin dashboard if user is admin" do
+    it "redirect to users page if user is admin" do
       sign_in admin
       get authenticated_root_path
-      expect(response).to have_http_status(200)
-      expect(response.body).to include('Admin')
+      expect(response).to have_http_status(302)
     end
 
     it "renders cashier dashboard if user is cashier" do

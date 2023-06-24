@@ -50,8 +50,8 @@
                 <% end %>
               </td>
               <td class="p-3 text-center"><%= link_to user.email, user_path(user), class: 'font-medium text-blue-600 hover:underline' %></td>
-              <td class="p-3 text-center"><%= user.first_name %></td>
-              <td class="p-3 text-center"><%= user.last_name %></td>
+              <td class="p-3 text-center capitalize"><%= user.first_name %></td>
+              <td class="p-3 text-center capitalize"><%= user.last_name %></td>
               <td class="p-3 text-center"><%= user.role.capitalize %></td>
               <% if !url.include? "active" %>
                 <td class="p-3 text-center"><%= user.status.capitalize %></td>

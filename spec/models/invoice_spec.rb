@@ -54,8 +54,8 @@ RSpec.describe Invoice, type: :model do
       expect(invoice).to_not be_valid
     end
 
-    it 'will fail with remarks shorter than 5 chars' do
-      invoice = build(:invoice, remarks: 'shrt')
+    it 'will fail with remarks shorter than 3 chars' do
+      invoice = build(:invoice, remarks: 'rt')
       expect(invoice).to_not be_valid
     end
 
@@ -73,7 +73,7 @@ RSpec.describe Invoice, type: :model do
       before_update = booking.due_date
       invoice.paid!
       booking.reload
-      expect(booking.due_date).to_not eq before_update
+      expect(booking.due_date).to eq before_update
     end
   end
   

@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
 
     #financial
     total_expenses = Expense.all.sum('expenses.amount')
-    tenants_deposits = Deposit.all.sum('deposits.total_amount')
+    tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }).sum(:total_amount)
     total_unpaid_invoices = Invoice.where(status: 'unpaid').sum('invoices.total_amount')
     total_payments_amount = Payment.where(status: 'approved').sum('payments.amount')
     gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
@@ -86,6 +86,8 @@ class ReportsController < ApplicationController
       end_date = date.end_of_year
 
       if start_date && end_date
+        end_date = end_date.end_of_day
+
         # occupancy 
         branches = Branch.all
         total_occupancy_count = Room.where(created_at: start_date..end_date).sum(:occupants_count)
@@ -116,7 +118,7 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
-        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
+        tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
@@ -170,6 +172,8 @@ class ReportsController < ApplicationController
       end_date = date.end_of_month
 
       if start_date && end_date
+        end_date = end_date.end_of_day
+
         # occupancy 
         branches = Branch.all
         total_occupancy_count = Room.where(created_at: start_date..end_date).sum(:occupants_count)
@@ -200,7 +204,7 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
-        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
+        tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
@@ -252,6 +256,7 @@ class ReportsController < ApplicationController
       end_date = parse_date(params[:end_date])
 
       if start_date && end_date
+        end_date = end_date.end_of_day
         # occupancy 
         branches = Branch.all
         total_occupancy_count = Room.where(created_at: start_date..end_date).sum(:occupants_count)
@@ -282,7 +287,7 @@ class ReportsController < ApplicationController
 
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
-        tenants_deposits = Deposit.where(created_at: start_date..end_date).sum('deposits.total_amount')
+        tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
         total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
