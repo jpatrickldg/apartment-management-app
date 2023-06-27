@@ -18,8 +18,8 @@ RSpec.describe Concern, type: :model do
       expect(concern).to_not be_valid
     end
 
-    it 'will fail with title shorter than 10 chars' do
-      concern = build(:concern, title: 'short')
+    it 'will fail with title shorter than 5 chars' do
+      concern = build(:concern, title: 'test')
       expect(concern).to_not be_valid
     end
 

@@ -112,6 +112,10 @@
             <%= f.label 'Receptionist' %>
           </div>
           <div class="flex gap-2 place-items-center">
+            <%= f.radio_button :role, 'helper' %>
+            <%= f.label 'Helper' %>
+          </div>
+          <div class="flex gap-2 place-items-center">
             <%= f.radio_button :role, 'cashier' %>
             <%= f.label 'Cashier' %>
           </div>
