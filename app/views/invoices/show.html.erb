@@ -105,7 +105,7 @@
       <% if @invoice.paid? %>
         <%= link_to 'View Payment Details', payment_path(@invoice.payment), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
-      <% if @invoice.unpaid? && !current_user.tenant? %>
+      <% if @invoice.unpaid? && !current_user.tenant? && !current_user.receptionist? && !current_user.helper? && !current_user.owner? && !current_user.admin? %>
         <%= link_to 'Cash Payment', new_invoice_payment_path(@invoice), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         <% if @invoice.remarks != "Initial" %>
           <%= link_to 'Update Invoice', edit_invoice_path(@invoice), class: 'block w-fit py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
