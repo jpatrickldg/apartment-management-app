@@ -22,7 +22,7 @@
       <% invalid_description = @concern.errors.include?(:description) %>
       <div class="mb-4">
         <div class="flex items-center gap-2 mb-1">
-          <%= f.label 'Content', class: 'block font-medium' %>
+          <%= f.label 'Description', class: 'block font-medium' %>
           <% if invalid_description %>
             <% @concern.errors.full_messages_for(:description).each do |msg| %>
               <div class="text-red-500 text-sm">

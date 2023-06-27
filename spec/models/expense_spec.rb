@@ -19,8 +19,8 @@ RSpec.describe Expense, type: :model do
       expect(expense).to_not be_valid
     end
 
-    it 'will fail with title shorter than 10 chars' do
-      expense = build(:expense, title: 'short')
+    it 'will fail with title shorter than 5 chars' do
+      expense = build(:expense, title: 'test')
       expect(expense).to_not be_valid
     end
 

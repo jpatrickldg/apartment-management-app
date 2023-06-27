@@ -15,7 +15,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable, :lockable
   
   enum status: [ :active, :inactive ]
-  enum role: [ :tenant, :receptionist, :cashier, :maintenance, :owner, :admin ]
+  enum role: [ :tenant, :receptionist, :cashier, :helper, :owner, :admin ]
 
   # before_validation :format_contact_no, on: :create
 

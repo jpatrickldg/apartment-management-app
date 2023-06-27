@@ -13,6 +13,7 @@
       </div>
     <% end %>
     <%= f.hidden_field :status, value: 'closed' %>
+    <%= f.hidden_field :closed_by, value: current_user.email %>
     <div class="mb-4">
       <%= f.label :remarks, class: 'block font-medium mb-1' %>
       <%= f.text_area :remarks, :rows => 4, required: true, class: 'bg-gray-50 w-full block border border-gray-200 rounded-lg' %>

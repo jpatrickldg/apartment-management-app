@@ -16,12 +16,12 @@
       <div class="flex flex-col gap-2 justify-center">
         <p class="font-medium">Role:</p>
         <div class="flex gap-2 place-items-center">
-          <%= f.radio_button :role, 'tenant' %>
-          <%= f.label 'Tenant' %>
-        </div>
-        <div class="flex gap-2 place-items-center">
           <%= f.radio_button :role, 'receptionist' %>
           <%= f.label 'Receptionist' %>
+        </div>
+        <div class="flex gap-2 place-items-center">
+          <%= f.radio_button :role, 'helper' %>
+          <%= f.label 'Helper' %>
         </div>
         <div class="flex gap-2 place-items-center">
           <%= f.radio_button :role, 'cashier' %>

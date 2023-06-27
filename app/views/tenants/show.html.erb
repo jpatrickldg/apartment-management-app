@@ -15,7 +15,7 @@
           <%= button_to 'Activate', activate_tenant_path(@tenant), class: 'block w-fit py-1 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
         <% end %>
       <% end %>
-      <% if @tenant.active? && !@tenant.bookings.where(status: 'active').any? && !current_user.cashier? %>
+      <% if @tenant.active? && !@tenant.bookings.where(status: 'active').any? && !current_user.cashier? && !current_user.owner? && !current_user.admin? && !current_user.tenant? && !current_user.helper? %>
         <%= link_to 'Add Booking', new_tenant_booking_path(@tenant), class: 'block w-fit py-1 px-4 text-sm font-medium  text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer' %>
       <% end %>
     </div>
