@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_27_020126) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_28_010221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -191,6 +191,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_020126) do
     t.index ["invoice_id"], name: "index_payments_on_invoice_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "maintenance_satisfaction"
+    t.integer "responsiveness_effectiveness"
+    t.integer "common_area_cleanliness"
+    t.integer "lease_renewal_likelihood"
+    t.integer "recommend_apartment"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "overall_score", default: 0.0
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.decimal "monthly_rate", precision: 8, scale: 2, default: "0.0", null: false
@@ -252,5 +266,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_020126) do
   add_foreign_key "deposits", "users"
   add_foreign_key "invoices", "bookings"
   add_foreign_key "payments", "invoices"
+  add_foreign_key "reviews", "users"
   add_foreign_key "rooms", "branches"
 end
