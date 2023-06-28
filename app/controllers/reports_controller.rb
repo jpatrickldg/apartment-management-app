@@ -32,6 +32,15 @@ class ReportsController < ApplicationController
     inquiry_studio_count = Inquiry.where(room_type: 'studio').count
     inquiry_boarding_house_count = Inquiry.where(room_type: 'boarding house').count
 
+    #reviews
+    review_count = Review.all.count
+    maintenance_satisfaction_score = Review.average(:maintenance_satisfaction)
+    responsiveness_effectiveness_score = Review.average(:responsiveness_effectiveness)
+    common_area_cleanliness_score = Review.average(:common_area_cleanliness)
+    lease_renewal_likelihood_score = Review.average(:lease_renewal_likelihood)
+    recommend_apartment_score = Review.average(:recommend_apartment)
+    overall_score = Review.average(:overall_score)
+
     #financial
     total_expenses = Expense.all.sum('expenses.amount')
     tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }).sum(:total_amount)
@@ -67,6 +76,14 @@ class ReportsController < ApplicationController
       inquiry_condo_empty_count: inquiry_condo_empty_count,
       inquiry_studio_count: inquiry_studio_count,
       inquiry_boarding_house_count: inquiry_boarding_house_count,
+
+      review_count: review_count,
+      maintenance_satisfaction_score: maintenance_satisfaction_score,
+      responsiveness_effectiveness_score: responsiveness_effectiveness_score,
+      common_area_cleanliness_score: common_area_cleanliness_score,
+      lease_renewal_likelihood_score: lease_renewal_likelihood_score,
+      recommend_apartment_score: recommend_apartment_score,
+      overall_score: overall_score,
 
       total_expenses: total_expenses,
       tenants_deposits: tenants_deposits,
@@ -116,6 +133,15 @@ class ReportsController < ApplicationController
         inquiry_studio_count = Inquiry.where(created_at: start_date..end_date, room_type: 'studio').count
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
+        #reviews
+        review_count = Review.where(created_at: start_date..end_date).count
+        maintenance_satisfaction_score = Review.where(created_at: start_date..end_date).average(:maintenance_satisfaction)
+        responsiveness_effectiveness_score = Review.where(created_at: start_date..end_date).average(:responsiveness_effectiveness)
+        common_area_cleanliness_score = Review.where(created_at: start_date..end_date).average(:common_area_cleanliness)
+        lease_renewal_likelihood_score = Review.where(created_at: start_date..end_date).average(:lease_renewal_likelihood)
+        recommend_apartment_score = Review.where(created_at: start_date..end_date).average(:recommend_apartment)
+        overall_score = Review.where(created_at: start_date..end_date).average(:overall_score)
+
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
@@ -151,6 +177,14 @@ class ReportsController < ApplicationController
           inquiry_condo_empty_count: inquiry_condo_empty_count,
           inquiry_studio_count: inquiry_studio_count,
           inquiry_boarding_house_count: inquiry_boarding_house_count,
+
+          review_count: review_count,
+          maintenance_satisfaction_score: maintenance_satisfaction_score,
+          responsiveness_effectiveness_score: responsiveness_effectiveness_score,
+          common_area_cleanliness_score: common_area_cleanliness_score,
+          lease_renewal_likelihood_score: lease_renewal_likelihood_score,
+          recommend_apartment_score: recommend_apartment_score,
+          overall_score: overall_score,
 
           total_expenses: total_expenses,
           tenants_deposits: tenants_deposits,
@@ -202,6 +236,15 @@ class ReportsController < ApplicationController
         inquiry_studio_count = Inquiry.where(created_at: start_date..end_date, room_type: 'studio').count
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
+        #reviews
+        review_count = Review.where(created_at: start_date..end_date).count
+        maintenance_satisfaction_score = Review.where(created_at: start_date..end_date).average(:maintenance_satisfaction)
+        responsiveness_effectiveness_score = Review.where(created_at: start_date..end_date).average(:responsiveness_effectiveness)
+        common_area_cleanliness_score = Review.where(created_at: start_date..end_date).average(:common_area_cleanliness)
+        lease_renewal_likelihood_score = Review.where(created_at: start_date..end_date).average(:lease_renewal_likelihood)
+        recommend_apartment_score = Review.where(created_at: start_date..end_date).average(:recommend_apartment)
+        overall_score = Review.where(created_at: start_date..end_date).average(:overall_score)
+
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
@@ -237,6 +280,14 @@ class ReportsController < ApplicationController
           inquiry_condo_empty_count: inquiry_condo_empty_count,
           inquiry_studio_count: inquiry_studio_count,
           inquiry_boarding_house_count: inquiry_boarding_house_count,
+
+          review_count: review_count,
+          maintenance_satisfaction_score: maintenance_satisfaction_score,
+          responsiveness_effectiveness_score: responsiveness_effectiveness_score,
+          common_area_cleanliness_score: common_area_cleanliness_score,
+          lease_renewal_likelihood_score: lease_renewal_likelihood_score,
+          recommend_apartment_score: recommend_apartment_score,
+          overall_score: overall_score,
 
           total_expenses: total_expenses,
           tenants_deposits: tenants_deposits,
@@ -285,6 +336,15 @@ class ReportsController < ApplicationController
         inquiry_studio_count = Inquiry.where(created_at: start_date..end_date, room_type: 'studio').count
         inquiry_boarding_house_count = Inquiry.where(created_at: start_date..end_date, room_type: 'boarding house').count
 
+        #reviews
+        review_count = Review.where(created_at: start_date..end_date).count
+        maintenance_satisfaction_score = Review.where(created_at: start_date..end_date).average(:maintenance_satisfaction)
+        responsiveness_effectiveness_score = Review.where(created_at: start_date..end_date).average(:responsiveness_effectiveness)
+        common_area_cleanliness_score = Review.where(created_at: start_date..end_date).average(:common_area_cleanliness)
+        lease_renewal_likelihood_score = Review.where(created_at: start_date..end_date).average(:lease_renewal_likelihood)
+        recommend_apartment_score = Review.where(created_at: start_date..end_date).average(:recommend_apartment)
+        overall_score = Review.where(created_at: start_date..end_date).average(:overall_score)
+
         #financial
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
@@ -321,6 +381,14 @@ class ReportsController < ApplicationController
           inquiry_condo_empty_count: inquiry_condo_empty_count,
           inquiry_studio_count: inquiry_studio_count,
           inquiry_boarding_house_count: inquiry_boarding_house_count,
+
+          review_count: review_count,
+          maintenance_satisfaction_score: maintenance_satisfaction_score,
+          responsiveness_effectiveness_score: responsiveness_effectiveness_score,
+          common_area_cleanliness_score: common_area_cleanliness_score,
+          lease_renewal_likelihood_score: lease_renewal_likelihood_score,
+          recommend_apartment_score: recommend_apartment_score,
+          overall_score: overall_score,
 
           total_expenses: total_expenses,
           tenants_deposits: tenants_deposits,

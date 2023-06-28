@@ -19,7 +19,7 @@
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40 capitalize"><strong>Full Name:</strong></p>
-        <p><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></p>
+        <p class="capitalize"><%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-28 md:w-40"><strong>Gender:</strong></p>
@@ -33,7 +33,7 @@
       <% if @user.tenant? %>
         <div class="flex gap-2 place-items-center">
           <p class="w-28 md:w-40"><strong>Occupation:</strong></p>
-          <p><%= @user.occupation %></p>
+          <p class="capitalize"><%= @user.occupation %></p>
         </div>
       <% else %>
         <div class="flex gap-2 place-items-center">
@@ -48,13 +48,13 @@
       </div>
       <div class="flex gap-2 place-items-center mb-4">
         <p class="w-28 md:w-40 capitalize"><strong>Address:</strong></p>
-        <p><%= @user.address.capitalize %></p>
+        <p class="capitalize"><%= @user.address.capitalize %></p>
       </div>
       <% if current_user.tenant? %>
         <h1 class="mb-2 font-bold underline">In Case of Emergency</h1>
         <div class="flex gap-2 place-items-center">
           <p class="w-28 md:w-40"><strong>Contact Person:</strong></p>
-          <p><%= @user.emergency_contact_person %></p>
+          <p class="capitalize"><%= @user.emergency_contact_person %></p>
         </div>
         <div class="flex gap-2 place-items-center mb-4">
           <p class="w-28 md:w-40"><strong>Contact No:</strong></p>

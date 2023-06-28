@@ -227,6 +227,98 @@
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
             <tr>
+              <th class="py-1 px-3 w-9/12 text-lg">Reviews Report</th>
+              <th class="py-1 px-3 w-1/12 text-center"></th> 
+            </tr>
+            <tr>
+              <th class="py-1 px-3 w-9/12"></th>
+              <th class="py-1 px-3 w-1/12 text-center">Score</th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-1 px-3">Maintenance Satisfaction</td>
+              <td class="py-1 px-3 text-center">
+                <% if @generated_report[:maintenance_satisfaction_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:maintenance_satisfaction_score] %>
+                <% end %>
+              </td>
+              </td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-1 px-3">Responsives Effectiveness</td>
+              <td class="py-1 px-3 text-center">
+                <% if @generated_report[:responsiveness_effectiveness_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:responsiveness_effectiveness_score] %>
+                <% end %>
+              </td>
+              </td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-1 px-3">Cleanliness</td>
+              <td class="py-1 px-3 text-center">
+                <% if @generated_report[:common_area_cleanliness_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:common_area_cleanliness_score] %>
+                <% end %>
+              </td>
+              </td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-1 px-3">Lease Renewal Likelihood</td>
+              <td class="py-1 px-3 text-center">
+                <% if @generated_report[:lease_renewal_likelihood_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:lease_renewal_likelihood_score] %>
+                <% end %>
+              </td>
+              </td>
+            </tr>
+            <tr class="bg-white border-b hover:bg-gray-100 text-gray-800">
+              <td class="py-1 px-3">Recommend To Others</td>
+              <td class="py-1 px-3 text-center">
+                <% if @generated_report[:recommend_apartment_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:recommend_apartment_score] %>
+                <% end %>
+              </td>
+            </tr>
+            <%# summary  %>
+            <tr class="bg-white text-gray-800 border-b">
+              <td class="py-1 px-3 font-bold">Summary</td>
+              <td></td>
+            </tr>
+            <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+              <td class="py-1 px-3 font-bold">Total Respondents</td>
+              <td class="py-1 px-3 text-center font-bold"><%= @generated_report[:review_count] %></td>
+            </tr>
+            <tr class="bg-white hover:bg-gray-100 text-gray-800 border-b">
+              <td class="py-1 px-3 font-bold">Overall Score</td>
+              <td class="py-1 px-3 text-center font-bold">
+                <% if @generated_report[:overall_score].nil? %>
+                  NA
+                <% else %>
+                  <%= @generated_report[:overall_score] %>
+                <% end %>
+              </td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="overflow-x-auto relative rounded-md">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-800 uppercase bg-gray-200 lg:table-fixed">
+            <tr>
               <th class="py-1 px-3 w-7/8 text-lg">Financial Report</th>
               <th></th>
             </tr>

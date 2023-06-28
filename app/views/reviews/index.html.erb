@@ -1,0 +1,112 @@
+<% if current_user.tenant? %>
+  <% if @review.nil? %>
+    <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Help us be better and send us a review</h2>
+    <%= form_with(model: @review, url: reviews_path) do |form| %>
+      <!-- Review form fields -->
+      <%= form.fields_for :review do |review_form| %>
+        <div>
+          <%= review_form.label :maintenance_satisfaction, class: 'block capitalize font-medium' %>
+          <div class="flex items-center gap-4">
+            <% (1..5).each do |rating| %>
+              <div class="flex items-center gap-1">
+                <%= review_form.radio_button :maintenance_satisfaction, rating %>
+                <%= review_form.label "maintenance_satisfaction_#{rating}", rating %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <%= review_form.label :responsiveness_effectiveness, class: 'block capitalize font-medium' %>
+          <div class="flex items-center gap-4">
+            <% (1..5).each do |rating| %>
+              <div class="flex items-center gap-1">
+                <%= review_form.radio_button :responsiveness_effectiveness, rating %>
+                <%= review_form.label "responsiveness_effectiveness_#{rating}", rating %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <%= review_form.label :common_area_cleanliness, class: 'block capitalize font-medium' %>
+          <div class="flex items-center gap-4">
+            <% (1..5).each do |rating| %>
+              <div class="flex items-center gap-1">
+                <%= review_form.radio_button :common_area_cleanliness, rating %>
+                <%= review_form.label "common_area_cleanliness_#{rating}", rating %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <%= review_form.label :lease_renewal_likelihood, class: 'block capitalize font-medium' %>
+          <div class="flex items-center gap-4">
+            <% (1..5).each do |rating| %>
+              <div class="flex items-center gap-1">
+                <%= review_form.radio_button :lease_renewal_likelihood, rating %>
+                <%= review_form.label "lease_renewal_likelihood_#{rating}", rating %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <%= review_form.label :recommend_apartment, class: 'block capitalize font-medium' %>
+          <div class="flex items-center gap-4">
+            <% (1..5).each do |rating| %>
+              <div class="flex items-center gap-1">
+                <%= review_form.radio_button :recommend_apartment, rating %>
+                <%= review_form.label "recommend_apartment_#{rating}", rating %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <%= review_form.label :comment, class: 'block capitalize font-medium' %>
+          <%= review_form.text_area :comment, :rows => 4, class: "bg-gray-50 w-full block border rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <%= form.submit "Submit Review", class: 'block w-full py-1.5 px-4 font-medium text-center text-white bg-blue-600 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-700 hover:cursor-pointer w-fit' %>
+      </div>
+    <% end %>
+  <% else %>
+    <h2 class="text-lg md:text-xl lg:text-2xl font-bold">Thank you for helping us be better!</h2>
+
+    <!-- Display review details -->
+    <h3 class="font-mdeium">Your Review Details</h3>
+    <div class="flex gap-2 items-center">
+      <p class="w-64"><strong>Maintenance Satisfaction:</strong></p>
+      <p><%= @review.maintenance_satisfaction %></p>
+    </div>
+    <div class="flex gap-2 items-center">
+      <p class="w-64"><strong>Responsiveness Effectiveness:</strong></p>
+      <p><%= @review.responsiveness_effectiveness %></p>
+    </div>
+    <div class="flex gap-2 items-center">
+      <p class="w-64"><strong>Common Area Cleanliness:</strong></p>
+      <p><%= @review.common_area_cleanliness %></p>
+    </div>
+    <div class="flex gap-2 items-center">
+      <p class="w-64"><strong>Lease Renewal Likelihood:</strong></p>
+      <p><%= @review.lease_renewal_likelihood %></p>
+    </div>
+    <div class="flex gap-2 items-center">
+      <p class="w-64"><strong>Recommend Us:</strong></p>
+      <p><%= @review.recommend_apartment %></p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <p class="w-64"><strong>Comment:</strong></p>
+      <p><%= @review.comment %></p>
+    </div>
+    <div class="flex gap-2 items-center mt-4 text-lg">
+      <p class="w-64"><strong>Overall Score:</strong></p>
+      <p class="font-bold text-blue-600"><%= @review.overall_score %></p>
+    </div>
+  <% end %>
+<% end %>
+

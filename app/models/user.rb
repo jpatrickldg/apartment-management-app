@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :payments, through: :invoices
   has_many :comments, dependent: :destroy
   has_many :deposits, dependent: :destroy
+  has_one :review, dependent: :destroy 
   has_one_attached :avatar
   
   # Include default devise modules. Others available are:
