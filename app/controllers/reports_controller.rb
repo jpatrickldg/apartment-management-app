@@ -45,7 +45,10 @@ class ReportsController < ApplicationController
     total_expenses = Expense.all.sum('expenses.amount')
     tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }).sum(:total_amount)
     total_unpaid_invoices = Invoice.where(status: 'unpaid').sum('invoices.total_amount')
-    total_payments_amount = Payment.where(status: 'approved').sum('payments.amount')
+    total_payments_amount = Payment.where(status: 'approved').where(payment_mode: 'paymongo')
+    .sum("payments.amount") * 0.975
+    total_payments_amount += Payment.where(status: 'approved')
+    .where.not(payment_mode: 'paymongo').sum("payments.amount")
     gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
     @generated_report = {
@@ -146,7 +149,10 @@ class ReportsController < ApplicationController
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
-        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
+        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').where(payment_mode: 'paymongo')
+        .sum("payments.amount") * 0.975
+        total_payments_amount += Payment.where(status: 'approved')
+        .where.not(payment_mode: 'paymongo').sum("payments.amount")
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
@@ -249,7 +255,10 @@ class ReportsController < ApplicationController
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
-        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
+        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').where(payment_mode: 'paymongo')
+        .sum("payments.amount") * 0.975
+        total_payments_amount += Payment.where(status: 'approved')
+        .where.not(payment_mode: 'paymongo').sum("payments.amount")
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
@@ -349,7 +358,10 @@ class ReportsController < ApplicationController
         total_expenses = Expense.where(created_at: start_date..end_date).sum('expenses.amount')
         tenants_deposits = Deposit.joins(booking: :invoices).where(invoices: { status: Invoice.statuses[:paid], remarks: "Initial" }, created_at: start_date..end_date).sum(:total_amount)
         total_unpaid_invoices = Invoice.where(created_at: start_date..end_date, status: 'unpaid').sum('invoices.total_amount')
-        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').sum('payments.amount')
+        total_payments_amount = Payment.where(created_at: start_date..end_date, status: 'approved').where(payment_mode: 'paymongo')
+        .sum("payments.amount") * 0.975
+        total_payments_amount += Payment.where(status: 'approved')
+        .where.not(payment_mode: 'paymongo').sum("payments.amount")
         gross_earnings = (total_payments_amount + total_unpaid_invoices) - (total_expenses + tenants_deposits)
 
         @generated_report = {
