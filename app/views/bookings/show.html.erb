@@ -10,7 +10,7 @@
       <% elsif @booking.inactive? %>
         <h1 class="text-white font-medium rounded-lg text-sm px-2 py-1 bg-gray-400"><%= @booking.status.upcase %></h1>
       <% end %>
-      <% if @booking.active? && current_user.owner? && current_user.receptionist? && @booking.deposit.released? %>
+      <% if @booking.active? && (current_user.owner? || current_user.receptionist?) && @booking.deposit.released? %>
         <%= link_to 'DEACTIVATE', deactivate_booking_path(@booking), class: 'block w-fit py-1 px-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-gray-600 hover:cursor-pointer' %>
       <% end %>
     </div>
