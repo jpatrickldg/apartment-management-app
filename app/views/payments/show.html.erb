@@ -37,6 +37,8 @@
       </div>
     <% end %>
     <% if @payment.paymongo? %>
+      <% convenience_fee = (@payment.invoice.total_amount * 0.025).round(2) %>
+      <% overall_total = (convenience_fee + @payment.invoice.total_amount).round(2) %>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Invoice Amount:</strong></p>
         <p><%= number_to_currency(@payment.invoice.total_amount,unit: '₱') %></p>
