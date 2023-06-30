@@ -45,16 +45,16 @@
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Convenience Fee:</strong></p>
-        <p><%= number_to_currency(((@payment.invoice.total_amount / 0.975) - @payment.invoice.total_amount), unit: '₱') %></p>
+        <p><%= number_to_currency(convenience_fee, unit: '₱', precision: 2) %></p>
       </div>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, unit: '₱') %></p>
+        <p class="font-bold text-lg"><%= number_to_currency(overall_total, unit: '₱', precision: 2) %></p>
       </div>
     <% elsif @payment.cash? %>
       <div class="flex gap-2 place-items-center">
         <p class="w-40"><strong>Total Amount:</strong></p>
-        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, unit: '₱') %></p>
+        <p class="font-bold text-lg"><%= number_to_currency(@payment.amount, unit: '₱', precision: 2) %></p>
       </div>
     <% end %>
   </div>
