@@ -40,17 +40,22 @@ class Invoice < ApplicationRecord
 
   def set_booking_due_date
     return unless self.paid?
-
+  
     booking = Booking.find(self.booking_id)
     latest_paid_invoice = booking.invoices.paid.order(created_at: :desc).first
-
+  
     if latest_paid_invoice.present?
-      booking.due_date = latest_paid_invoice.date_to + 1.month
-      booking.save!
+      due_date = latest_paid_invoice.date_to + 1.month
+      if due_date > booking.move_out_date
+        booking.due_date = booking.move_out_date
+      else
+        booking.due_date = due_date
+      end
     else
-      booking.due_date = booking.move_in_date + 1.
-      booking.save!
+      booking.due_date = booking.move_in_date + 1.month
     end
+  
+    booking.save!
   end
 
 end
