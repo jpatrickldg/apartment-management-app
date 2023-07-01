@@ -33,6 +33,11 @@
                 <%= alert %>
               </div>
             <% end %>
+            <% if flash[:error] %>
+              <div class="p-4 py-2 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+                <%= flash[:error] %>
+              </div>
+            <% end %>
             <%= yield %>
           </div>
         </main>
