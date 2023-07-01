@@ -28,30 +28,43 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.password = SecureRandom.base64(8)
+    @user.password_confirmation = @user.password
+    @user.confirmed_at = Time.current # Mark the user as confirmed
+    
+    if @user.save
+      # Send email to the user with their credentials
+      UserMailer.user_credentials_email(@user).deliver_now
 
-    email = @user.email
-    validation_result = Zerobounce::ZeroBounceService.validate_email(email)
-
-    if validation_result['status'] == 'valid'
-      # Email is valid, continue with user creation
-      # ...
-      @user.password = SecureRandom.base64(8)
-      @user.password_confirmation = @user.password
-      @user.confirmed_at = Time.current # Mark the user as confirmed
-      
-      if @user.save
-        # Send email to the user with their credentials
-        UserMailer.user_credentials_email(@user).deliver_now
-
-        redirect_to users_path, notice: 'User Created'
-      else
-        render :new
-      end
+      redirect_to users_path, notice: 'User Created'
     else
-      # Email is invalid, handle the error
-      flash[:error] = 'Invalid email address'
       render :new
     end
+
+
+    # email = @user.email
+    # validation_result = Zerobounce::ZeroBounceService.validate_email(email)
+
+    # if validation_result['status'] == 'valid'
+    #   # Email is valid, continue with user creation
+    #   # ...
+    #   @user.password = SecureRandom.base64(8)
+    #   @user.password_confirmation = @user.password
+    #   @user.confirmed_at = Time.current # Mark the user as confirmed
+      
+    #   if @user.save
+    #     # Send email to the user with their credentials
+    #     UserMailer.user_credentials_email(@user).deliver_now
+
+    #     redirect_to users_path, notice: 'User Created'
+    #   else
+    #     render :new
+    #   end
+    # else
+    #   # Email is invalid, handle the error
+    #   flash[:error] = 'Invalid email address'
+    #   render :new
+    # end
     
   end
 
